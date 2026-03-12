@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://dm4ijxceokvay"]
+
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="1_kmp0c"]
+[ext_resource type="Script" uid="uid://dk23xatya2gtc" path="res://Scripts/Coin.cs" id="1_qxink"]
+[ext_resource type="Texture2D" uid="uid://d0hb2l3y6dwwe" path="res://Sprites/coin.png" id="2_qxink"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_214dt"]
+shader = ExtResource("1_kmp0c")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cm0x5"]
+atlas = ExtResource("2_qxink")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1n62c"]
+atlas = ExtResource("2_qxink")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwafo"]
+atlas = ExtResource("2_qxink")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ina06"]
+atlas = ExtResource("2_qxink")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwouy"]
+atlas = ExtResource("2_qxink")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_di3m1"]
+atlas = ExtResource("2_qxink")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ueaoj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cm0x5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1n62c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nwafo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ina06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iwouy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_di3m1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ac101"]
+radius = 15.132746
+
+[node name="Coin" type="Node2D" unique_id=619255961 node_paths=PackedStringArray("sprite", "area")]
+script = ExtResource("1_qxink")
+sprite = NodePath("AnimatedSprite2D")
+area = NodePath("Area2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2034538998]
+material = SubResource("ShaderMaterial_214dt")
+position = Vector2(-0.5, -0.5)
+sprite_frames = SubResource("SpriteFrames_ueaoj")
+frame_progress = 0.20145924
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1770954744]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1811875321]
+shape = SubResource("CircleShape2D_ac101")

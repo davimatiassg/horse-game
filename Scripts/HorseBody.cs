@@ -1,7 +1,9 @@
 using Godot;
 using System;
 
-public partial class HorseBody : CharacterBody2D
+public interface Player {}
+
+public partial class HorseBody : CharacterBody2D, Player
 {
 
 	[ExportCategory("Connections")]

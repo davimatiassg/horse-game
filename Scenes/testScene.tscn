@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://d0gstbj6dlw0r" path="res://Prefabs/Horse.tscn" id="1_8xinf"]
 [ext_resource type="Script" uid="uid://b73kgh5wvmtip" path="res://Scripts/MainCamera.cs" id="2_4mqg7"]
 [ext_resource type="PackedScene" uid="uid://ckmpk46u064r8" path="res://Prefabs/Bird.tscn" id="3_7v7vq"]
+[ext_resource type="PackedScene" uid="uid://dm4ijxceokvay" path="res://Prefabs/Coin.tscn" id="4_arv4r"]
 
 [node name="Node2D" type="Node2D" unique_id=381519874]
 
@@ -25,3 +26,9 @@ position = Vector2(-333, -45)
 
 [node name="Bird" parent="." unique_id=2085737725 instance=ExtResource("3_7v7vq")]
 position = Vector2(-189, 168)
+
+[node name="Coin" parent="." unique_id=619255961 instance=ExtResource("4_arv4r")]
+position = Vector2(173, 0)
+
+[node name="Coin2" parent="." unique_id=998462289 instance=ExtResource("4_arv4r")]
+position = Vector2(245, -36)
