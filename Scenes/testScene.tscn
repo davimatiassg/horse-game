@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://blt8fq7kwb04w"]
+
+[ext_resource type="PackedScene" uid="uid://d0gstbj6dlw0r" path="res://Prefabs/Horse.tscn" id="1_8xinf"]
+[ext_resource type="Script" uid="uid://b73kgh5wvmtip" path="res://Scripts/MainCamera.cs" id="2_4mqg7"]
+[ext_resource type="PackedScene" uid="uid://ckmpk46u064r8" path="res://Prefabs/Bird.tscn" id="3_7v7vq"]
+
+[node name="Node2D" type="Node2D" unique_id=381519874]
+
+[node name="Knight" parent="." unique_id=522413118 instance=ExtResource("1_8xinf")]
+turnAcel = 10.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1954057469 node_paths=PackedStringArray("Target")]
+script = ExtResource("2_4mqg7")
+Target = NodePath("../Knight")
+FollowSpeed = 6000.0
+
+[node name="Bird2" parent="." unique_id=1515428600 instance=ExtResource("3_7v7vq")]
+position = Vector2(-287, -31)
+
+[node name="Bird3" parent="." unique_id=1888835019 instance=ExtResource("3_7v7vq")]
+position = Vector2(-307, -3)
+
+[node name="Bird4" parent="." unique_id=331385028 instance=ExtResource("3_7v7vq")]
+position = Vector2(-333, -45)
+
+[node name="Bird" parent="." unique_id=2085737725 instance=ExtResource("3_7v7vq")]
+position = Vector2(-189, 168)

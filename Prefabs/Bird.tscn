@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://ckmpk46u064r8"]
+
+[ext_resource type="Texture2D" uid="uid://dwfrfek6q4wtt" path="res://Sprites/bird.png" id="1_2fhdn"]
+[ext_resource type="Script" uid="uid://b2w31ypd084ec" path="res://Scripts/Bird.cs" id="1_7nonk"]
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_ujkhe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_exi36"]
+shader = ExtResource("2_ujkhe")
+shader_parameter/outline_color = Color(0, 0.3137255, 0.43529412, 1)
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7nonk"]
+atlas = ExtResource("1_2fhdn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujkhe"]
+atlas = ExtResource("1_2fhdn")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exi36"]
+atlas = ExtResource("1_2fhdn")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nc74e"]
+atlas = ExtResource("1_2fhdn")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iowml"]
+atlas = ExtResource("1_2fhdn")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1too"]
+atlas = ExtResource("1_2fhdn")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nsg5"]
+atlas = ExtResource("1_2fhdn")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4mw21"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nonk")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_ujkhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exi36")
+}, {
+"duration": 0.3,
+"texture": SubResource("AtlasTexture_ujkhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nonk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nonk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nonk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7nonk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc74e")
+}, {
+"duration": 0.4,
+"texture": SubResource("AtlasTexture_iowml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc74e")
+}, {
+"duration": 0.4,
+"texture": SubResource("AtlasTexture_iowml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc74e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc74e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc74e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nc74e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1too")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nsg5")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2fhdn"]
+radius = 171.01169
+
+[node name="Bird" type="Node2D" unique_id=1515428600 node_paths=PackedStringArray("sprite", "area", "notifier")]
+script = ExtResource("1_7nonk")
+sprite = NodePath("AnimatedSprite2D")
+area = NodePath("Area2D")
+notifier = NodePath("VisibleOnScreenNotifier2D")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1796012923]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2035051762]
+material = SubResource("ShaderMaterial_exi36")
+sprite_frames = SubResource("SpriteFrames_4mw21")
+autoplay = "default"
+frame_progress = 0.5311255
+
+[node name="Area2D" type="Area2D" parent="." unique_id=77547148]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=413470237]
+shape = SubResource("CircleShape2D_2fhdn")
