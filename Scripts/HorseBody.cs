@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 public interface Player {}
 
@@ -13,7 +15,7 @@ public partial class HorseBody : CharacterBody2D, Player
 	[Export] Node3D horse;
 	[Export] AnimationPlayer horseAnim;
 
-	[Export] Sprite2D gunSprite;
+	[Export] public Node2D cartStump;
 
 	[Export] GpuParticles2D footPrints;
 
@@ -27,9 +29,13 @@ public partial class HorseBody : CharacterBody2D, Player
 
 	[ExportCategory("Internal")]
 
-	[Export] Vector2 force = Vector2.Left;
+	[Export] Vector2 directionalForce = Vector2.Left;
 
-	[Export] float turnTime;
+
+	public override void _Ready()
+	{
+		
+	}
 
     public override void _Process(double delta)
     {
@@ -50,10 +56,10 @@ public partial class HorseBody : CharacterBody2D, Player
 		{
 			
 
-			force = force.MoveToward(inputDirection, turnAcel * (float)delta);	
+			directionalForce = directionalForce.MoveToward(inputDirection, turnAcel * (float)delta);	
 
 
-			velocity = velocity.Slerp(force * speed, 0.5f);
+			velocity = velocity.Slerp(directionalForce * speed, 0.5f);
 		}
 		else
 		{
@@ -61,6 +67,7 @@ public partial class HorseBody : CharacterBody2D, Player
 		}
 
 		Velocity = velocity;
+
 		MoveAndSlide();
 	}
 
@@ -81,8 +88,10 @@ public partial class HorseBody : CharacterBody2D, Player
 		{
 			
 			footPrints.Emitting = true;
-			footPrints.Position = force;
+			footPrints.Position = directionalForce;
 			horseAnim.Play("run");
 		}
 	}
+
+
 }

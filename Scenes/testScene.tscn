@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://b73kgh5wvmtip" path="res://Scripts/MainCamera.cs" id="2_4mqg7"]
 [ext_resource type="PackedScene" uid="uid://ckmpk46u064r8" path="res://Prefabs/Bird.tscn" id="3_7v7vq"]
 [ext_resource type="PackedScene" uid="uid://dm4ijxceokvay" path="res://Prefabs/Coin.tscn" id="4_arv4r"]
+[ext_resource type="Script" uid="uid://6c8x2wrlaug0" path="res://Scripts/ScoreManager.cs" id="5_y1jas"]
+[ext_resource type="PackedScene" uid="uid://ewacfq6ojmg5" path="res://Prefabs/cart.tscn" id="6_g0r03"]
 
 [node name="Node2D" type="Node2D" unique_id=381519874]
 
@@ -27,8 +29,61 @@ position = Vector2(-333, -45)
 [node name="Bird" parent="." unique_id=2085737725 instance=ExtResource("3_7v7vq")]
 position = Vector2(-189, 168)
 
+[node name="Bird5" parent="." unique_id=1387344853 instance=ExtResource("3_7v7vq")]
+position = Vector2(-397, 167)
+
+[node name="Bird6" parent="." unique_id=2076560317 instance=ExtResource("3_7v7vq")]
+position = Vector2(-417, 195)
+
+[node name="Bird7" parent="." unique_id=1282277368 instance=ExtResource("3_7v7vq")]
+position = Vector2(-443, 153)
+
+[node name="Bird8" parent="." unique_id=294920075 instance=ExtResource("3_7v7vq")]
+position = Vector2(-118, -249)
+
 [node name="Coin" parent="." unique_id=619255961 instance=ExtResource("4_arv4r")]
-position = Vector2(173, 0)
+position = Vector2(152, 2)
+
+[node name="Coin3" parent="." unique_id=22643976 instance=ExtResource("4_arv4r")]
+position = Vector2(212, 14)
+
+[node name="Coin4" parent="." unique_id=1234610014 instance=ExtResource("4_arv4r")]
+position = Vector2(184, -58)
+
+[node name="Coin5" parent="." unique_id=505709949 instance=ExtResource("4_arv4r")]
+position = Vector2(182, 76)
+
+[node name="Coin6" parent="." unique_id=1654761679 instance=ExtResource("4_arv4r")]
+position = Vector2(258, 58)
+
+[node name="Coin7" parent="." unique_id=41276167 instance=ExtResource("4_arv4r")]
+position = Vector2(242, 136)
 
 [node name="Coin2" parent="." unique_id=998462289 instance=ExtResource("4_arv4r")]
 position = Vector2(245, -36)
+
+[node name="Coin8" parent="." unique_id=1987644028 instance=ExtResource("4_arv4r")]
+position = Vector2(303, 16)
+
+[node name="Coin9" parent="." unique_id=48670753 instance=ExtResource("4_arv4r")]
+position = Vector2(363, 28)
+
+[node name="Coin10" parent="." unique_id=114616331 instance=ExtResource("4_arv4r")]
+position = Vector2(335, -44)
+
+[node name="Coin11" parent="." unique_id=1092867119 instance=ExtResource("4_arv4r")]
+position = Vector2(333, 90)
+
+[node name="Coin12" parent="." unique_id=1118334005 instance=ExtResource("4_arv4r")]
+position = Vector2(409, 72)
+
+[node name="Coin13" parent="." unique_id=294600129 instance=ExtResource("4_arv4r")]
+position = Vector2(393, 150)
+
+[node name="Coin14" parent="." unique_id=1770086375 instance=ExtResource("4_arv4r")]
+position = Vector2(396, -22)
+
+[node name="Node" type="Node" parent="." unique_id=1366451150 node_paths=PackedStringArray("player")]
+script = ExtResource("5_y1jas")
+player = NodePath("../Knight")
+cartPrefab = ExtResource("6_g0r03")

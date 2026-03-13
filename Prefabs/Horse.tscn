@@ -607,16 +607,19 @@ shader_parameter/bg_color = Vector3(0.5, 0.3, 0)
 shader_parameter/opacity = 1.0
 shader_parameter/grid_rotate_deg = -45.0
 
-[node name="Knight" type="CharacterBody2D" unique_id=522413118 node_paths=PackedStringArray("knightSprite", "horseSprite", "horse", "horseAnim", "footPrints")]
+[node name="Knight" type="CharacterBody2D" unique_id=522413118 node_paths=PackedStringArray("knightSprite", "horseSprite", "horse", "horseAnim", "cartStump", "footPrints")]
 motion_mode = 1
 script = ExtResource("1_l7yiu")
 knightSprite = NodePath("Cavalier")
 horseSprite = NodePath("Horse")
 horse = NodePath("HorseViewport/Horse")
 horseAnim = NodePath("HorseViewport/Horse/AnimationPlayer")
+cartStump = NodePath("CartMarkerPivot")
 footPrints = NodePath("GPUParticles2D")
 deceleration = 400.0
 turnAcel = 20.0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=570141722]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1827254034]
 position = Vector2(21, 0)
@@ -635,6 +638,7 @@ position = Vector2(-2, -12)
 texture = SubResource("ViewportTexture_opean")
 
 [node name="Cavalier" type="Sprite2D" parent="." unique_id=836178680]
+visible = false
 material = SubResource("ShaderMaterial_brbtb")
 position = Vector2(-1, -14)
 texture = SubResource("ViewportTexture_hioex")
@@ -741,6 +745,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
 libraries/ = SubResource("AnimationLibrary_otlr1")
 
 [node name="cavalierViewport" type="SubViewport" parent="." unique_id=838499543]
+own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
 use_occlusion_culling = true
@@ -777,3 +782,6 @@ transform = Transform3D(1, 0, 0, 0, 0.8066681, 0, 0, 0, 1, 0, 0.040122747, 0)
 sorting_use_aabb_center = false
 mesh = SubResource("CapsuleMesh_nuwsw")
 surface_material_override/0 = SubResource("ShaderMaterial_tbxoy")
+
+[node name="CartMarkerPivot" type="Marker2D" parent="." unique_id=2041149418]
+position = Vector2(3, -12)

@@ -22,6 +22,7 @@ public partial class Coin : Node2D
 
 	public void Collect()
 	{
+		ScoreManager.AddScore();
 		QueueFree();
 	}
 }

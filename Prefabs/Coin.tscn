@@ -7,7 +7,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_214dt"]
 shader = ExtResource("1_kmp0c")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/outline_size = 1.0
+shader_parameter/outline_size = 0.5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cm0x5"]
 atlas = ExtResource("2_qxink")
@@ -60,7 +60,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ac101"]
-radius = 15.132746
+radius = 23.021729
 
 [node name="Coin" type="Node2D" unique_id=619255961 node_paths=PackedStringArray("sprite", "area")]
 script = ExtResource("1_qxink")
@@ -71,6 +71,7 @@ area = NodePath("Area2D")
 material = SubResource("ShaderMaterial_214dt")
 position = Vector2(-0.5, -0.5)
 sprite_frames = SubResource("SpriteFrames_ueaoj")
+autoplay = "default"
 frame_progress = 0.20145924
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1770954744]
