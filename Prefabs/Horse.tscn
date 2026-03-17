@@ -35,14 +35,6 @@ shader_parameter/outline_size = 1.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_opean"]
 viewport_path = NodePath("HorseViewport")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_brbtb"]
-shader = ExtResource("3_hioex")
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/outline_size = 2.0
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_hioex"]
-viewport_path = NodePath("cavalierViewport")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_345hk"]
 resource_name = "colormap"
 cull_mode = 2
@@ -581,43 +573,22 @@ _data = {
 &"walk": SubResource("Animation_sdjma")
 }
 
-[sub_resource type="TorusMesh" id="TorusMesh_hioex"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_brbtb"]
+radius = 19.026299
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nuwsw"]
-render_priority = 0
-shader = ExtResource("5_hioex")
-shader_parameter/screen_size = Vector2(1920, 1920)
-shader_parameter/dot_pitch_px = 1.0
-shader_parameter/dot_softness = 2.0
-shader_parameter/contrast = 0.5
-shader_parameter/bg_color = Vector3(0.5, 0.5, 0)
-shader_parameter/opacity = 1.0
-shader_parameter/grid_rotate_deg = -45.0
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_nuwsw"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbxoy"]
-render_priority = 0
-shader = ExtResource("5_hioex")
-shader_parameter/screen_size = Vector2(1920, 1080)
-shader_parameter/dot_pitch_px = 1.0
-shader_parameter/dot_softness = 2.0
-shader_parameter/contrast = 2.0
-shader_parameter/bg_color = Vector3(0.5, 0.3, 0)
-shader_parameter/opacity = 1.0
-shader_parameter/grid_rotate_deg = -45.0
-
-[node name="Knight" type="CharacterBody2D" unique_id=522413118 node_paths=PackedStringArray("knightSprite", "horseSprite", "horse", "horseAnim", "cartStump", "footPrints")]
+[node name="Horse" type="CharacterBody2D" unique_id=522413118 node_paths=PackedStringArray("horseSprite", "horse", "horseAnim", "cartStump", "footPrints", "trampleHitBox")]
+collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_l7yiu")
-knightSprite = NodePath("Cavalier")
-horseSprite = NodePath("Horse")
+horseSprite = NodePath("HorseSprite")
 horse = NodePath("HorseViewport/Horse")
 horseAnim = NodePath("HorseViewport/Horse/AnimationPlayer")
 cartStump = NodePath("CartMarkerPivot")
 footPrints = NodePath("GPUParticles2D")
+trampleHitBox = NodePath("TrampleHitbox")
 deceleration = 400.0
 turnAcel = 20.0
+MaxHP = 500
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=570141722]
 
@@ -632,16 +603,10 @@ process_material = SubResource("ParticleProcessMaterial_hioex")
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_opean")
 
-[node name="Horse" type="Sprite2D" parent="." unique_id=1167051865]
+[node name="HorseSprite" type="Sprite2D" parent="." unique_id=1167051865]
 material = SubResource("ShaderMaterial_opean")
 position = Vector2(-2, -12)
 texture = SubResource("ViewportTexture_opean")
-
-[node name="Cavalier" type="Sprite2D" parent="." unique_id=836178680]
-visible = false
-material = SubResource("ShaderMaterial_brbtb")
-position = Vector2(-1, -14)
-texture = SubResource("ViewportTexture_hioex")
 
 [node name="HorseViewport" type="SubViewport" parent="." unique_id=1948915676]
 own_world_3d = true
@@ -744,44 +709,13 @@ surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HorseViewport/Horse" unique_id=892192791]
 libraries/ = SubResource("AnimationLibrary_otlr1")
 
-[node name="cavalierViewport" type="SubViewport" parent="." unique_id=838499543]
-own_world_3d = true
-transparent_bg = true
-handle_input_locally = false
-use_occlusion_culling = true
-oversampling = false
-size = Vector2i(96, 96)
-
-[node name="Camera3D" type="Camera3D" parent="cavalierViewport" unique_id=2129905348]
-transform = Transform3D(1, 0, 0, 0, 0.6218177, 0.783162, 0, -0.783162, 0.6218177, -0.05283791, 1.2600696, 0.7630348)
-cull_mask = 1
-projection = 1
-current = true
-fov = 90.0
-size = 1.609
-
-[node name="OmniLight3D" type="OmniLight3D" parent="cavalierViewport" unique_id=1525481725]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8126006, -1.9250731)
-light_color = Color(0.19215687, 0.25490198, 0.9647059, 1)
-light_energy = 4.649
-light_indirect_energy = 7.987
-light_volumetric_fog_energy = 16.0
-light_size = 0.658
-light_specular = 16.0
-omni_range = 3.2159953
-omni_attenuation = -0.421
-omni_shadow_mode = 0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="cavalierViewport" unique_id=1554682058]
-transform = Transform3D(0.245, 0, 0, 0, 0.245, 0, 0, 0, 0.245, 0, 0.8033379, 0)
-mesh = SubResource("TorusMesh_hioex")
-surface_material_override/0 = SubResource("ShaderMaterial_nuwsw")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="cavalierViewport/MeshInstance3D" unique_id=897205084]
-transform = Transform3D(1, 0, 0, 0, 0.8066681, 0, 0, 0, 1, 0, 0.040122747, 0)
-sorting_use_aabb_center = false
-mesh = SubResource("CapsuleMesh_nuwsw")
-surface_material_override/0 = SubResource("ShaderMaterial_tbxoy")
-
 [node name="CartMarkerPivot" type="Marker2D" parent="." unique_id=2041149418]
 position = Vector2(3, -12)
+
+[node name="TrampleHitbox" type="Area2D" parent="." unique_id=1039450082]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TrampleHitbox" unique_id=166363134]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_brbtb")

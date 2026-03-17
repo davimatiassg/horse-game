@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://ewacfq6ojmg5"]
 
-[ext_resource type="Script" uid="uid://c5qpb5tq66qp6" path="res://Sprites/Cart.cs" id="1_o8d5y"]
+[ext_resource type="Script" uid="uid://c5qpb5tq66qp6" path="res://Scripts/Cart.cs" id="1_o8d5y"]
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_kdwky"]
 [ext_resource type="Shader" uid="uid://bc5a6d2eufcus" path="res://Materials/Monochromatic.gdshader" id="3_6ohuo"]
 
@@ -55,7 +55,7 @@ shader_parameter/screen_size = Vector2(1920, 1080)
 shader_parameter/dot_pitch_px = 10.0
 shader_parameter/dot_softness = 0.8
 shader_parameter/contrast = 1.0
-shader_parameter/bg_color = Vector3(0.5, 0.5, 0)
+shader_parameter/bg_color = Vector3(0, 0.4, 0.7)
 shader_parameter/opacity = 1.0
 shader_parameter/grid_rotate_deg = 0.0
 
@@ -100,7 +100,7 @@ shader_parameter/screen_size = Vector2(1920, 1080)
 shader_parameter/dot_pitch_px = 10.0
 shader_parameter/dot_softness = 0.8
 shader_parameter/contrast = 1.0
-shader_parameter/bg_color = Vector3(1, 0, 0)
+shader_parameter/bg_color = Vector3(1, 1, 1)
 shader_parameter/opacity = 1.0
 shader_parameter/grid_rotate_deg = 0.0
 
@@ -142,6 +142,8 @@ shadow_mesh = SubResource("ArrayMesh_g8uk6")
 radius = 30.016663
 
 [node name="Cart" type="CharacterBody2D" unique_id=190419770 node_paths=PackedStringArray("stump", "sprite", "cartModel")]
+collision_layer = 2
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_o8d5y")
 stump = NodePath("Stump")
@@ -160,7 +162,7 @@ size = Vector2i(96, 96)
 [node name="Node3D" type="Node3D" parent="SubViewport" unique_id=98626304]
 
 [node name="cart" type="MeshInstance3D" parent="SubViewport/Node3D" unique_id=1577756182]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.58455086, 0, 0)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("ArrayMesh_6k0mf")
 surface_material_override/0 = SubResource("ShaderMaterial_ikec7")
 
@@ -175,7 +177,7 @@ mesh = SubResource("ArrayMesh_kkfct")
 surface_material_override/0 = SubResource("ShaderMaterial_u2am6")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D" unique_id=1597242437]
-transform = Transform3D(1, 0, 0, 0, 0.6218177, 0.783162, 0, -0.783162, 0.6218177, -0.6679555, 1.2600696, 0.7630348)
+transform = Transform3D(1, 0, 0, 0, 0.6218177, 0.783162, 0, -0.783162, 0.6218177, 0, 1.26, 0.763)
 cull_mask = 1
 projection = 1
 current = true

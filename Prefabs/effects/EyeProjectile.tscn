@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://c1all83mrkp5u"]
+
+[ext_resource type="Script" uid="uid://d03c518m476s2" path="res://Scripts/Projectile.cs" id="1_002st"]
+[ext_resource type="Shader" uid="uid://v3axean6wavg" path="res://Materials/bloom.gdshader" id="1_wnr4n"]
+[ext_resource type="Texture2D" uid="uid://b2xvtqy7uvupy" path="res://Sprites/tear.png" id="1_wypia"]
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_vgk5t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m01v1"]
+shader = ExtResource("2_vgk5t")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_002st"]
+atlas = ExtResource("1_wypia")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgk5t"]
+atlas = ExtResource("1_wypia")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m01v1"]
+atlas = ExtResource("1_wypia")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m01v1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_002st")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgk5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m01v1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_002st"]
+shader = ExtResource("1_wnr4n")
+shader_parameter/intensity = 0.8650000410875
+shader_parameter/threshold = 0.0
+shader_parameter/blur_size = 2.3560001119100002
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wnr4n"]
+radius = 11.0
+
+[node name="EyeProjectile" type="Area2D" unique_id=252599073]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("1_002st")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=801999119]
+material = SubResource("ShaderMaterial_m01v1")
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_m01v1")
+autoplay = "default"
+frame_progress = 0.3782406
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=157915129]
+material = SubResource("ShaderMaterial_002st")
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_m01v1")
+autoplay = "default"
+frame_progress = 0.40888458
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1442641921]
+position = Vector2(9, -1)
+shape = SubResource("CircleShape2D_wnr4n")

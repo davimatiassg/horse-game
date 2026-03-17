@@ -41,7 +41,7 @@ public partial class Bird : Node2D
 		notifier.ScreenExited += () =>
 		{
 			if(sprite.Animation == "fly")
-				QueueFree();
+				CallDeferred(MethodName.QueueFree);
 		};
 
 	}

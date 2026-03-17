@@ -10,8 +10,7 @@ public partial class Coin : Node2D
 	{
 		area.BodyEntered += (Node2D body) =>
 		{
-			if(body is Player)
-				Collect();
+			Collect();
 		};
 	}
 
@@ -23,6 +22,6 @@ public partial class Coin : Node2D
 	public void Collect()
 	{
 		ScoreManager.AddScore();
-		QueueFree();
+		CallDeferred(MethodName.QueueFree);
 	}
 }

@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 
-public interface Player {}
+public interface IPlayer {}
 
-public partial class HorseBody : CharacterBody2D, Player
+public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoints
 {
 
 	[ExportCategory("Connections")]
-	[Export] Sprite2D knightSprite;
+ 
 	[Export] Sprite2D horseSprite;
 
 	[Export] Node3D horse;
@@ -19,22 +19,30 @@ public partial class HorseBody : CharacterBody2D, Player
 
 	[Export] GpuParticles2D footPrints;
 
+	[Export] Area2D trampleHitBox;
+
 
 	[ExportCategory("Stats")]
-	[Export] float speed = 300.0f;
-	[Export] float aceleration = 200.0f;
+	[Export] float speed = 500.0f;
+	[Export] float aceleration = 300.0f;
 	[Export] float deceleration = 100.0f;
 	[Export] float turnAcel = 50.0f;
+
+	[Export] int trampleDamage = 50;
+	[Export] public int MaxHP { get; set; }
 
 
 	[ExportCategory("Internal")]
 
 	[Export] Vector2 directionalForce = Vector2.Left;
+	[Export] float internalSpeed;
+    
+   [Export] public int HP { get; set; }
 
-
-	public override void _Ready()
+    public override void _Ready()
 	{
-		
+		HP = MaxHP;
+		trampleHitBox.BodyEntered += OnBodyEntered;
 	}
 
     public override void _Process(double delta)
@@ -57,13 +65,14 @@ public partial class HorseBody : CharacterBody2D, Player
 			
 
 			directionalForce = directionalForce.MoveToward(inputDirection, turnAcel * (float)delta);	
+			internalSpeed = Mathf.MoveToward(internalSpeed, speed, aceleration * (float) delta);
 
-
-			velocity = velocity.Slerp(directionalForce * speed, 0.5f);
+			velocity = velocity.Slerp(directionalForce * internalSpeed, 0.5f);
 		}
 		else
 		{
 			velocity = velocity.MoveToward(Vector2.Zero, (float)delta * deceleration);
+			internalSpeed = Mathf.MoveToward(internalSpeed, 0, (float)delta * deceleration);
 		}
 
 		Velocity = velocity;
@@ -93,5 +102,29 @@ public partial class HorseBody : CharacterBody2D, Player
 		}
 	}
 
+    public void TakeDamage(int damage)
+    {
+        HP -= damage;
+    }
+
+
+
+	private void OnBodyEntered(Node2D body)
+    {
+		
+        if(Velocity.Length()/speed > 0.6f)
+		{
+			Trample(body);
+			
+		}
+    }
+
+	private void Trample(Node2D body)
+	{
+
+		if(body is IHittable hittable) 				hittable.TakeDamage((int)(trampleDamage * internalSpeed/speed));
+		if(body is IKnockbackable knockbackable)  	knockbackable.Knockback((body.Position - Position).Normalized() * internalSpeed * 0.25f);
+		
+	}
 
 }

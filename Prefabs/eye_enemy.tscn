@@ -1,0 +1,178 @@
+[gd_scene format=3 uid="uid://djawyqyfene3u"]
+
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="1_qql8q"]
+[ext_resource type="Script" uid="uid://3l4eyqyph0a1" path="res://Scripts/EyeEnemy.cs" id="1_vavl0"]
+[ext_resource type="Texture2D" uid="uid://jxwtnd8jc2ls" path="res://Sprites/eye-enemy.png" id="2_hdevs"]
+[ext_resource type="PackedScene" uid="uid://brsangs6gogei" path="res://Prefabs/damage_number.tscn" id="2_sj0j1"]
+[ext_resource type="Texture2D" uid="uid://cml5ykd0cbskm" path="res://Sprites/tile_0063.png" id="2_vavl0"]
+[ext_resource type="PackedScene" uid="uid://c1all83mrkp5u" path="res://Prefabs/effects/EyeProjectile.tscn" id="2_yxo48"]
+[ext_resource type="PackedScene" uid="uid://dm4ijxceokvay" path="res://Prefabs/Coin.tscn" id="3_vonvh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sj0j1"]
+shader = ExtResource("1_qql8q")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hdevs"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vonvh"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 37.25
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = 282.61996
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 0.5980001
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = 42.989998
+scale_max = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vavl0"]
+shader = ExtResource("1_qql8q")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sj0j1"]
+atlas = ExtResource("2_hdevs")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yxo48"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sj0j1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vonvh"]
+atlas = ExtResource("2_hdevs")
+region = Rect2(0, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfdmk"]
+atlas = ExtResource("2_hdevs")
+region = Rect2(96, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5dig"]
+atlas = ExtResource("2_hdevs")
+region = Rect2(192, 96, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8u3nt"]
+atlas = ExtResource("2_hdevs")
+region = Rect2(288, 96, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x1wqt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vonvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfdmk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5dig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8u3nt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5dig")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfdmk")
+}],
+"loop": false,
+"name": &"shot",
+"speed": 15.0
+}]
+
+[sub_resource type="Animation" id="Animation_qql8q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewport/AnimatedSprite2D2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_hdevs"]
+resource_name = "idle"
+length = 7.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewport/AnimatedSprite2D2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.283185307179586]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vavl0"]
+_data = {
+&"RESET": SubResource("Animation_qql8q"),
+&"idle": SubResource("Animation_hdevs")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hdevs"]
+radius = 45.044422
+
+[node name="Eye Enemy" type="CharacterBody2D" unique_id=444991579 node_paths=PackedStringArray("eyeSprite") groups=["enemy"]]
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
+slide_on_ceiling = false
+script = ExtResource("1_vavl0")
+tear = ExtResource("2_yxo48")
+coin = ExtResource("3_vonvh")
+eyeSprite = NodePath("SubViewport/AnimatedSprite2D")
+damageLabel = ExtResource("2_sj0j1")
+MaxHP = 300
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1445756030]
+material = SubResource("ShaderMaterial_sj0j1")
+texture = SubResource("ViewportTexture_hdevs")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=526903657]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="SubViewport" unique_id=2141350777]
+amount = 10
+texture = ExtResource("2_vavl0")
+process_material = SubResource("ParticleProcessMaterial_vonvh")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="SubViewport" unique_id=596863545]
+material = SubResource("ShaderMaterial_vavl0")
+sprite_frames = SubResource("SpriteFrames_yxo48")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SubViewport" unique_id=1044936494]
+material = SubResource("ShaderMaterial_vavl0")
+sprite_frames = SubResource("SpriteFrames_x1wqt")
+animation = &"shot"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewport" unique_id=335696694]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_vavl0")
+autoplay = &"idle"
+
+[node name="Camera2D" type="Camera2D" parent="SubViewport" unique_id=1339381068]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1847733501]
+shape = SubResource("CircleShape2D_hdevs")

@@ -18,7 +18,7 @@ void fragment() {
     outline += texture(TEXTURE, UV + vec2(0, -size.y)).a;
 
 
-    if (alpha == 0.0 && outline > 0.0) {
+    if (alpha < 0.0001 && outline > 0.0) {
         COLOR = outline_color;
     } else {
         COLOR = tex;
