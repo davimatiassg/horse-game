@@ -3,13 +3,13 @@ using System;
 
 public partial class EyeEnemy : Enemy
 {
-    [ExportCategory("Connections")]
+    [ExportGroup("Connections")]
     [Export] PackedScene tear;
     [Export] PackedScene coin;
 
     [Export] AnimatedSprite2D eyeSprite;
 
-    [ExportCategory("Stats")]
+    [ExportGroup("Stats")]
 
     [Export] public float Speed = 100f;
     [Export] public float ChangeDirectionTime = 2f;

@@ -1,20 +1,93 @@
-[gd_scene format=4 uid="uid://ewacfq6ojmg5"]
+[gd_scene format=4 uid="uid://id8ut4cm4u6s"]
 
-[ext_resource type="Script" uid="uid://c5qpb5tq66qp6" path="res://Scripts/Cart.cs" id="1_o8d5y"]
-[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_kdwky"]
-[ext_resource type="Shader" uid="uid://bc5a6d2eufcus" path="res://Materials/Monochromatic.gdshader" id="3_6ohuo"]
-[ext_resource type="PackedScene" uid="uid://c7rapjkxfe1po" path="res://Prefabs/turrets/cannonTurret.tscn" id="3_24e42"]
+[ext_resource type="Shader" uid="uid://bc5a6d2eufcus" path="res://Materials/Monochromatic.gdshader" id="2_lblki"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_24e42"]
-shader = ExtResource("2_kdwky")
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/outline_size = 1.0
+[sub_resource type="Gradient" id="Gradient_e4eaj"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0)
+metadata/_snap_enabled = true
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_kdwky"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7ngar"]
+gradient = SubResource("Gradient_e4eaj")
+width = 540
+fill_from = Vector2(1, 0.6)
+fill_to = Vector2(0.7, 0.6)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_e4eaj"]
+gradient = SubResource("Gradient_e4eaj")
+width = 540
+fill_from = Vector2(1, 0.6)
+fill_to = Vector2(1, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="Shader" id="Shader_tafaw"]
+code = "shader_type spatial;
+render_mode unshaded, blend_mix, cull_disabled;
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform vec2 screen_size = vec2(1920.0, 1080.0); 
+
+uniform float dot_pitch_px : hint_range(1.0, 50.0) = 10.0;
+uniform float dot_softness : hint_range(0.0, 2.0) = 0.8;
+uniform float contrast     : hint_range(0.5, 2.0) = 1.0;
+uniform vec3  bg_color = vec3(1.0);
+uniform float opacity : hint_range(0.0, 1.0) = 1.0;
+uniform float grid_rotate_deg : hint_range(-45.0, 45.0) = 0.0;
+
+float luma(vec3 c) {
+    return dot(c, vec3(0.299, 0.587, 0.114));
+}
+
+void fragment() {
+    vec3 src = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+    float Y = clamp(luma(src) * contrast, 0.0, 1.0);
+
+    // 转换到像素坐标
+    vec2 screen_px = SCREEN_UV * screen_size;
+
+    // 旋转
+    float ang = radians(grid_rotate_deg);
+    mat2 R = mat2(vec2(cos(ang), -sin(ang)),
+                  vec2(sin(ang),  cos(ang)));
+    vec2 p = R * screen_px;
+
+    // 网格中心
+    vec2 cell = floor(p / dot_pitch_px) + 0.5;
+    vec2 center = cell * dot_pitch_px;
+
+    float dist_px = length(p - center);
+
+    // 半径随亮度
+    float max_r = 0.5 * dot_pitch_px;
+    float radius = max_r * (1.0 - Y);
+
+    float dot_mask = 1.0 - smoothstep(radius - dot_softness,
+                                      radius + dot_softness,
+                                      dist_px);
+
+    vec3 halftone = mix(bg_color, src, dot_mask);
+
+    EMISSION = halftone;
+    ALBEDO   = halftone;
+    ALPHA    = opacity;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e4eaj"]
+render_priority = 0
+shader = SubResource("Shader_tafaw")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/dot_pitch_px = 7.800000323
+shader_parameter/dot_softness = 2.0
+shader_parameter/contrast = 1.0
+shader_parameter/bg_color = Vector3(0, 0.2, 0.4)
+shader_parameter/opacity = 1.0
+shader_parameter/grid_rotate_deg = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gvntf"]
 resource_name = "colormap"
+next_pass = SubResource("ShaderMaterial_e4eaj")
 cull_mode = 2
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_f1qrl"]
@@ -49,16 +122,69 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_f1qrl")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ikec7"]
+[sub_resource type="Shader" id="Shader_e4eaj"]
+code = "shader_type spatial;
+render_mode unshaded, blend_mix, cull_disabled;
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform vec2 screen_size = vec2(1920.0, 1080.0); 
+
+uniform float dot_pitch_px : hint_range(1.0, 50.0) = 10.0;
+uniform float dot_softness : hint_range(0.0, 2.0) = 0.8;
+uniform float contrast     : hint_range(0.5, 2.0) = 1.0;
+uniform vec3  bg_color = vec3(1.0);
+uniform float opacity : hint_range(0.0, 1.0) = 1.0;
+uniform float grid_rotate_deg : hint_range(-45.0, 45.0) = 0.0;
+
+float luma(vec3 c) {
+    return dot(c, vec3(0.299, 0.587, 0.114));
+}
+
+void fragment() {
+    vec3 src = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+    float Y = clamp(luma(src) * contrast, 0.0, 1.0);
+
+    // 转换到像素坐标
+    vec2 screen_px = SCREEN_UV * screen_size;
+
+    // 旋转
+    float ang = radians(grid_rotate_deg);
+    mat2 R = mat2(vec2(cos(ang), -sin(ang)),
+                  vec2(sin(ang),  cos(ang)));
+    vec2 p = R * screen_px;
+
+    // 网格中心
+    vec2 cell = floor(p / dot_pitch_px) + 0.5;
+    vec2 center = cell * dot_pitch_px;
+
+    float dist_px = length(p - center);
+
+    // 半径随亮度
+    float max_r = 0.5 * dot_pitch_px;
+    float radius = max_r * (1.0 - Y);
+
+    float dot_mask = 1.0 - smoothstep(radius - dot_softness,
+                                      radius + dot_softness,
+                                      dist_px);
+
+    vec3 halftone = mix(bg_color, src, dot_mask);
+
+    EMISSION = halftone;
+    ALBEDO   = halftone;
+    ALPHA    = opacity;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_861s7"]
 render_priority = 0
-shader = ExtResource("3_6ohuo")
+shader = SubResource("Shader_e4eaj")
 shader_parameter/screen_size = Vector2(1920, 1080)
-shader_parameter/dot_pitch_px = 10.0
-shader_parameter/dot_softness = 0.8
-shader_parameter/contrast = 1.0
-shader_parameter/bg_color = Vector3(0, 0.4, 0.7)
+shader_parameter/dot_pitch_px = 2.8450000876375
+shader_parameter/dot_softness = 2.0
+shader_parameter/contrast = 2.0
+shader_parameter/bg_color = Vector3(0, 0.3, 0.7)
 shader_parameter/opacity = 1.0
-shader_parameter/grid_rotate_deg = 0.0
+shader_parameter/grid_rotate_deg = 2.1374999974455022e-06
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_5pkk8"]
 _surfaces = [{
@@ -94,13 +220,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_5pkk8")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2am6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ngar"]
 render_priority = 0
-shader = ExtResource("3_6ohuo")
+shader = ExtResource("2_lblki")
 shader_parameter/screen_size = Vector2(1920, 1080)
-shader_parameter/dot_pitch_px = 10.0
-shader_parameter/dot_softness = 0.8
-shader_parameter/contrast = 1.0
+shader_parameter/dot_pitch_px = 1.0
+shader_parameter/dot_softness = 2.0
+shader_parameter/contrast = 2.0
 shader_parameter/bg_color = Vector3(1, 1, 1)
 shader_parameter/opacity = 1.0
 shader_parameter/grid_rotate_deg = 0.0
@@ -139,61 +265,166 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_g8uk6")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kdwky"]
-radius = 30.016663
+[sub_resource type="Animation" id="Animation_e4eaj"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cart")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
 
-[node name="Cart" type="CharacterBody2D" unique_id=190419770 node_paths=PackedStringArray("stump", "sprite", "cartModel")]
-collision_layer = 2
-collision_mask = 0
-motion_mode = 1
-script = ExtResource("1_o8d5y")
-stump = NodePath("Stump")
-sprite = NodePath("Sprite2D")
-cartModel = NodePath("SubViewport/Node3D/cart")
-_HP = 50
+[sub_resource type="Animation" id="Animation_7ngar"]
+resource_name = "rotate"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cart")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 2.5, 1, 0, 1, 0, 0, 5, 1, 0, 0, 0, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824190745]
-material = SubResource("ShaderMaterial_24e42")
-texture = SubResource("ViewportTexture_kdwky")
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lblki"]
+_data = {
+&"RESET": SubResource("Animation_e4eaj"),
+&"rotate": SubResource("Animation_7ngar")
+}
 
-[node name="Node2D" parent="." unique_id=2141642450 instance=ExtResource("3_24e42")]
-position = Vector2(1, -6)
+[node name="Control" type="Control" unique_id=1208177377]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="SubViewport" type="SubViewport" parent="." unique_id=1097067905]
-own_world_3d = true
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1745123170]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=834431651]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="HBoxContainer/VBoxContainer" unique_id=2096797884]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer/VBoxContainer/Panel" unique_id=1090948750]
+layout_mode = 0
+offset_top = 159.0
+offset_right = 571.0
+offset_bottom = 199.70999
+texture_normal = SubResource("GradientTexture2D_7ngar")
+texture_hover = SubResource("GradientTexture2D_e4eaj")
+flip_h = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/Panel/TextureButton" unique_id=443278609]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.27100003
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 3.0
+offset_right = 382.25897
+bbcode_enabled = true
+text = "[shake] Lol, Lmao [/shake]"
+
+[node name="TextureButton2" type="TextureButton" parent="HBoxContainer/VBoxContainer/Panel" unique_id=210103567]
+layout_mode = 0
+offset_top = 238.0
+offset_right = 571.0
+offset_bottom = 302.0
+texture_normal = SubResource("GradientTexture2D_7ngar")
+flip_h = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/Panel/TextureButton2" unique_id=728829751]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.27100003
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 3.0
+offset_right = 382.25897
+
+[node name="TextureButton3" type="TextureButton" parent="HBoxContainer/VBoxContainer/Panel" unique_id=1949894817]
+layout_mode = 0
+offset_top = 315.0
+offset_right = 571.0
+offset_bottom = 379.0
+texture_normal = SubResource("GradientTexture2D_7ngar")
+flip_h = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/Panel/TextureButton3" unique_id=649374351]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.27100003
+anchor_bottom = 1.0
+offset_left = 160.0
+offset_top = 3.0
+offset_right = 382.25897
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer" unique_id=1106871890]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer/VBoxContainer2" unique_id=583577041]
+custom_minimum_size = Vector2(191, 107)
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/VBoxContainer2/SubViewportContainer" unique_id=53487368]
 transparent_bg = true
-size = Vector2i(96, 96)
+handle_input_locally = false
+anisotropic_filtering_level = 0
+size = Vector2i(191, 107)
+render_target_update_mode = 4
 
-[node name="Node3D" type="Node3D" parent="SubViewport" unique_id=98626304]
+[node name="Node3D" type="Node3D" parent="HBoxContainer/VBoxContainer2/SubViewportContainer/SubViewport" unique_id=98626304]
 
-[node name="cart" type="MeshInstance3D" parent="SubViewport/Node3D" unique_id=1577756182]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+[node name="cart" type="MeshInstance3D" parent="HBoxContainer/VBoxContainer2/SubViewportContainer/SubViewport/Node3D" unique_id=1577756182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.085, 0, 0)
 mesh = SubResource("ArrayMesh_6k0mf")
-surface_material_override/0 = SubResource("ShaderMaterial_ikec7")
+surface_material_override/0 = SubResource("ShaderMaterial_861s7")
 
-[node name="Group" type="MeshInstance3D" parent="SubViewport/Node3D/cart" unique_id=579884683]
+[node name="Group" type="MeshInstance3D" parent="HBoxContainer/VBoxContainer2/SubViewportContainer/SubViewport/Node3D/cart" unique_id=579884683]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44651198, -1.1279866e-17, -0.038880102)
+transparency = 1.0
+visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_lpkn2")
-surface_material_override/0 = SubResource("ShaderMaterial_u2am6")
+surface_material_override/0 = SubResource("ShaderMaterial_7ngar")
 
-[node name="Group2" type="MeshInstance3D" parent="SubViewport/Node3D/cart" unique_id=87835101]
+[node name="Group2" type="MeshInstance3D" parent="HBoxContainer/VBoxContainer2/SubViewportContainer/SubViewport/Node3D/cart" unique_id=87835101]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.325, -1.1279866e-17, -0.038880102)
+transparency = 1.0
+visibility_range_fade_mode = 1
 mesh = SubResource("ArrayMesh_kkfct")
-surface_material_override/0 = SubResource("ShaderMaterial_u2am6")
+surface_material_override/0 = SubResource("ShaderMaterial_7ngar")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewport/Node3D" unique_id=1597242437]
-transform = Transform3D(1, 0, 0, 0, 0.6218177, 0.783162, 0, -0.783162, 0.6218177, 0, 1.26, 0.763)
+[node name="Camera3D" type="Camera3D" parent="HBoxContainer/VBoxContainer2/SubViewportContainer/SubViewport/Node3D" unique_id=1597242437]
+transform = Transform3D(1, 0, 0, 0, 0.73845536, 0.6743024, 0, -0.6743024, 0.73845536, 0.04, 1.435, 1.263)
 cull_mask = 1
 projection = 1
 current = true
 fov = 90.0
 size = 1.609
 
-[node name="OmniLight3D" type="OmniLight3D" parent="SubViewport/Node3D" unique_id=33566918]
+[node name="OmniLight3D" type="OmniLight3D" parent="HBoxContainer/VBoxContainer2/SubViewportContainer/SubViewport/Node3D" unique_id=33566918]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7144964, 2.1219358, 1.6611838)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1506782323]
-shape = SubResource("CircleShape2D_kdwky")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/VBoxContainer2/SubViewportContainer/SubViewport/Node3D" unique_id=184499828]
+libraries/ = SubResource("AnimationLibrary_lblki")
+autoplay = &"rotate"
 
-[node name="Stump" type="Marker2D" parent="." unique_id=511723356]
-position = Vector2(-31, -1)
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer2" unique_id=1359344444]
+layout_mode = 2
+size_flags_vertical = 3

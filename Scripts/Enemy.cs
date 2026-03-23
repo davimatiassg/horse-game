@@ -38,6 +38,11 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
     {
         base._Ready();
         HP = MaxHP;
+
+        this.Skew = Mathf.Pi/2;
+
+        Tween skewtween = CreateTween();
+        skewtween.TweenProperty(this, "skew", 0f, 0.5f);
     }
 
     public virtual void TakeDamage(int damage)

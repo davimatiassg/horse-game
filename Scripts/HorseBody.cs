@@ -1,14 +1,12 @@
 using Godot;
-using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 
 public interface IPlayer {}
 
 public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoints
 {
 
-	[ExportCategory("Connections")]
+	[ExportGroup("Connections")]
  
 	[Export] Sprite2D horseSprite;
 
@@ -22,7 +20,10 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 	[Export] Area2D trampleHitBox;
 
 
-	[ExportCategory("Stats")]
+
+
+
+	[ExportGroup("Stats")]
 	[Export] float speed = 500.0f;
 	[Export] float aceleration = 300.0f;
 	[Export] float deceleration = 100.0f;
@@ -32,10 +33,12 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 	[Export] public int MaxHP { get; set; }
 
 
-	[ExportCategory("Internal")]
+	[ExportGroup("Internal")]
 
 	[Export] Vector2 directionalForce = Vector2.Left;
 	[Export] float internalSpeed;
+
+	public List<Cart> carts = new();
     
    [Export] public int HP { get; set; }
 
@@ -127,4 +130,42 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 		
 	}
 
+
+#region cartManagement
+
+	public void AddCart(Cart cart)
+	{
+		carts.Insert(0, cart);
+		cart.AttachTo(this.cartStump);
+		carts[1].AttachTo(cart.stump);
+
+		cart.OnDie += () => RemoveCart(cart);
+	}
+
+	public void RemoveCart(Cart cart)
+	{
+		int index = carts.IndexOf(cart);
+		if(index == -1)
+		{
+			GD.PrintErr("Tried to remove a cart that isn't there");
+			return;
+		}
+		
+		if(index >= carts.Count-1) {}
+		else if(index == 0)
+		{
+			carts[1].AttachTo(this.cartStump);
+		}
+		else
+		{
+			carts[index+1].AttachTo(carts[index-1]);
+		}
+
+		carts.RemoveAt(index);
+		return;
+	}
+
+
+
+#endregion
 }

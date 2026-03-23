@@ -10,9 +10,7 @@ public partial class ScoreManager : Node
 
 	[Export] HorseBody player;
 
-	//STUB
 	[Export] PackedScene cartPrefab;
-	Stack<Node2D> cartStack = new();
 
 	public int playerLevel;
 	public int totalScore = 0;
@@ -22,8 +20,6 @@ public partial class ScoreManager : Node
 	{
 		if(Singleton == null) Singleton = this;
 		else if (Singleton != this) { QueueFree(); return;}
-
-		cartStack.Push(Singleton.player.cartStump);
 	
 	}
 
@@ -40,8 +36,8 @@ public partial class ScoreManager : Node
 			//STUB
 		
 			var cart = SpawnCart();
-			cart.AttachTo(Singleton.cartStack.Peek());
-			Singleton.cartStack.Push(cart.stump);
+			Singleton.player.AddCart(cart);
+
 		}
 	}
 
@@ -50,7 +46,7 @@ public partial class ScoreManager : Node
 	{
 		//STUB
 		var cart = Singleton.cartPrefab.Instantiate<Cart>();
-		Singleton.GetParent().AddChild(cart);
+		Singleton.GetTree().Root.AddChild(cart);
 		return cart;
 	}
 }

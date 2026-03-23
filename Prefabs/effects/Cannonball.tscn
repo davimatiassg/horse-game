@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://ccuo1gm5rj8p5"]
+
+[ext_resource type="Script" uid="uid://d03c518m476s2" path="res://Scripts/Projectile.cs" id="1_qh2sk"]
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_vqj01"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m01v1"]
+shader = ExtResource("2_vqj01")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="Gradient" id="Gradient_16kwh"]
+offsets = PackedFloat32Array(0.18574513, 0.20086393, 0.20302376, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.15982722, 0.15982722, 0.15982722, 1, 0.70980394, 0.70980394, 0.70980394, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1qyt8"]
+gradient = SubResource("Gradient_16kwh")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wnr4n"]
+radius = 11.0
+
+[node name="cannonBall" type="Area2D" unique_id=252599073]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_qh2sk")
+Speed = 700.0
+
+[node name="AnimatedSprite2D2" type="Sprite2D" parent="." unique_id=1053978156]
+material = SubResource("ShaderMaterial_m01v1")
+texture = SubResource("GradientTexture2D_1qyt8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1442641921]
+shape = SubResource("CircleShape2D_wnr4n")
