@@ -1,10 +1,17 @@
 [gd_scene format=3 uid="uid://brsangs6gogei"]
 
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="1_2xitf"]
 [ext_resource type="Script" uid="uid://c5p140wy3hxuo" path="res://Scripts/DamageNumber.cs" id="1_828jh"]
 [ext_resource type="FontFile" uid="uid://b2xcnmmoxe6y" path="res://Fonts/Minecraft.ttf" id="1_nqv5j"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ytw4"]
+shader = ExtResource("1_2xitf")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_size = 1.0
+
 [node name="DamageNumber" type="RichTextLabel" unique_id=390747323]
 z_index = 50
+material = SubResource("ShaderMaterial_3ytw4")
 layout_direction = 1
 anchors_preset = 15
 anchor_right = 1.0

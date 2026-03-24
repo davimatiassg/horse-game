@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bpf4qmp2ltqsk"]
+
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="1_cu2pf"]
+[ext_resource type="Script" uid="uid://cdde8uydnvynq" path="res://Scripts/TurretBasket.cs" id="1_okcua"]
+[ext_resource type="PackedScene" uid="uid://b3ckf5xnn3bc" path="res://Prefabs/effects/healArea.tscn" id="2_dfcj8"]
+[ext_resource type="Texture2D" uid="uid://b304tl4cujk08" path="res://Sprites/appleBowl.png" id="2_oq4f0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_okcua"]
+shader = ExtResource("1_cu2pf")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_size = 1.0
+
+[node name="Basket" type="Node2D" unique_id=1153031614]
+script = ExtResource("1_okcua")
+healArea = ExtResource("2_dfcj8")
+activationCooldown = 10.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=472874801]
+material = SubResource("ShaderMaterial_okcua")
+texture = ExtResource("2_oq4f0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=220637615]

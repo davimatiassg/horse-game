@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://c5qpb5tq66qp6" path="res://Scripts/Cart.cs" id="1_o8d5y"]
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_kdwky"]
 [ext_resource type="Shader" uid="uid://bc5a6d2eufcus" path="res://Materials/Monochromatic.gdshader" id="3_6ohuo"]
-[ext_resource type="PackedScene" uid="uid://c7rapjkxfe1po" path="res://Prefabs/turrets/cannonTurret.tscn" id="3_24e42"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_24e42"]
 shader = ExtResource("2_kdwky")
@@ -142,7 +141,7 @@ shadow_mesh = SubResource("ArrayMesh_g8uk6")
 [sub_resource type="CircleShape2D" id="CircleShape2D_kdwky"]
 radius = 30.016663
 
-[node name="Cart" type="CharacterBody2D" unique_id=190419770 node_paths=PackedStringArray("stump", "sprite", "cartModel")]
+[node name="Cart" type="CharacterBody2D" unique_id=190419770 node_paths=PackedStringArray("stump", "sprite", "cartModel", "TurretPlace")]
 collision_layer = 2
 collision_mask = 0
 motion_mode = 1
@@ -150,14 +149,12 @@ script = ExtResource("1_o8d5y")
 stump = NodePath("Stump")
 sprite = NodePath("Sprite2D")
 cartModel = NodePath("SubViewport/Node3D/cart")
+TurretPlace = NodePath("TurretPlace")
 _HP = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824190745]
 material = SubResource("ShaderMaterial_24e42")
 texture = SubResource("ViewportTexture_kdwky")
-
-[node name="Node2D" parent="." unique_id=2141642450 instance=ExtResource("3_24e42")]
-position = Vector2(1, -6)
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1097067905]
 own_world_3d = true
@@ -197,3 +194,6 @@ shape = SubResource("CircleShape2D_kdwky")
 
 [node name="Stump" type="Marker2D" parent="." unique_id=511723356]
 position = Vector2(-31, -1)
+
+[node name="TurretPlace" type="Marker2D" parent="." unique_id=1355638180]
+position = Vector2(0, -6)

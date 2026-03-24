@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bfp7r2qp64koo"]
+
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="1_o8nvl"]
+[ext_resource type="Texture2D" uid="uid://csot13g27jx81" path="res://Sprites/pole.png" id="1_yblou"]
+[ext_resource type="Script" uid="uid://btal1pokw0sg0" path="res://Scripts/Pole.cs" id="2_e782x"]
+[ext_resource type="Texture2D" uid="uid://fleokqboxvem" path="res://Sprites/rope.png" id="4_18c31"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_18c31"]
+shader = ExtResource("1_o8nvl")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_size = 1.0
+
+[node name="Pole" type="Sprite2D" unique_id=1619171882 node_paths=PackedStringArray("line", "startPoint")]
+material = SubResource("ShaderMaterial_18c31")
+texture = ExtResource("1_yblou")
+script = ExtResource("2_e782x")
+line = NodePath("Line2D")
+startPoint = NodePath("Marker2D")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=1135661324]
+z_index = -5
+position = Vector2(0, -16)
+width = 3.0
+default_color = Color(0.6431373, 0.39215687, 0.22352941, 1)
+texture = ExtResource("4_18c31")
+texture_mode = 1
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1188038858]
+position = Vector2(0, -16)

@@ -29,8 +29,16 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
         get => _HP;
         set
         {
+            var displacement = value - _HP;
+            var number = damageLabel.Instantiate<DamageNumber>();
+            
+            number.Text = displacement <= 0 ? $"[shake]{displacement}[/shake]" : $"[color=green]{displacement}[/color]";
+            
+            number.SetPosition(GlobalPosition - number.Size/2 + Vector2.Up*64);
+            GetTree().CurrentScene.AddChild(number);
             _HP = value;
-            if(value < 0) Die();        
+            if(_HP < 0) Die();
+            if(_HP > MaxHP)  _HP = MaxHP;     
         } 
     }
 
@@ -48,11 +56,6 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
     public virtual void TakeDamage(int damage)
     {
         HP -= damage;
-        var number = damageLabel.Instantiate<DamageNumber>();
-        number.Text = $"[shake]{damage}[/shake]";
-        
-        number.SetPosition(GlobalPosition - number.Size/2 + Vector2.Up*64);
-        GetTree().CurrentScene.AddChild(number);
     }
 
     public void Knockback(Vector2 force)

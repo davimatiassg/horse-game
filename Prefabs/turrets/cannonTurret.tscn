@@ -29,7 +29,7 @@ color = Color(0, 0, 0, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_a5wph"]
 
-[node name="Node2D" type="Node2D" unique_id=2141642450 node_paths=PackedStringArray("cannonModel", "blastParticles")]
+[node name="Cannon" type="Node2D" unique_id=2141642450 node_paths=PackedStringArray("cannonModel", "blastParticles")]
 script = ExtResource("1_ineu2")
 cannonModel = NodePath("SubViewport/cannon")
 cannonball = ExtResource("2_x480j")

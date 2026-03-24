@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://b3ckf5xnn3bc"]
+
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="1_0mbec"]
+[ext_resource type="Script" uid="uid://bfeyb46e7yhc8" path="res://Scripts/HealArea.cs" id="1_dk5c2"]
+[ext_resource type="Texture2D" uid="uid://bmwgqvjod1ge7" path="res://Sprites/healparticle.png" id="2_dk5c2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w7ty8"]
+shader = ExtResource("1_0mbec")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_size = 5.0
+
+[sub_resource type="Gradient" id="Gradient_lwyqb"]
+offsets = PackedFloat32Array(0, 0.45572355, 0.67170626, 0.6803456, 0.6976242, 0.97408205)
+colors = PackedColorArray(0, 0.8980392, 0, 0.38039216, 0, 0.8980392, 0, 0.38039216, 0.29411766, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iw0gf"]
+gradient = SubResource("Gradient_lwyqb")
+width = 640
+height = 640
+fill = 1
+fill_from = Vector2(0.50427353, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7td0y"]
+radius = 320.0
+
+[sub_resource type="Curve" id="Curve_67tsv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -4.164769, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_dd0bd"]
+curve = SubResource("Curve_67tsv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3nqpm"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(2.5, 2.5, 1)
+emission_shape = 1
+emission_sphere_radius = 128.0
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = 87.47998
+gravity = Vector3(0, -98, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_dd0bd")
+color = Color(0, 1, 0.043137256, 1)
+turbulence_enabled = true
+
+[node name="Node2D" type="Area2D" unique_id=1427862388]
+z_index = -10
+collision_layer = 0
+collision_mask = 7
+script = ExtResource("1_dk5c2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=509450444]
+material = SubResource("ShaderMaterial_w7ty8")
+texture = SubResource("GradientTexture2D_iw0gf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=165149907]
+visible = false
+shape = SubResource("CircleShape2D_7td0y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=458502890]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=2073629071]
+amount = 40
+texture = ExtResource("2_dk5c2")
+process_material = SubResource("ParticleProcessMaterial_3nqpm")

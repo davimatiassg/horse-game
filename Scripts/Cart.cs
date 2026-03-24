@@ -11,6 +11,8 @@ public partial class Cart : CharacterBody2D, IHittable, IHealthPoints
     [Export] private Sprite2D sprite;
 
 	[Export] private Node3D cartModel;
+
+    [Export] private Marker2D TurretPlace;
     public event Action OnDie;
 
     [ExportGroup("stats")]
@@ -64,6 +66,11 @@ public partial class Cart : CharacterBody2D, IHittable, IHealthPoints
         Velocity = velocity;
 
         MoveAndSlide();
+    }
+
+    public void AddTurret(CartTurret turret)
+    {
+        TurretPlace.AddChild(turret);
     }
 
 
