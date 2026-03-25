@@ -25,7 +25,6 @@ public partial class EyeEnemy : Enemy
     public override void _Ready()
     {
         base._Ready();
-        GD.Print(GetTree().GetNodeCountInGroup("player"));
         _player = (Node2D)GetTree().GetFirstNodeInGroup("player");
     }
 
@@ -75,9 +74,10 @@ public partial class EyeEnemy : Enemy
 
     public override void Die()
     {
-        CallDeferred(MethodName.QueueFree);
+        
         var c = coin.Instantiate<Node2D>();
-        GetParent().AddChild(c);
+        GetTree().Root.AddChild(c);
         c.GlobalPosition = GlobalPosition;
+        CallDeferred(MethodName.QueueFree);
     }
 }

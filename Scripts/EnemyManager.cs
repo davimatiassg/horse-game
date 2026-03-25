@@ -11,6 +11,8 @@ public partial class EnemyManager : Node
     [ExportGroup("Connections")]
     [Export] public Godot.Collections.Dictionary<PackedScene, int> enemies = new();
 
+    [Export] public HorseBody player;
+
     [ExportGroup("Stats")]
     [Export] public int credits;
 
@@ -18,7 +20,7 @@ public partial class EnemyManager : Node
 
 
     [Export] public float chanceConstant = 0.95f;
-
+    
 
     private float chance;
     Tween ActivationTween;
@@ -35,7 +37,7 @@ public partial class EnemyManager : Node
 
 
             ActivationTween = CreateTween();
-            ActivationTween.TweenInterval(1);
+            ActivationTween.TweenInterval(4);
 
             
         }
@@ -64,7 +66,8 @@ public partial class EnemyManager : Node
         {
             Node2D enemyInstance = enemy.Instantiate<Node2D>();
             GetTree().Root.CallDeferred(MethodName.AddChild, enemyInstance);
-
+            
+            enemyInstance.GlobalPosition = player.GlobalPosition + new Vector2(rng.NextSingle() - 0.5f, rng.NextSingle() - 0.5f).Normalized() * 1280;
         }
     }
 

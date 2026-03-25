@@ -7,7 +7,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_214dt"]
 shader = ExtResource("1_kmp0c")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/outline_size = 0.5
+shader_parameter/outline_size = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cm0x5"]
 atlas = ExtResource("2_qxink")

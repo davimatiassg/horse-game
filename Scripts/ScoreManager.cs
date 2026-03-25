@@ -10,6 +10,8 @@ public partial class ScoreManager : Node
 
 	[Export] HorseBody player;
 
+	[Export] CharrietBuyMenu charrietBuyMenu;
+
 	[Export] PackedScene cartPrefab;
 
 	public int playerLevel;
@@ -28,15 +30,29 @@ public partial class ScoreManager : Node
 	{
 		Singleton.totalScore += score;
 
-		if(Singleton.totalScore > Mathf.Pow(2, Singleton.playerLevel))
+		if(Singleton.totalScore > Mathf.Pow(1.5, Singleton.player.carts.Count))
 		{
-			Singleton.playerLevel ++;
+			
 
-
-			//STUB
-		
 			var cart = SpawnCart();
 			Singleton.player.AddCart(cart);
+			GameManager.PauseGame(true);
+			Singleton.charrietBuyMenu.Visible = true;
+
+
+			void ConfirmCartChoice()
+			{
+				GameManager.PauseGame(false);
+				Singleton.charrietBuyMenu.Visible = false;
+				var turret = Singleton.charrietBuyMenu.SelectedOption.turret.Instantiate<CartTurret>();
+
+				cart.AddTurret(turret);
+				Singleton.charrietBuyMenu.confirmButton.Pressed -= ConfirmCartChoice;
+			}
+
+
+			Singleton.charrietBuyMenu.confirmButton.Pressed += ConfirmCartChoice;
+			
 
 		}
 	}
@@ -46,7 +62,7 @@ public partial class ScoreManager : Node
 	{
 		//STUB
 		var cart = Singleton.cartPrefab.Instantiate<Cart>();
-		Singleton.GetTree().Root.AddChild(cart);
+		Singleton.GetTree().Root.CallDeferred(MethodName.AddChild, cart);
 		return cart;
 	}
 }

@@ -35,7 +35,7 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
             number.Text = displacement <= 0 ? $"[shake]{displacement}[/shake]" : $"[color=green]{displacement}[/color]";
             
             number.SetPosition(GlobalPosition - number.Size/2 + Vector2.Up*64);
-            GetTree().CurrentScene.AddChild(number);
+            GetTree().CurrentScene.CallDeferred(MethodName.AddChild, number);
             _HP = value;
             if(_HP < 0) Die();
             if(_HP > MaxHP)  _HP = MaxHP;     

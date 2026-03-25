@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public partial class Pole : Sprite2D
 {
+    public static Pole Singleton;
+
 	[ExportGroup("Connections")]
 	[Export] private Line2D line;
 
@@ -27,6 +29,9 @@ public partial class Pole : Sprite2D
 
     public override void _Ready()
     {
+        if(Singleton == null) Singleton = this;
+        else if (Singleton != this) CallDeferred(MethodName.QueueFree);
+
         line = GetNode<Line2D>("Line2D");
 
         for (int i = 0; i < SegmentCount; i++)
@@ -43,8 +48,15 @@ public partial class Pole : Sprite2D
 
 		if(startPoint.GlobalPosition.DistanceSquaredTo(player.GlobalPosition) > RopeLenght*RopeLenght*16)
 		{
-			player.GlobalPosition = player.GlobalPosition.MoveToward(points[^2], (float) delta * points[^2].DistanceSquaredTo(player.GlobalPosition));
-		}
+			//player.GlobalPosition = player.GlobalPosition.MoveToward(points[^2], (float) delta * points[^2].DistanceSquaredTo(player.GlobalPosition)*16);
+            var velocity = player.Velocity;
+
+            velocity = (startPoint.GlobalPosition - player.GlobalPosition).Normalized() * velocity.Length() * (float)delta;// startPoint.GlobalPosition.DistanceSquaredTo(player.GlobalPosition) - RopeLenght*RopeLenght*16 * (float)delta);
+
+            player.Velocity = velocity;
+            player.MoveAndSlide();
+
+        }
 
 		AnimateRope((float)delta);
         
@@ -86,4 +98,10 @@ public partial class Pole : Sprite2D
 
         line.Points = points.ToArray();
 	}
+
+
+    public static void IncreaseRope(float ammount)
+    {
+        Singleton.SegmentLength *= ammount;
+    }
 }

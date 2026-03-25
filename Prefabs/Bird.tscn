@@ -118,8 +118,9 @@ notifier = NodePath("VisibleOnScreenNotifier2D")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2035051762]
 material = SubResource("ShaderMaterial_exi36")
 sprite_frames = SubResource("SpriteFrames_4mw21")
+animation = &"fly"
 autoplay = "default"
-frame_progress = 0.5311255
+frame_progress = 0.122442685
 
 [node name="Area2D" type="Area2D" parent="." unique_id=77547148]
 monitorable = false

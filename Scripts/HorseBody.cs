@@ -135,9 +135,11 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 
 	public void AddCart(Cart cart)
 	{
-		carts.Insert(0, cart);
-		cart.AttachTo(this.cartStump);
-		carts[1].AttachTo(cart.stump);
+		carts.Add(cart);
+		if(carts.Count == 1)
+			cart.AttachTo(cartStump);
+		else
+			cart.AttachTo(carts[^2].stump);
 
 		cart.OnDie += () => RemoveCart(cart);
 	}
