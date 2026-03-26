@@ -61,7 +61,9 @@ public partial class PickableHorse : CharacterBody2D
 	{
 		foreach(var part in shadedParts)
 		{
-			ShaderMaterial material = (ShaderMaterial)part.GetSurfaceOverrideMaterial(0);
+			ShaderMaterial originalmaterial = (ShaderMaterial)part.GetSurfaceOverrideMaterial(0);
+			var material = (ShaderMaterial)originalmaterial.Duplicate();
+			part.SetSurfaceOverrideMaterial(0, material);
 			material.SetShaderParameter("bg_color", newColor);
 		}
 	}

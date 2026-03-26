@@ -78,7 +78,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_ew0md")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iinjg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kqdmw"]
 render_priority = 0
 shader = ExtResource("3_48hfl")
 shader_parameter/screen_size = Vector2(1920, 1080)
@@ -123,6 +123,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_d3loy")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ev8vp"]
+render_priority = 0
+shader = ExtResource("3_48hfl")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/dot_pitch_px = 5.00000019
+shader_parameter/dot_softness = 2.0
+shader_parameter/contrast = 0.5
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/grid_rotate_deg = 0.0
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_lvmf8"]
 _surfaces = [{
 "aabb": AABB(-0.0625, -0.3125, -0.0625, 0.125, 0.375, 0.125),
@@ -156,6 +167,17 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_lvmf8")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_48hfl"]
+render_priority = 0
+shader = ExtResource("3_48hfl")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/dot_pitch_px = 5.00000019
+shader_parameter/dot_softness = 2.0
+shader_parameter/contrast = 0.5
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/grid_rotate_deg = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_00e2w"]
 _surfaces = [{
@@ -191,6 +213,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_00e2w")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8n6dt"]
+render_priority = 0
+shader = ExtResource("3_48hfl")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/dot_pitch_px = 5.00000019
+shader_parameter/dot_softness = 2.0
+shader_parameter/contrast = 0.5
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/grid_rotate_deg = 0.0
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_2qjsi"]
 _surfaces = [{
 "aabb": AABB(-0.0625, -0.3125, -0.0625, 0.125, 0.375, 0.125),
@@ -224,6 +257,17 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_2qjsi")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_on5e7"]
+render_priority = 0
+shader = ExtResource("3_48hfl")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/dot_pitch_px = 5.00000019
+shader_parameter/dot_softness = 2.0
+shader_parameter/contrast = 0.5
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/grid_rotate_deg = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_3a3e3"]
 _surfaces = [{
@@ -293,6 +337,81 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8smeo")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2fodo"]
+render_priority = 0
+shader = ExtResource("3_48hfl")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/dot_pitch_px = 5.00000019
+shader_parameter/dot_softness = 2.0
+shader_parameter/contrast = 0.5
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/grid_rotate_deg = 0.0
+
+[sub_resource type="Shader" id="Shader_kqdmw"]
+code = "shader_type spatial;
+render_mode unshaded, blend_mix, cull_disabled;
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+uniform vec2 screen_size = vec2(1920.0, 1080.0); 
+
+uniform float dot_pitch_px : hint_range(1.0, 50.0) = 10.0;
+uniform float dot_softness : hint_range(0.0, 2.0) = 0.8;
+uniform float contrast     : hint_range(0.5, 2.0) = 1.0;
+uniform vec3  bg_color : source_color;
+uniform float opacity : hint_range(0.0, 1.0) = 1.0;
+uniform float grid_rotate_deg : hint_range(-45.0, 45.0) = 0.0;
+
+float luma(vec3 c) {
+    return dot(c, vec3(0.299, 0.587, 0.114));
+}
+
+void fragment() {
+    vec3 src = texture(SCREEN_TEXTURE, SCREEN_UV).rgb;
+    float Y = clamp(luma(src) * contrast, 0.0, 1.0);
+
+    // 转换到像素坐标
+    vec2 screen_px = SCREEN_UV * screen_size;
+
+    // 旋转
+    float ang = radians(grid_rotate_deg);
+    mat2 R = mat2(vec2(cos(ang), -sin(ang)),
+                  vec2(sin(ang),  cos(ang)));
+    vec2 p = R * screen_px;
+
+    // 网格中心
+    vec2 cell = floor(p / dot_pitch_px) + 0.5;
+    vec2 center = cell * dot_pitch_px;
+
+    float dist_px = length(p - center);
+
+    // 半径随亮度
+    float max_r = 0.5 * dot_pitch_px;
+    float radius = max_r * (1.0 - Y);
+
+    float dot_mask = 1.0 - smoothstep(radius - dot_softness,
+                                      radius + dot_softness,
+                                      dist_px);
+
+    vec3 halftone = mix(bg_color, src, dot_mask);
+
+    EMISSION = halftone;
+    ALBEDO   = halftone;
+    ALPHA    = opacity;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4cu6b"]
+render_priority = 0
+shader = SubResource("Shader_kqdmw")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/dot_pitch_px = 5.00000019
+shader_parameter/dot_softness = 2.0
+shader_parameter/contrast = 0.5
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/grid_rotate_deg = 0.0
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_1w7cr"]
 _surfaces = [{
 "aabb": AABB(-0.032475952, -0.27836666, -0.05625, 0.20596488, 0.29711667, 0.1125),
@@ -326,6 +445,17 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1w7cr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rnyiu"]
+render_priority = 0
+shader = ExtResource("3_48hfl")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/dot_pitch_px = 5.00000019
+shader_parameter/dot_softness = 2.0
+shader_parameter/contrast = 0.5
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/grid_rotate_deg = 0.0
 
 [sub_resource type="Animation" id="Animation_brbtb"]
 resource_name = "RESET"
@@ -711,7 +841,7 @@ mesh = SubResource("ArrayMesh_hioex")
 
 [node name="torso2" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=1584858248]
 mesh = SubResource("ArrayMesh_hioex")
-surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
+surface_material_override/0 = SubResource("ShaderMaterial_kqdmw")
 
 [node name="leg-back-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=501397941]
 transform = Transform3D(0.99999976, -0.0002482246, 0, 0.0002482246, 0.99999976, 0, 0, 0, 1, 0.2875, 0.06250001, 0.09374999)
@@ -719,7 +849,7 @@ mesh = SubResource("ArrayMesh_fy1m4")
 
 [node name="leg-back-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-back-left" unique_id=654268443]
 mesh = SubResource("ArrayMesh_fy1m4")
-surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
+surface_material_override/0 = SubResource("ShaderMaterial_ev8vp")
 
 [node name="leg-back-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=1829433095]
 transform = Transform3D(0.99999976, -0.0002482246, 0, 0.0002482246, 0.99999976, 0, 0, 0, 1, 0.2875, 0.06250001, -0.09375)
@@ -727,7 +857,7 @@ mesh = SubResource("ArrayMesh_8xfb1")
 
 [node name="leg-back-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-back-right" unique_id=190373825]
 mesh = SubResource("ArrayMesh_8xfb1")
-surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
+surface_material_override/0 = SubResource("ShaderMaterial_48hfl")
 
 [node name="leg-front-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=1200423484]
 transform = Transform3D(0.99999976, 0.0002482246, 0, -0.0002482246, 0.99999976, 0, 0, 0, 1, -0.1875, 0.06250001, 0.09374999)
@@ -735,7 +865,7 @@ mesh = SubResource("ArrayMesh_85xuv")
 
 [node name="leg-front-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-front-left" unique_id=2089700967]
 mesh = SubResource("ArrayMesh_85xuv")
-surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
+surface_material_override/0 = SubResource("ShaderMaterial_8n6dt")
 
 [node name="leg-front-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=459677523]
 transform = Transform3D(0.99999976, 0.0002482246, 0, -0.0002482246, 0.99999976, 0, 0, 0, 1, -0.1875, 0.06250001, -0.09375)
@@ -743,7 +873,7 @@ mesh = SubResource("ArrayMesh_bfgpw")
 
 [node name="leg-front-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-front-right" unique_id=945341930]
 mesh = SubResource("ArrayMesh_bfgpw")
-surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
+surface_material_override/0 = SubResource("ShaderMaterial_on5e7")
 
 [node name="neck" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=1850332062]
 transform = Transform3D(1, -0.0001654831, 0, 0.0001654831, 1, 0, 0, 0, 1, -0.18655853, 0.17299683, 6.08362e-11)
@@ -755,11 +885,11 @@ mesh = SubResource("ArrayMesh_t76cx")
 
 [node name="head" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/neck/head" unique_id=668542959]
 mesh = SubResource("ArrayMesh_t76cx")
-surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
+surface_material_override/0 = SubResource("ShaderMaterial_2fodo")
 
 [node name="neck" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/neck" unique_id=1541417689]
 mesh = SubResource("ArrayMesh_li4nj")
-surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
+surface_material_override/0 = SubResource("ShaderMaterial_4cu6b")
 
 [node name="tail" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=1397759053]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.31752405, 0.23125, 6.083836e-11)
@@ -767,7 +897,7 @@ mesh = SubResource("ArrayMesh_6u54b")
 
 [node name="tail" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/tail" unique_id=95931687]
 mesh = SubResource("ArrayMesh_6u54b")
-surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
+surface_material_override/0 = SubResource("ShaderMaterial_rnyiu")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HorseViewport/Horse" unique_id=892192791]
 libraries/ = SubResource("AnimationLibrary_otlr1")
