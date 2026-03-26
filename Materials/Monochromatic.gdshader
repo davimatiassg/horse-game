@@ -7,7 +7,7 @@ uniform vec2 screen_size = vec2(1920.0, 1080.0);
 uniform float dot_pitch_px : hint_range(1.0, 50.0) = 10.0;
 uniform float dot_softness : hint_range(0.0, 2.0) = 0.8;
 uniform float contrast     : hint_range(0.5, 2.0) = 1.0;
-uniform vec3  bg_color = vec3(1.0);
+uniform vec3  bg_color : source_color;
 uniform float opacity : hint_range(0.0, 1.0) = 1.0;
 uniform float grid_rotate_deg : hint_range(-45.0, 45.0) = 0.0;
 

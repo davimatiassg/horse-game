@@ -1,8 +1,11 @@
-[gd_scene format=4 uid="uid://d0gstbj6dlw0r"]
+[gd_scene format=4 uid="uid://bprbg7l0amu1x"]
 
-[ext_resource type="Script" uid="uid://m0gmyjvendby" path="res://Scripts/HorseBody.cs" id="1_l7yiu"]
-[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="3_hioex"]
-[ext_resource type="Shader" uid="uid://bc5a6d2eufcus" path="res://Materials/Monochromatic.gdshader" id="5_hioex"]
+[ext_resource type="Script" uid="uid://cuqpixcous477" path="res://Scripts/PickableHorse.cs" id="1_kqdmw"]
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_ev8vp"]
+[ext_resource type="Shader" uid="uid://bc5a6d2eufcus" path="res://Materials/Monochromatic.gdshader" id="3_48hfl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kqdmw"]
+radius = 38.27532
 
 [sub_resource type="Gradient" id="Gradient_hioex"]
 offsets = PackedFloat32Array(0.8618091, 1)
@@ -26,9 +29,10 @@ scale_max = 3.0
 color_ramp = SubResource("GradientTexture1D_tbxoy")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_opean"]
+radius = 32.24903
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_opean"]
-shader = ExtResource("3_hioex")
+shader = ExtResource("2_ev8vp")
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_size = 1.0
 
@@ -76,7 +80,7 @@ shadow_mesh = SubResource("ArrayMesh_ew0md")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iinjg"]
 render_priority = 0
-shader = ExtResource("5_hioex")
+shader = ExtResource("3_48hfl")
 shader_parameter/screen_size = Vector2(1920, 1080)
 shader_parameter/dot_pitch_px = 5.00000019
 shader_parameter/dot_softness = 2.0
@@ -633,25 +637,24 @@ _data = {
 &"walk": SubResource("Animation_sdjma")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_brbtb"]
-radius = 19.026299
-
-[node name="Horse" type="CharacterBody2D" unique_id=522413118 node_paths=PackedStringArray("horseSprite", "horse", "horseAnim", "cartStump", "footPrints", "trampleHitBox", "shadedParts")]
-collision_mask = 4
+[node name="Horse" type="CharacterBody2D" unique_id=522413118 node_paths=PackedStringArray("horseSprite", "horse", "horseAnim", "footPrints", "collectHitbox", "shadedParts")]
+collision_layer = 32
+collision_mask = 38
 motion_mode = 1
-script = ExtResource("1_l7yiu")
+script = ExtResource("1_kqdmw")
 horseSprite = NodePath("HorseSprite")
-horse = NodePath("HorseViewport/Horse")
+horse = NodePath("HorseViewport/Horse/animal-horse")
 horseAnim = NodePath("HorseViewport/Horse/AnimationPlayer")
-cartStump = NodePath("CartMarkerPivot")
 footPrints = NodePath("GPUParticles2D")
-trampleHitBox = NodePath("TrampleHitbox")
-shadedParts = [NodePath("HorseViewport/Horse/animal-horse/root/torso/torso2"), NodePath("HorseViewport/Horse/animal-horse/root/torso/leg-back-left/leg-back-left"), NodePath("HorseViewport/Horse/animal-horse/root/torso/leg-back-right/leg-back-right"), NodePath("HorseViewport/Horse/animal-horse/root/torso/leg-front-left/leg-front-left"), NodePath("HorseViewport/Horse/animal-horse/root/torso/leg-front-right/leg-front-right"), NodePath("HorseViewport/Horse/animal-horse/root/torso/neck/head/head"), NodePath("HorseViewport/Horse/animal-horse/root/torso/neck/neck"), NodePath("HorseViewport/Horse/animal-horse/root/torso/tail/tail")]
-deceleration = 400.0
-turnAcel = 20.0
-MaxHP = 500
+collectHitbox = NodePath("Area2D")
+shadedParts = [NodePath("HorseViewport/Horse/animal-horse/root/torso/leg-back-left/leg-back-left"), NodePath("HorseViewport/Horse/animal-horse/root/torso/leg-back-right/leg-back-right"), NodePath("HorseViewport/Horse/animal-horse/root/torso/leg-front-left/leg-front-left"), NodePath("HorseViewport/Horse/animal-horse/root/torso/leg-front-right/leg-front-right"), NodePath("HorseViewport/Horse/animal-horse/root/torso/neck/head/head"), NodePath("HorseViewport/Horse/animal-horse/root/torso/neck/neck"), NodePath("HorseViewport/Horse/animal-horse/root/torso/tail/tail"), NodePath("HorseViewport/Horse/animal-horse/root/torso/torso2")]
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=570141722]
+[node name="Area2D" type="Area2D" parent="." unique_id=624215524]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1225212031]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_kqdmw")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1827254034]
 position = Vector2(21, 0)
@@ -711,7 +714,7 @@ mesh = SubResource("ArrayMesh_hioex")
 surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
 
 [node name="leg-back-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=501397941]
-transform = Transform3D(0.9999999, -0.00024822462, 0, 0.00024822462, 0.9999999, 0, 0, 0, 1, 0.2875, 0.06250001, 0.09374999)
+transform = Transform3D(0.99999976, -0.0002482246, 0, 0.0002482246, 0.99999976, 0, 0, 0, 1, 0.2875, 0.06250001, 0.09374999)
 mesh = SubResource("ArrayMesh_fy1m4")
 
 [node name="leg-back-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-back-left" unique_id=654268443]
@@ -719,7 +722,7 @@ mesh = SubResource("ArrayMesh_fy1m4")
 surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
 
 [node name="leg-back-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=1829433095]
-transform = Transform3D(0.9999999, -0.00024822462, 0, 0.00024822462, 0.9999999, 0, 0, 0, 1, 0.2875, 0.06250001, -0.09375)
+transform = Transform3D(0.99999976, -0.0002482246, 0, 0.0002482246, 0.99999976, 0, 0, 0, 1, 0.2875, 0.06250001, -0.09375)
 mesh = SubResource("ArrayMesh_8xfb1")
 
 [node name="leg-back-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-back-right" unique_id=190373825]
@@ -727,7 +730,7 @@ mesh = SubResource("ArrayMesh_8xfb1")
 surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
 
 [node name="leg-front-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=1200423484]
-transform = Transform3D(0.9999999, 0.00024822462, 0, -0.00024822462, 0.9999999, 0, 0, 0, 1, -0.1875, 0.06250001, 0.09374999)
+transform = Transform3D(0.99999976, 0.0002482246, 0, -0.0002482246, 0.99999976, 0, 0, 0, 1, -0.1875, 0.06250001, 0.09374999)
 mesh = SubResource("ArrayMesh_85xuv")
 
 [node name="leg-front-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-front-left" unique_id=2089700967]
@@ -735,7 +738,7 @@ mesh = SubResource("ArrayMesh_85xuv")
 surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
 
 [node name="leg-front-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=459677523]
-transform = Transform3D(0.9999999, 0.00024822462, 0, -0.00024822462, 0.9999999, 0, 0, 0, 1, -0.1875, 0.06250001, -0.09375)
+transform = Transform3D(0.99999976, 0.0002482246, 0, -0.0002482246, 0.99999976, 0, 0, 0, 1, -0.1875, 0.06250001, -0.09375)
 mesh = SubResource("ArrayMesh_bfgpw")
 
 [node name="leg-front-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-front-right" unique_id=945341930]
@@ -770,14 +773,3 @@ surface_material_override/0 = SubResource("ShaderMaterial_iinjg")
 libraries/ = SubResource("AnimationLibrary_otlr1")
 next/run = &"RESET"
 blend_times = [&"RESET", &"RESET", 0.3, &"RESET", &"down", 0.3, &"RESET", &"run", 0.3, &"RESET", &"up", 0.3, &"RESET", &"walk", 0.3, &"down", &"RESET", 0.3, &"down", &"down", 0.3, &"down", &"run", 0.3, &"down", &"up", 0.3, &"down", &"walk", 0.3, &"run", &"RESET", 0.3, &"run", &"down", 0.3, &"run", &"run", 0.3, &"run", &"up", 0.3, &"run", &"walk", 0.3, &"up", &"down", 0.3, &"up", &"run", 0.3, &"up", &"walk", 0.3, &"walk", &"RESET", 0.3, &"walk", &"down", 0.3, &"walk", &"run", 0.3, &"walk", &"up", 0.3, &"walk", &"walk", 0.3]
-
-[node name="CartMarkerPivot" type="Marker2D" parent="." unique_id=2041149418]
-position = Vector2(3, -12)
-
-[node name="TrampleHitbox" type="Area2D" parent="." unique_id=1039450082]
-collision_layer = 4
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TrampleHitbox" unique_id=166363134]
-position = Vector2(0, -8)
-shape = SubResource("CircleShape2D_brbtb")

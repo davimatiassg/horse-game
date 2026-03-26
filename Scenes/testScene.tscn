@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://d0gstbj6dlw0r" path="res://Prefabs/Horse.tscn" id="1_8xinf"]
 [ext_resource type="Script" uid="uid://b73kgh5wvmtip" path="res://Scripts/CameraController.cs" id="2_4mqg7"]
 [ext_resource type="PackedScene" uid="uid://ckmpk46u064r8" path="res://Prefabs/Bird.tscn" id="3_7v7vq"]
-[ext_resource type="PackedScene" uid="uid://dm4ijxceokvay" path="res://Prefabs/Coin.tscn" id="4_arv4r"]
 [ext_resource type="Script" uid="uid://dhdnal26x865g" path="res://Scripts/EnemyManager.cs" id="5_ur507"]
 [ext_resource type="Script" uid="uid://6c8x2wrlaug0" path="res://Scripts/ScoreManager.cs" id="5_y1jas"]
 [ext_resource type="PackedScene" uid="uid://ewacfq6ojmg5" path="res://Prefabs/cart.tscn" id="6_g0r03"]
@@ -11,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://djawyqyfene3u" path="res://Prefabs/enemies/eye_enemy.tscn" id="8_da2vk"]
 [ext_resource type="PackedScene" uid="uid://bfp7r2qp64koo" path="res://Prefabs/pole.tscn" id="10_1jpt2"]
 [ext_resource type="PackedScene" uid="uid://cqqu1x5dhxt0w" path="res://Prefabs/RopeRoll.tscn" id="11_ucjvl"]
+[ext_resource type="PackedScene" uid="uid://bprbg7l0amu1x" path="res://Prefabs/PickableHorse.tscn" id="12_lmhyv"]
 [ext_resource type="PackedScene" uid="uid://id8ut4cm4u6s" path="res://Scenes/levelUpMenu.tscn" id="13_cod5x"]
 
 [node name="Node2D" type="Node" unique_id=1795436321]
@@ -43,205 +43,9 @@ script = ExtResource("2_4mqg7")
 player = NodePath("../Knight")
 Areas = Array[Rect2]([Rect2(-1600, -900, 3200, 1800), Rect2(-1600, -2700, 3200, 1800), Rect2(-1600, 900, 3200, 1800), Rect2(1600, -900, 3200, 1800), Rect2(-4800, -900, 3200, 1800)])
 
-[node name="coins" type="Node2D" parent="." unique_id=1074652633]
-
-[node name="Coin" parent="coins" unique_id=619255961 instance=ExtResource("4_arv4r")]
-position = Vector2(142, -40)
-scale = Vector2(2, 2)
-
-[node name="Coin3" parent="coins" unique_id=22643976 instance=ExtResource("4_arv4r")]
-position = Vector2(212, 14)
-scale = Vector2(2, 2)
-
-[node name="Coin4" parent="coins" unique_id=1234610014 instance=ExtResource("4_arv4r")]
-position = Vector2(256, -118)
-scale = Vector2(2, 2)
-
-[node name="Coin5" parent="coins" unique_id=505709949 instance=ExtResource("4_arv4r")]
-position = Vector2(182, 76)
-scale = Vector2(2, 2)
-
-[node name="Coin6" parent="coins" unique_id=1654761679 instance=ExtResource("4_arv4r")]
-position = Vector2(258, 58)
-scale = Vector2(2, 2)
-
-[node name="Coin7" parent="coins" unique_id=41276167 instance=ExtResource("4_arv4r")]
-position = Vector2(242, 136)
-scale = Vector2(2, 2)
-
-[node name="Coin2" parent="coins" unique_id=998462289 instance=ExtResource("4_arv4r")]
-position = Vector2(212, -89)
-scale = Vector2(2, 2)
-
-[node name="Coin8" parent="coins" unique_id=1987644028 instance=ExtResource("4_arv4r")]
-position = Vector2(303, 16)
-scale = Vector2(2, 2)
-
-[node name="Coin9" parent="coins" unique_id=48670753 instance=ExtResource("4_arv4r")]
-position = Vector2(363, 28)
-scale = Vector2(2, 2)
-
-[node name="Coin10" parent="coins" unique_id=114616331 instance=ExtResource("4_arv4r")]
-position = Vector2(335, -44)
-scale = Vector2(2, 2)
-
-[node name="Coin11" parent="coins" unique_id=1092867119 instance=ExtResource("4_arv4r")]
-position = Vector2(333, 90)
-scale = Vector2(2, 2)
-
-[node name="Coin12" parent="coins" unique_id=1118334005 instance=ExtResource("4_arv4r")]
-position = Vector2(409, 72)
-scale = Vector2(2, 2)
-
-[node name="Coin13" parent="coins" unique_id=294600129 instance=ExtResource("4_arv4r")]
-position = Vector2(393, 150)
-scale = Vector2(2, 2)
-
-[node name="Coin14" parent="coins" unique_id=1770086375 instance=ExtResource("4_arv4r")]
-position = Vector2(396, -22)
-scale = Vector2(2, 2)
-
-[node name="Coin15" parent="coins" unique_id=290616410 instance=ExtResource("4_arv4r")]
-position = Vector2(450, 23)
-scale = Vector2(2, 2)
-
-[node name="Coin16" parent="coins" unique_id=713429074 instance=ExtResource("4_arv4r")]
-position = Vector2(510, 35)
-scale = Vector2(2, 2)
-
-[node name="Coin17" parent="coins" unique_id=1769333594 instance=ExtResource("4_arv4r")]
-position = Vector2(482, -37)
-scale = Vector2(2, 2)
-
-[node name="Coin18" parent="coins" unique_id=1007991966 instance=ExtResource("4_arv4r")]
-position = Vector2(480, 97)
-scale = Vector2(2, 2)
-
-[node name="Coin19" parent="coins" unique_id=942390544 instance=ExtResource("4_arv4r")]
-position = Vector2(556, 79)
-scale = Vector2(2, 2)
-
-[node name="Coin20" parent="coins" unique_id=418614505 instance=ExtResource("4_arv4r")]
-position = Vector2(540, 157)
-scale = Vector2(2, 2)
-
-[node name="Coin21" parent="coins" unique_id=1738421112 instance=ExtResource("4_arv4r")]
-position = Vector2(543, -15)
-scale = Vector2(2, 2)
-
-[node name="Coin22" parent="coins" unique_id=556555209 instance=ExtResource("4_arv4r")]
-position = Vector2(601, 37)
-scale = Vector2(2, 2)
-
-[node name="Coin23" parent="coins" unique_id=981303537 instance=ExtResource("4_arv4r")]
-position = Vector2(661, 49)
-scale = Vector2(2, 2)
-
-[node name="Coin24" parent="coins" unique_id=211215359 instance=ExtResource("4_arv4r")]
-position = Vector2(633, -23)
-scale = Vector2(2, 2)
-
-[node name="Coin25" parent="coins" unique_id=1797411083 instance=ExtResource("4_arv4r")]
-position = Vector2(631, 111)
-scale = Vector2(2, 2)
-
-[node name="Coin26" parent="coins" unique_id=854938149 instance=ExtResource("4_arv4r")]
-position = Vector2(707, 93)
-scale = Vector2(2, 2)
-
-[node name="Coin27" parent="coins" unique_id=382340180 instance=ExtResource("4_arv4r")]
-position = Vector2(691, 171)
-scale = Vector2(2, 2)
-
-[node name="Coin28" parent="coins" unique_id=991647531 instance=ExtResource("4_arv4r")]
-position = Vector2(694, -1)
-scale = Vector2(2, 2)
-
-[node name="Coin29" parent="coins" unique_id=1046203519 instance=ExtResource("4_arv4r")]
-position = Vector2(324, -223)
-scale = Vector2(2, 2)
-
-[node name="Coin30" parent="coins" unique_id=1306915552 instance=ExtResource("4_arv4r")]
-position = Vector2(384, -211)
-scale = Vector2(2, 2)
-
-[node name="Coin31" parent="coins" unique_id=411473085 instance=ExtResource("4_arv4r")]
-position = Vector2(356, -283)
-scale = Vector2(2, 2)
-
-[node name="Coin32" parent="coins" unique_id=1521768160 instance=ExtResource("4_arv4r")]
-position = Vector2(354, -149)
-scale = Vector2(2, 2)
-
-[node name="Coin33" parent="coins" unique_id=718471705 instance=ExtResource("4_arv4r")]
-position = Vector2(430, -167)
-scale = Vector2(2, 2)
-
-[node name="Coin34" parent="coins" unique_id=2106642819 instance=ExtResource("4_arv4r")]
-position = Vector2(414, -89)
-scale = Vector2(2, 2)
-
-[node name="Coin35" parent="coins" unique_id=1240924205 instance=ExtResource("4_arv4r")]
-position = Vector2(417, -261)
-scale = Vector2(2, 2)
-
-[node name="Coin36" parent="coins" unique_id=268726186 instance=ExtResource("4_arv4r")]
-position = Vector2(475, -209)
-scale = Vector2(2, 2)
-
-[node name="Coin37" parent="coins" unique_id=50431936 instance=ExtResource("4_arv4r")]
-position = Vector2(535, -197)
-scale = Vector2(2, 2)
-
-[node name="Coin38" parent="coins" unique_id=1233456395 instance=ExtResource("4_arv4r")]
-position = Vector2(507, -269)
-scale = Vector2(2, 2)
-
-[node name="Coin39" parent="coins" unique_id=1503859302 instance=ExtResource("4_arv4r")]
-position = Vector2(505, -135)
-scale = Vector2(2, 2)
-
-[node name="Coin40" parent="coins" unique_id=1154783909 instance=ExtResource("4_arv4r")]
-position = Vector2(581, -153)
-scale = Vector2(2, 2)
-
-[node name="Coin41" parent="coins" unique_id=258721095 instance=ExtResource("4_arv4r")]
-position = Vector2(565, -75)
-scale = Vector2(2, 2)
-
-[node name="Coin42" parent="coins" unique_id=968955457 instance=ExtResource("4_arv4r")]
-position = Vector2(568, -247)
-scale = Vector2(2, 2)
-
 [node name="Knight" parent="." unique_id=522413118 groups=["player"] instance=ExtResource("1_8xinf")]
 position = Vector2(-39, 0)
 turnAcel = 10.0
-
-[node name="birds" type="Node2D" parent="." unique_id=1848752626]
-
-[node name="Bird2" parent="birds" unique_id=1515428600 instance=ExtResource("3_7v7vq")]
-position = Vector2(-287, -31)
-
-[node name="Bird3" parent="birds" unique_id=1888835019 instance=ExtResource("3_7v7vq")]
-position = Vector2(-307, -3)
-
-[node name="Bird4" parent="birds" unique_id=331385028 instance=ExtResource("3_7v7vq")]
-position = Vector2(-333, -45)
-
-[node name="Bird" parent="birds" unique_id=2085737725 instance=ExtResource("3_7v7vq")]
-position = Vector2(-189, 168)
-
-[node name="Bird5" parent="birds" unique_id=1387344853 instance=ExtResource("3_7v7vq")]
-position = Vector2(-397, 167)
-
-[node name="Bird6" parent="birds" unique_id=2076560317 instance=ExtResource("3_7v7vq")]
-position = Vector2(-417, 195)
-
-[node name="Bird7" parent="birds" unique_id=1282277368 instance=ExtResource("3_7v7vq")]
-position = Vector2(-443, 153)
-
-[node name="Bird8" parent="birds" unique_id=294920075 instance=ExtResource("3_7v7vq")]
-position = Vector2(-118, -249)
 
 [node name="enemy_eye" parent="." unique_id=222694737 instance=ExtResource("8_da2vk")]
 position = Vector2(167, 226)
@@ -258,3 +62,11 @@ position = Vector2(55, 143)
 
 [node name="RopeRoll2" parent="." unique_id=2115216851 instance=ExtResource("11_ucjvl")]
 position = Vector2(85, 66)
+
+[node name="extraHorse" parent="." unique_id=1593898263 instance=ExtResource("12_lmhyv")]
+position = Vector2(-305, -49)
+mainColor = Color(0.972549, 0, 0.85490197, 1)
+
+[node name="Horse" parent="." unique_id=1186690306 instance=ExtResource("12_lmhyv")]
+position = Vector2(739, 29)
+mainColor = Color(1, 0, 0, 0)

@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public interface IPlayer {}
 
@@ -19,15 +20,15 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 
 	[Export] Area2D trampleHitBox;
 
-
+	[Export] Godot.Collections.Array<MeshInstance3D> shadedParts;
 
 
 
 	[ExportGroup("Stats")]
-	[Export] float speed = 500.0f;
-	[Export] float aceleration = 300.0f;
-	[Export] float deceleration = 100.0f;
-	[Export] float turnAcel = 50.0f;
+	[Export] public float speed = 500.0f;
+	[Export] public float aceleration = 300.0f;
+	[Export] public float deceleration = 100.0f;
+	[Export] public float turnAcel = 50.0f;
 
 	[Export] int trampleDamage = 50;
 	[Export] public int MaxHP { get; set; }
@@ -39,8 +40,22 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 	[Export] float internalSpeed;
 
 	public List<Cart> carts = new();
+
+	public Stack<PickableHorse> horses = new();
     
-   [Export] public int HP { get; set; }
+	private bool dying = false;
+	private int _HP;
+   [Export] public int HP 
+   {
+		get => _HP;
+    	set
+		{
+			_HP = value;
+			if(value <= 0 && !dying)
+				HorseDie();
+			GD.Print($"CavaloHP:{_HP}");
+		} 
+	}
 
     public override void _Ready()
 	{
@@ -50,7 +65,9 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 
     public override void _Process(double delta)
     {
+		
         base._Process(delta);
+		if(dying) return;
 		if (Velocity != Vector2.Zero)
 			horse.LookAt((-horse.Transform.Basis.Z).MoveToward(new Vector3(-Velocity.Y, 0, Velocity.X), turnAcel * (float)delta));
 
@@ -59,6 +76,7 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if(dying) return;
 		Vector2 velocity = Velocity;
 
 		Vector2 inputDirection = Input.GetVector("game_left", "game_right", "game_up", "game_down");
@@ -86,10 +104,10 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 
 	public void Animate()
 	{
-		if(Velocity == Vector2.Zero)
+		if(Velocity.LengthSquared() <= 1)
 		{
-			horseAnim.Play("down");
-			horseAnim.Stop();
+			horseAnim.Play("RESET");
+	
 		}
 		else if(Velocity.Length() < speed*0.6f)
 		{
@@ -102,6 +120,15 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 			footPrints.Emitting = true;
 			footPrints.Position = directionalForce;
 			horseAnim.Play("run");
+		}
+	}
+
+	public void ChangeColor(Color newColor)
+	{
+		foreach(var part in shadedParts)
+		{
+			ShaderMaterial material = (ShaderMaterial)part.GetSurfaceOverrideMaterial(0);
+			material.SetShaderParameter("bg_color", newColor);
 		}
 	}
 
@@ -166,8 +193,53 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 		carts.RemoveAt(index);
 		return;
 	}
+#endregion
+
+#region additionalHorseManagement
+
+	public void AddHorse(PickableHorse horse)
+	{
+		horses.Push(horse);
+	}
+
+	public void HorseDie()
+	{
+		dying = true;
+		horseAnim.Play("down");
+		if(horses.Count <= 0)
+		{
+			
+			TrueDeath();
+			return;
+		}
+
+		ProcessMode = ProcessModeEnum.Always;
+		GetTree().Paused = true;
+		
+		var newHorse = horses.Pop();
+		Tween deathTween = CreateTween();
+		deathTween.TweenInterval(1);
+		deathTween.TweenCallback(Callable.From(() =>
+		{
+			horseAnim.Play("RESET", 0);
+			GlobalPosition = newHorse.GlobalPosition;
+			horse.Rotation = newHorse.horse.Rotation;
+			ProcessMode = ProcessModeEnum.Inherit;
+			GetTree().Paused = false;
+			ChangeColor(newHorse.mainColor);
+			newHorse.QueueFree();
+			dying = false;
+			HP = MaxHP;
+		}));
 
 
+	}
+
+	public void TrueDeath()
+	{
+		GD.Print("MORREU");
+	}
 
 #endregion
+
 }
