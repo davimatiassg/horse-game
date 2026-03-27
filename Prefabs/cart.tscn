@@ -55,7 +55,7 @@ shader_parameter/screen_size = Vector2(1920, 1080)
 shader_parameter/dot_pitch_px = 10.0
 shader_parameter/dot_softness = 0.8
 shader_parameter/contrast = 1.0
-shader_parameter/bg_color = Vector3(0, 0.4, 0.7)
+shader_parameter/bg_color = Color(0, 0, 0, 1)
 shader_parameter/opacity = 1.0
 shader_parameter/grid_rotate_deg = 0.0
 
@@ -100,7 +100,7 @@ shader_parameter/screen_size = Vector2(1920, 1080)
 shader_parameter/dot_pitch_px = 10.0
 shader_parameter/dot_softness = 0.8
 shader_parameter/contrast = 1.0
-shader_parameter/bg_color = Vector3(1, 1, 1)
+shader_parameter/bg_color = Color(0, 0, 0, 1)
 shader_parameter/opacity = 1.0
 shader_parameter/grid_rotate_deg = 0.0
 
@@ -150,7 +150,7 @@ stump = NodePath("Stump")
 sprite = NodePath("Sprite2D")
 cartModel = NodePath("SubViewport/Node3D/cart")
 TurretPlace = NodePath("TurretPlace")
-_HP = 50
+_HP = 500
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824190745]
 material = SubResource("ShaderMaterial_24e42")

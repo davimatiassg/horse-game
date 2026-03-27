@@ -50,7 +50,20 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 		get => _HP;
     	set
 		{
+			var displacement = value - _HP;
+			var text = displacement <= 0 ? $"[color=red]{displacement}[/color]" : $"[color=green]{displacement}[/color]";
+			
+			var number = DynamicUIManager.SpawnLabel(text, GlobalPosition);
+
+			var tween = number.CreateTween();
+
+			tween.TweenProperty(number, "modulate:a", 0, 0.5f);
+
+			tween.TweenCallback(Callable.From(() => number.CallDeferred(MethodName.QueueFree)));
+
 			_HP = value;
+			if(value > MaxHP)
+				_HP = MaxHP;
 			if(value <= 0 && !dying)
 				HorseDie();
 			GD.Print($"CavaloHP:{_HP}");
@@ -135,6 +148,8 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
     public void TakeDamage(int damage)
     {
         HP -= damage;
+
+		
     }
 
 

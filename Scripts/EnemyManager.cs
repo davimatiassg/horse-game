@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Godot;
 using Godot.Collections;
@@ -16,7 +17,7 @@ public partial class EnemyManager : Node
     [ExportGroup("Stats")]
     [Export] public int credits;
 
-    [Export] public int step = 5;
+    [Export] public int difficulty = 5;
 
 
     [Export] public float chanceConstant = 0.95f;
@@ -54,9 +55,11 @@ public partial class EnemyManager : Node
         else
         {
             chance *= chanceConstant;
-            credits += step;
+            credits += difficulty;
         }
-    }
+    }  
+
+    const float ELITE_SPAWN_CHANCE = 0.05f;
 
     private void TriggerSpawn()
     {
@@ -67,21 +70,43 @@ public partial class EnemyManager : Node
             Node2D enemyInstance = enemy.Instantiate<Node2D>();
             GetTree().Root.CallDeferred(MethodName.AddChild, enemyInstance);
             
-            enemyInstance.GlobalPosition = player.GlobalPosition + new Vector2(rng.NextSingle() - 0.5f, rng.NextSingle() - 0.5f).Normalized() * 1280;
+            enemyInstance.GlobalPosition = player.GlobalPosition + new Vector2(rng.NextSingle() - 0.5f, rng.NextSingle() - 0.5f).Normalized() * 640;
+        
+            if(rng.NextSingle() <= ELITE_SPAWN_CHANCE)
+            {
+                enemyInstance.Scale = Vector2.One*3;
+                if(enemyInstance is Enemy enemyController)
+                {
+                    enemyController.MaxHP *= 3;
+                }
+            }
+        
+        
         }
+
+
+
+
     }
 
+    const int MAX_BUY_ATTEMPTS = 16;
     private List<PackedScene> BuyEnemies()
     {
         List<PackedScene> enemiesToSpawn = new();
         int remainingCredits = credits;
-        foreach(var enemySpawn in enemies)
-        {
-            int parcelToSpend = (int)(remainingCredits * rng.NextSingle());
-            int ammountOfEnemies = parcelToSpend / enemySpawn.Value;
-            remainingCredits -= ammountOfEnemies * enemySpawn.Value;
 
-            for(int i = 0; i < ammountOfEnemies; i++) enemiesToSpawn.Add(enemySpawn.Key);
+        int buyAttempts = 0;
+        while(remainingCredits > 0 && buyAttempts < MAX_BUY_ATTEMPTS)
+        {
+            int index = rng.Next()%enemies.Count;
+            PackedScene enemy = enemies.Keys.ToArray()[index];
+            int value = enemies[enemy];
+            if(value <= remainingCredits)
+            {
+                enemiesToSpawn.Add(enemy);
+                remainingCredits -= value;
+            }
+            else buyAttempts++;
         }
 
         credits = remainingCredits;

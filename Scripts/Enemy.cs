@@ -30,12 +30,16 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
         set
         {
             var displacement = value - _HP;
-            var number = damageLabel.Instantiate<DamageNumber>();
+            var text = displacement <= 0 ? $"[shake]{displacement}[/shake]" : $"[color=green]{displacement}[/color]";
             
-            number.Text = displacement <= 0 ? $"[shake]{displacement}[/shake]" : $"[color=green]{displacement}[/color]";
+            var number = DynamicUIManager.SpawnLabel(text, GlobalPosition);
+
+            var tween = number.CreateTween();
+
+            tween.TweenProperty(number, "modulate:a", 0, 0.5f);
+
+            tween.TweenCallback(Callable.From(() => number.CallDeferred(MethodName.QueueFree)));
             
-            GetTree().Root.CallDeferred(MethodName.AddChild, number);
-            number.SetGlobalPosition(GlobalPosition + Vector2.Up*64);
             
             _HP = value;
             if(_HP < 0) Die();

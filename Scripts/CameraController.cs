@@ -5,7 +5,6 @@ using Godot.Collections;
 [Tool]
 public partial class CameraController : Camera2D
 {
- 
 
     [Export] private Node2D player;
 

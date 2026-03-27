@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://d0gstbj6dlw0r" path="res://Prefabs/Horse.tscn" id="1_8xinf"]
 [ext_resource type="Script" uid="uid://b73kgh5wvmtip" path="res://Scripts/CameraController.cs" id="2_4mqg7"]
+[ext_resource type="Script" uid="uid://dpqy2sv1pdnys" path="res://Scripts/DynamicUIManager.cs" id="2_nar4k"]
+[ext_resource type="PackedScene" uid="uid://brsangs6gogei" path="res://Prefabs/effects/damage_number.tscn" id="3_6f2q3"]
 [ext_resource type="PackedScene" uid="uid://ckmpk46u064r8" path="res://Prefabs/Bird.tscn" id="3_7v7vq"]
 [ext_resource type="Script" uid="uid://dhdnal26x865g" path="res://Scripts/EnemyManager.cs" id="5_ur507"]
 [ext_resource type="Script" uid="uid://6c8x2wrlaug0" path="res://Scripts/ScoreManager.cs" id="5_y1jas"]
@@ -19,6 +21,14 @@
 
 [node name="Control" parent="CanvasLayer" unique_id=1208177377 instance=ExtResource("13_cod5x")]
 visible = false
+
+[node name="Dynamic UI Elements" type="Control" parent="CanvasLayer" unique_id=2056221419]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_nar4k")
+label = ExtResource("3_6f2q3")
 
 [node name="ScoreManager" type="Node" parent="." unique_id=1366451150 node_paths=PackedStringArray("player", "charrietBuyMenu")]
 script = ExtResource("5_y1jas")

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://brsangs6gogei"]
+
+[ext_resource type="FontFile" uid="uid://b2xcnmmoxe6y" path="res://Fonts/Minecraft.ttf" id="2_3fai3"]
+
+[node name="DamageNumber" type="RichTextLabel" unique_id=390747323]
+z_index = 50
+layout_direction = 1
+anchors_preset = -1
+offset_left = -178.0
+offset_top = -6.0
+offset_right = 179.0
+offset_bottom = 9.0
+theme_override_fonts/normal_font = ExtResource("2_3fai3")
+bbcode_enabled = true
+text = "[color=red] lol [/color]"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1

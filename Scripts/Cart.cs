@@ -22,13 +22,26 @@ public partial class Cart : CharacterBody2D, IHittable, IHealthPoints
 
     [Export] private float maxDistance = 96;
 
-    public int MaxHP { get; set; }
+    public int MaxHP { get; set; } = 500;
     [Export] private int _HP;
     public int HP { get => _HP;
 
         set
         {
+            var displacement = value - _HP;
+			var text = displacement <= 0 ? $"[color=red]{displacement}[/color]" : $"[color=green]{displacement}[/color]";
+			
+			var number = DynamicUIManager.SpawnLabel(text, GlobalPosition);
+
+			var tween = number.CreateTween();
+
+			tween.TweenProperty(number, "modulate:a", 0, 0.5f);
+
+			tween.TweenCallback(Callable.From(() => number.CallDeferred(MethodName.QueueFree)));
+
             _HP = value;
+            if(value > MaxHP)
+                _HP = MaxHP;
             if(_HP <= 0)
             {
                 OnDie?.Invoke();

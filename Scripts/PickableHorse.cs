@@ -51,7 +51,6 @@ public partial class PickableHorse : CharacterBody2D
                 velocity /= 2;
         }
         
-
         Velocity = velocity;
 
         MoveAndSlide();
@@ -87,8 +86,6 @@ public partial class PickableHorse : CharacterBody2D
 			horseAnim.Play("run");
 		}
 	}
-
-
 
 	public void OnPlayerHit(Node2D body)
 	{
