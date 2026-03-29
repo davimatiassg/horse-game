@@ -1,0 +1,792 @@
+[gd_scene format=4 uid="uid://b4qorxdd1k2on"]
+
+[ext_resource type="Script" uid="uid://bt64kui5bjpse" path="res://Scripts/TitleScreen.cs" id="1_vfidw"]
+[ext_resource type="Texture2D" uid="uid://btj2g3biuu40i" path="res://Sprites/title_background.png" id="1_w6dbl"]
+[ext_resource type="PackedScene" uid="uid://blt8fq7kwb04w" path="res://Scenes/testScene.tscn" id="2_0seh3"]
+[ext_resource type="Shader" uid="uid://bc5a6d2eufcus" path="res://Materials/Monochromatic.gdshader" id="2_ap1vi"]
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_vfidw"]
+[ext_resource type="Shader" uid="uid://dcr2y1v761846" path="res://Materials/disapearing.gdshader" id="2_xjx1i"]
+[ext_resource type="FontFile" uid="uid://b2xcnmmoxe6y" path="res://Fonts/Minecraft.ttf" id="3_vfidw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0seh3"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2m3fh"]
+viewport_path = NodePath("Control/maskViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qh5h7"]
+resource_local_to_scene = true
+shader = ExtResource("2_xjx1i")
+shader_parameter/mask_texture = SubResource("ViewportTexture_2m3fh")
+shader_parameter/base_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_j1m1s"]
+viewport_path = NodePath("Control/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6uiy5"]
+shader = ExtResource("2_vfidw")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_345hk"]
+resource_name = "colormap"
+cull_mode = 2
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ew0md"]
+_surfaces = [{
+"aabb": AABB(-0.25, 6.0787285e-11, -0.15625, 0.6, 0.3125, 0.3125),
+"format": 34896613377,
+"index_count": 264,
+"index_data": PackedByteArray("AAABABgAAwABAAAAGAABAAMAAAAEAAMAGQADAAQAAwAZABoABAAbABkAGgAZABsAGgAGAAMAAwAGABgAGwAcABoABgAaABwABAAFABsAFgAcABsAGwAFABYABQAEAB0ABAAAAB0AHQAeAAUABQAeAAcAHwAeAB0AHgAfAAcAIAAdAAAAHQAgAB8AHwAgAA8ADwAHAB8ABQAHACEAIQAHAA8AFgAFACEAAAAJACAAIAAJAA8AIgAJAAAAGAAiAAAADwAJAA4AIgAOAAkADgAQAA8ADwAQACEAEAAjACEAIQAjACQAIwAQABMAEwAkACMAJAAlACEAJQAkABMAFgAhACUAEAAOABEAEAARABMAFgAlABUAFQAlABMAFAATABEAEwAUABUADgAmABEADgAiACYAEQASABQAEgARACYAFQAUACcAFAASACcAJwAoABUAFQAoACkAKQAWABUAKAAnACoAKgApACgAKgAnABIAFwAWACkAKQAqABcAHAAWABcAEgANACoAKgANABcADQASACYAHAAXAAYABgAXAA0ADQAMAAYADAANACYAKwAGAAwAJgArAAwABgArABgAKwAmAAoAIgAKACYACgALACsAKwALABgAIgAsAAoACwAKACwACAAsACIACAAiABgALAAtAAsALQAsAAgACwAtABgACAACAC0AAgAYAC0AGAACAAgA"),
+"lods": [0.14060795, PackedByteArray("AAABAAIAAwABAAAAAgABAAMAAAAEAAMABAAFAAMABQAEAAAABgADAAUAAwAGAAIABwAFAAAAAgAIAAAACAAJAAAAAAAJAAcAAgAKAAgACgACAAsABgALAAIACgALAAwACwAGAAwADQAMAAYADAANAAoACAAOAAkADgAIAAoADwAJAA4ABwAJAA8ADgAQAA8ADwAQAAcADgAKABEAEAAOABEAEgARAAoADQASAAoAEAARABMABwAQABMAEQASABQAFAATABEAFQAUABIAEwAUABUAFQASAA0AEwAVAAcAFgAHABUADQAWABUAFgAFAAcAFgAGAAUABgAXAA0AFgANABcABgAWABcA")],
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 46,
+"vertex_data": PackedByteArray("AABmZmZmAAAAAGZmAAAAAKoa//8AAAAAVTVmZgAAAABVNWZmZmYAAFU1AABmZgAAqcpmZgAAAABVNQAAmZkAAKoa/////wAAAABmZpmZAABU5f////8AAFTl//8AAAAA//9mZgAAAAD//2ZmZmYAAAAAZmb//wAAVTVmZpmZAABVNWZm//8AAP//Zmb//wAA//9mZpmZAACpymZm//8AAKnKZmaZmQAAqcoAAJmZAACpygAAZmYAAKnKZmZmZgAAAADMzAAAAABVNfUoAAAAAKnK9SgAAAAAVTUAAPUoAACpygAA9SgAAAAAMzNmZgAAqhoAAGZmAACqGgAAmZkAAAAAMzOZmQAAVTUAAAnXAAAAAMzM//8AAFU19Sj//wAAqcr1KP//AACpygAACdcAAP//zMz//wAA//8zM5mZAABU5QAAmZkAAFTlAABmZgAA//8zM2ZmAAD//8zMAAAAAP9/hOv//wAA/3+E6wAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_6uiy5"]
+resource_name = "animal-horse_torso"
+_surfaces = [{
+"aabb": AABB(-0.25, 6.0787285e-11, -0.15625, 0.6, 0.3125, 0.3125),
+"attribute_data": PackedByteArray("/7eO4v+3juL/tzLT/7cy0/+3juL/t47i/7fL7P+3MtP/tzLT/7eO4v+3juL/t47i/7eO4v+3y+z/t8vs/7eO4v+3y+z/t47i/7eO4v+3juL/tzLT/7cy0/+3juL/t47i/7cy0/+3juL/tzLT/7eO4v+3juL/t47i/7fL7P+3juL/t47i/7eO4v+3juL/t47i/7eO4v+3y+z/t47i/7eO4v+3juL/t47i/7eO4v+3juL/t47i/7eO4v+3y+z/t47i/7eO4v+3juL/t8vs/7eO4v+3juL/t47i/7eO4v+3juL/t8vs/7eO4v+3juL/t8vs/7eO4v+3juL/t8vs/7eO4v+3juL/t47i/7fL7P+3juL/t1HY/7dR2P+3ref/t63n/7fL7P+3s+j/t8vs/7ez6P+3y+z/t63n/7ez6P+3y+z/t8vs/7et5/+3ref/t63n/7dR2P+3Udj/t8vs/7et5/+3ref/t8vs/7fL7P+3y+z/t63n/7et5/+3ref/t8vs/7et5/+3y+z/t7Po/7fL7P+3Udj/t1HY/7c+1f+3PtX/t1HY/7cy0/+3MtP/t1HY/7cy0/+3MtP/tz7V/7c+1f+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7dR2P+3PtX/t1HY/7ez6P+3s+j/t7Po/7ez6P+3Udj/t1HY/7c+1f+3s+j/t8vs/7fL7P+3s+j/t8vs/7fL7P+3s+j/t7Po"),
+"format": 34896613399,
+"index_count": 264,
+"index_data": PackedByteArray("AAABAEQARABFAAAARQAEAAAARQAFAAQAAAAEAEYARgBHAAAASAAeABwAHAAdAEgAHQBJAEgAHwAgACEAIQAiAB8AIwAkACUAJQBKACMASgBLACMAJgAnACgAKAApACYAKgArACwALAAtACoAMAAuAEwATABNADAATQAvADAATgAzADEAMQBPAE4AMQAyAE8ANAA1ADYANgA3ADQAOgA4AFAAUABRADoAUQA5ADoAUgBTAAsACwAKAFIACgALAFQACwAMAFQACQAKAFQAVABVAAkAVgBXAFgAWABZAFYAWgBbAFwAXABdAFoAXgBfADsAOwA8AF4APAA9AF4AYABhAD4APgA/AGAAPwBAAGAAQQBiAGMAYwBDAEEAYwBCAEMAZABlAAcABwAIAGQAZgBnAAMAAwACAGYAaABpAGoAagBrAGgAbABtAG4AbgBvAGwADQBwAHEAcQAOAA0ADgByAA0ADgBzAHIADgAQAHMAEAAGAHMAdAAQAA4ADgB1AHQAEAB2AAYAdgB3AAYAGAB4AHkAGgB5AHgAegAaAHgAFgB6AHgAegAWABsAFwAWAHgAeAAZABcAewAWABcAFwB8AHsADwB9AH4AfgARAA8AEQASAA8AEQATABIAEwB/ABIAEwCAAH8AgAAUAH8AgACBABQAFQCBAIAAggCDAIQAhACFAIIAhgCHAIgAiACJAIYA"),
+"lods": [0.14060795, PackedByteArray("AAABAAIAAgADAAAAAwAEAAAAAwAFAAQAAAAEAAYAAgAHAAMABwACAAgABwAIAAkACQAKAAcACgALAAcACwAMAAcADQALAAoACgAOAA0ADgAGAA0ADwANAAYADgAQAAYABgAQAAAABgARAA8AEQASAA8AEQATABIAEwAUABIAEwAVABQADgAWABAAFgAXABAAFwAWABgAGAAZABcAFgAaABgAGgAWABsAHAAdAB4AHwAgACEAIQAiAB8AIwAkACUAJgAnACgAKAApACYAKgArACwALAAtACoALgAvADAAMQAyADMANAA1ADYANgA3ADQAOAA5ADoAOwA8AD0APgA/AEAAQQBCAEMA")],
+"material": SubResource("StandardMaterial3D_345hk"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 138,
+"vertex_data": PackedByteArray("AABmZmZm/78AAGZmAAD/v6oa//8AAL3dqhr/////vd0AAGZmmZn/vwAAZmb///+/VTUAAJmZ/79U5f/////VzVTl//8AANXN//9mZgAA/7///2ZmZmb/v///ZmaZmf+///9mZv///7+pygAAmZn/v6nKAABmZv+/qcpmZv//AIBVNQAAZmb/v1U1Zmb//wCA//9mZv//AIAAAGZm//8AgFTl/////wCAqhr/////AICpymZmAAD//1U1ZmYAAP//qhr//wAA//8AAGZmAAD//1Tl//8AAP////9mZgAA//9VNWZmmZn/v1U1Zmb///+/VTUAAJmZ/78AAGZmZmb/v1U1ZmZmZv+/VTVmZgAA/78AAGZmAAD/v6nKZmb///+/qcpmZpmZ/7+pygAAmZn/v///ZmZmZv+///9mZgAA/7+pymZmAAD/v6nKZmZmZv+/AABmZv///79VNWZm////v1U1ZmaZmf+/AABmZpmZ/7+pygAAZmb/////ZmZmZv//qcpmZmZm//9VNWZmZmb/v1U1AABmZv+/VTVmZgAA/7///2Zm////v///ZmaZmf+/qcpmZpmZ/7+pymZm////v1U1AACZmQCAAABmZpmZAIBVNWZmmZkAgKnKAACZmQCAqcpmZpmZAID//2ZmmZkAgFU1AABmZv//VTVmZmZm//8AAGZmZmb//6nKZmYAAP+/qcoAAGZm/7+pymZmZmb/vwAAzMwAAIzBAADMzP//jMEAADMzmZmMwQAAMzNmZozBVTUAAAnX/79VNfUo////v6nKAAAJ1/+/qcr1KP///79U5QAAZmb/////MzNmZv//VTX1KAAA/79VNQAA9Sj/v6oaAACZmQCAAAAzM5mZAID//zMzZmaMwf//MzOZmYzB///MzP//jMH//8zMAACMwVTlAACZmcjM//8zM5mZjMH//zMzZmaMwVTlAABmZsjMqhoAAJmZyMyqGgAAZmbIzAAAMzNmZozBAAAzM5mZjMH//zMzmZkAgFTlAACZmQCAAAAzM2Zm//+qGgAAZmb//6nK9SgAAP+/qcoAAPUo/7///8zMAACMwf//zMz//4zB/3+E6wAAVNX/f4Tr//9U1QAAzMwAAIzBqhr//wAA1c2qGv/////VzQAAzMz//4zBVOX//wAAvd1U5f////+93f9/hOv//1TV/3+E6wAAVNVU5QAAmZmMwVTlAABmZozBqcoAAAnX/69VNQAACdf/r1U1AAD1KP/PqcoAAPUo/8+qGgAAZmaMwaoaAACZmYzBAADMzAAA////f4TrAAD/////zMwAAP//qcr1KAAA//9VNfUoAAD//6nK9Sj///+PVTX1KP///4///8zM//8AgAAAzMz//wCA/3+E6///AICpyvUo////j6nKAAAJ1/+vVTUAAAnX/69VNfUo////j1U1AAD1KP//qcoAAPUo//+pyvUoAAD//1U19SgAAP///3////9///+S3kkvkt5JL/9/////f///AAD/f/bKeyX2ynsl/38AAP9/AAD/fwAA/38AAAAA/38AAP9//3///wAA/3//f////3////9/////f////3////9/////f////3////9/////f////3////9/////f////3///wAA/38AAP9/AAD/fwAA/3//fwAA/38AAP9/AAAAAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/f/9/////f////3////9/////f////3///wAA/38AAP9/AAD/fwAA/3//f////3////9/////f////3////9/////f////3////9/////fwAA/38AAP9/AAA2kpHbNpKR25FbyO2RW8jt/3////9/////fwAA/38AAP9/////f////3////9/////f////3///8htbSTIbW0kbaQ2Em2kNhJkWzZJyG1tJMhtbSRkWzZJyTZj28k2Y9uRW8jtkVvI7f9/////f////3////9/////fwAA/38AAG2kNhJtpDYSVNWqKlTVqio2kpHbe6UHtXulB7U2kpHbSa9roUmva6GqqqqqqqqqqjYSkVs2EpFbAAD/fwAA/38AAP9/AAD/f20kNpJtJDaS/3////9/////f///O5X//zuV//8AAP9/AAD/f/9/////f////3///wAA/38AAP9/AAD/fwAA/39Es///RLP//zuV//87lf//")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ew0md")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xjx1i"]
+render_priority = 0
+shader = ExtResource("2_ap1vi")
+shader_parameter/screen_size = Vector2(1, 1)
+shader_parameter/dot_pitch_px = 5.150000197125
+shader_parameter/dot_softness = 0.0
+shader_parameter/contrast = 2.0
+shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/grid_rotate_deg = 10.838002652305
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_d3loy"]
+_surfaces = [{
+"aabb": AABB(-0.0625, -0.3125, -0.0625, 0.125, 0.375, 0.125),
+"format": 34896613377,
+"index_count": 72,
+"index_data": PackedByteArray("BQABAAAAAAABAAIAAgABAAUAAgADAAAAAAADAAQABAADAAIAAAAHAAUABAAHAAAABQAGAAIAAgAGAAQABwAIAAUABgAFAAgABwAJAAgACQAHAAQACQAKAAgABgALAAQABAALAAkADAAKAAkACQALAAwADQAIAAoACAANAAYACgAMAA0ABgANAAsADQAMAAsA"),
+"lods": [0.107585415, PackedByteArray("BQABAAAAAgABAAUAAAABAAIABQAGAAIAAAAHAAUABgAFAAcAAgADAAAABwAEAAYAAgAGAAQABAAHAAAABAADAAIAAAADAAQA"), 0.2264753, PackedByteArray("AAABAAIAAgABAAAAAgADAAAAAAADAAQABAADAAIAAAAEAAIA")],
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 14,
+"vertex_data": PackedByteArray("/x8AAP//AAD/3wAA//8AAP/fAAAAAAAA/x8AAAAAAAAAAFTVAAAAAP//VNX//wAA//9U1QAAAAAAAFTV//8AAIHaf/P//wAAfSV/8///AAD/f/////8AAH0lf/MAAAAA/3///wAAAACB2n/zAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0seh3"]
+resource_name = "animal-horse_leg-back-left"
+_surfaces = [{
+"aabb": AABB(-0.0625, -0.3125, -0.0625, 0.125, 0.375, 0.125),
+"attribute_data": PackedByteArray("/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t7Ha/7ex2v+3MtP/t7Ha/7ex2v+3MtP/tzLT/7ex2v+3sdr/t7Ha/7ex2v+3MtP/tzLT/7fL7P+3y+z/t7Ha/7ex2v+3y+z/t8vs/7ex2v+3sdr/tzLT"),
+"format": 34896613399,
+"index_count": 72,
+"index_data": PackedByteArray("DAANAA4ADgAPAAwADwAUAAwADwAVABQAFQAWABQAEAARAAQABAAFABAABwAXABgAGAASAAcAAAABAAIAAgADAAAAGQAaABsAGwAcABkAHQAeAB8AHwAgAB0ABgAIACEAIQAiAAYAIwAkACUAJQAmACMACQAKAAsACwATAAkAEwAnAAkAEwAoACcAKAApACcA"),
+"lods": [0.107585415, PackedByteArray("DAANAA4ADgAPAAwAEAARAAQABAAFABAAEQAQABIAEgAHABEABwASAAYABgAIAAcAAAABAAIAAgADAAAACQAKAAsACwATAAkA"), 0.2264753, PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQABgAIAAcACQAKAAsA")],
+"material": SubResource("StandardMaterial3D_345hk"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 42,
+"vertex_data": PackedByteArray("/x8AAP///7//3wAA////v//fAAAAAP+//x8AAAAA/7//3wAAAAAFwP/fAAD//wXA/x8AAP//BcAAAFTVAABLwP8fAAAAAAXAAABU1QAA////HwAAAAD////fAAAAAP////9U1f//AID/3wAA//8AgP8fAAD//wCAAABU1f//AID//1TV//9LwP//VNUAAEvAAABU1f//S8D//1TVAAD//4Haf/P//wCAfSV/8///AID/f/////8AgH0lf/MAAPzFfSV/8////MX/f///AABU1f9//////1TVfSV/8////MV9JX/zAAD8xYHaf/MAAPzFgdp/8////MX/f/////9U1f9///8AAFTVAABU1QAAS8AAAFTV//9LwIHaf/P///zFgdp/8wAA/MX//1TVAABLwP//VNX//0vAfSV/8wAA//+B2n/zAAD///9///8AAP//AAD/fwAA/38AAP9/AAD/f/N8FwbzfBcG6Hnz/GGJO+3oefP8/3////9/////f////3////9/////f////3///8OSYQnDkmEJYYk77f9/////f////3////9////+nADG/pwAxqqqqqqqqqqq/pwAxv6cAMb9uf8c/bn/HFTVqipU1aoqYYk77WGJO+39uf8c/bn/HMOSYQnDkmEJ/3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_d3loy")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_lvmf8"]
+_surfaces = [{
+"aabb": AABB(-0.0625, -0.3125, -0.0625, 0.125, 0.375, 0.125),
+"format": 34896613377,
+"index_count": 72,
+"index_data": PackedByteArray("CAAJAAoACgAGAAgABgAKAAsACwAKAAkACAAGAAwACwAMAAYADQAIAAwACQAIAA0ABwAMAAsADQAMAAcABQALAAkACwAFAAcADQADAAkABQAJAAMAAwANAAIAAgANAAcAAAAFAAMABwAFAAAAAgABAAMAAwABAAAAAAABAAIABwAEAAIAAgAEAAAAAAAEAAcA"),
+"lods": [0.2677772, PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAAAFAAMAAwAGAAIABgADAAUABwAFAAAABQAHAAYAAAAEAAcAAgAGAAcABwAEAAIA")],
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 14,
+"vertex_data": PackedByteArray("/x8AAP//AAD/3wAA//8AAP/fAAAAAAAA//9U1f//AAD/HwAAAAAAAAAAVNX//wAA/3///wAAAAAAAFTVAAAAAIHaf/MAAAAAgdp/8///AAD/f/////8AAH0lf/P//wAAfSV/8wAAAAD//1TVAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_j1m1s"]
+resource_name = "animal-horse_leg-back-right"
+_surfaces = [{
+"aabb": AABB(-0.0625, -0.3125, -0.0625, 0.125, 0.375, 0.125),
+"attribute_data": PackedByteArray("/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/tzLT/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3MtP/t7Ha/7ex2v+3MtP/t7Ha/7ex2v+3y+z/t8vs/7ex2v+3sdr/tzLT/7ex2v+3sdr/t8vs/7fL7P+3sdr/t7Ha/7cy0/+3MtP/t7Ha/7ex2v+3y+z/t8vs"),
+"format": 34896613399,
+"index_count": 72,
+"index_data": PackedByteArray("FAAVABYAFgAIABQABgAXABgAGAAHAAYAAAABAAIAAgADAAAABAAFABkAGQAaAAQADAANAA4ADgAPAAwADwAbAAwADwAcABsAHAAdABsAHgAfACAAIAAJAB4AEAARABIAEgAhABAAIQAiABAAIQAjACIAIwATACIAJAAlACYAJgAnACQAKAApAAoACgALACgA"),
+"lods": [0.2677772, PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQABwAGAAgACAAJAAcACQAIAAoACgALAAkADAANAA4ADgAPAAwAEAARABIAEgATABAA")],
+"material": SubResource("StandardMaterial3D_345hk"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 42,
+"vertex_data": PackedByteArray("/x8AAP///7//3wAA////v//fAAAAAP+//x8AAAAA/7//HwAA//8FwP8fAAAAAAXAAABU1QAAS8AAAFTV//9LwP9///8AAFTV//9U1f//S8D/3wAAAAAFwP/fAAD//wXA//9U1f//AID/3wAA//8AgP8fAAD//wCAAABU1f//AIAAAFTVAAD///8fAAAAAP///98AAAAA////f///AAD//4Haf/MAAPzFgdp/8////MX/f/////9U1X0lf/MAAPzFfSV/8////MUAAFTVAABLwAAAVNX//0vAgdp/8///AIB9JX/z//8AgP9//////wCAgdp/8////MWB2n/zAAD8xf//VNUAAEvA//9U1QAA//99JX/zAAD//4Haf/MAAP///3///wAAVNX/f/////9U1X0lf/P///zFfSV/8wAA/MX//1TV//9LwP//VNUAAEvAAAD/fwAA/38AAP9/AAD/f+h58/zoefP8YYk77WGJO+1U1aoqw5JhCfN8FwbzfBcG/3////9/////f////3////9/////f////3////9////9uf8c/bn/HFTVqir+nADG/pwAxmGJO+1hiTvt/3////9/////f////bn/HP25/xzDkmEJ/3////9/////f///qqqqqqqqqqr+nADG/pwAxsOSYQnDkmEJ")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_lvmf8")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_00e2w"]
+_surfaces = [{
+"aabb": AABB(-0.0625, -0.3125, -0.0625, 0.125, 0.375, 0.125),
+"format": 34896613377,
+"index_count": 72,
+"index_data": PackedByteArray("AAABAAIAAgABAAUABQABAAAAAgADAAAAAAADAAQABAADAAIAAAAGAAUABAAGAAAABQAHAAIAAgAHAAQABgAIAAUABwAFAAgABgAJAAgACQAGAAQACQAKAAgABwALAAQABAALAAkADAAKAAkACQALAAwADQAIAAoACAANAAcACgAMAA0ABwANAAsADQAMAAsA"),
+"lods": [0.107585415, PackedByteArray("AAABAAIAAgABAAUABQABAAAAAgADAAAAAAAGAAUABQAHAAIABwAFAAYABAAGAAAABgAEAAcAAAADAAQAAgAHAAQABAADAAIA"), 0.2264753, PackedByteArray("AAABAAIAAgABAAAAAgADAAAAAAADAAQABAADAAIAAAAEAAIA")],
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 14,
+"vertex_data": PackedByteArray("/x8AAP//AAD/3wAA//8AAP/fAAAAAAAA/x8AAAAAAAAAAFTVAAAAAP//VNX//wAAAABU1f//AAD//1TVAAAAAIHaf/P//wAAfSV/8///AAD/f/////8AAH0lf/MAAAAA/3///wAAAACB2n/zAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_2m3fh"]
+resource_name = "animal-horse_leg-front-left"
+_surfaces = [{
+"aabb": AABB(-0.0625, -0.3125, -0.0625, 0.125, 0.375, 0.125),
+"attribute_data": PackedByteArray("/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/tzLT/7cy0/+3sdr/t7Ha/7ex2v+3sdr/tzLT/7cy0/+3sdr/t7Ha/7ex2v+3sdr/t8vs/7fL7P+3y+z/t8vs/7ex2v+3sdr/tzLT/7ex2v+3sdr/tzLT"),
+"format": 34896613399,
+"index_count": 72,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAFAAVABYAFgAXABQAGAAZABoAGgAbABgAHAAdAAwADAANABwABwAeAB8AHwAOAAcAIAAhAAQABAAFACAABgAIACIAIgAjAAYADwAQABEAEQASAA8AEgAkAA8AEgAlACQAJQAmACQACQAKAAsACwATAAkAEwAnAAkAEwAoACcAKAApACcA"),
+"lods": [0.107585415, PackedByteArray("AAABAAIAAgADAAAADAANAA4ADQAMAAQABAAFAA0ADgAHAAwABwAOAAYABgAIAAcADwAQABEAEQASAA8ACQAKAAsACwATAAkA"), 0.2264753, PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAHAAQABgAIAAcACQAKAAsA")],
+"material": SubResource("StandardMaterial3D_345hk"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 42,
+"vertex_data": PackedByteArray("/x8AAP///7//3wAA////v//fAAAAAP+//x8AAAAA/7//3wAAAAAFwP/fAAD//wXA/x8AAP//BcAAAFTVAABLwP8fAAAAAAXAAABU1QAA////HwAAAAD////fAAAAAP////9U1QAAS8D//1TV//9LwAAAVNX//0vA//9U1f//AID/3wAA//8AgP8fAAD//wCAAABU1f//AID//1TVAAD///9///8AAFTV/3//////VNV9JX/z///8xX0lf/MAAPzFgdp/8wAA/MWB2n/z///8xf9//////1TV/3///wAAVNWB2n/z///8xYHaf/MAAPzFfSV/8wAA/MV9JX/z///8xf//VNX//0vA//9U1QAAS8AAAFTVAABLwAAAVNX//0vAgdp/8///AIB9JX/z//8AgP9//////wCAfSV/8wAA//+B2n/zAAD///9///8AAP//AAD/fwAA/38AAP9/AAD/f/N8FwbzfBcG6Hnz/GGJO+3oefP8/3////9/////f///w5JhCcOSYQlhiTvt/3////9/////f////3////9///+qqqqqqqqqqv6cAMb+nADG/bn/HP25/xxU1aoqVNWqKv25/xz9uf8c/pwAxv6cAMbDkmEJw5JhCWGJO+1hiTvt/3////9/////f////3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_00e2w")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_2qjsi"]
+_surfaces = [{
+"aabb": AABB(-0.0625, -0.3125, -0.0625, 0.125, 0.375, 0.125),
+"format": 34896613377,
+"index_count": 72,
+"index_data": PackedByteArray("AgAIAAAAAAABAAIAAgABAAMAAwABAAAAAAAGAAMABwAGAAAAAwAGAAcAAAAIAAcAAwAFAAIABwAFAAMACAACAAkABQAJAAIACgAFAAcABQAKAAkACgALAAkABwAMAAoACAAMAAcABAALAAoACgAMAAQADQAJAAsACQANAAgACwAEAA0ACAANAAwADQAEAAwA"),
+"lods": [0.26777723, PackedByteArray("AAABAAIAAgABAAMAAwABAAAAAgAEAAAAAwAFAAIABAACAAUAAAAGAAMABQAHAAQAAAAEAAcABwAFAAMABwAGAAAAAwAGAAcA")],
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 14,
+"vertex_data": PackedByteArray("/98AAAAAAAD/3wAA//8AAP//VNX//wAA/x8AAP//AAD/f///AAAAAAAAVNX//wAA/x8AAAAAAAAAAFTVAAAAAP//VNUAAAAAgdp/8///AAB9JX/z//8AAP9//////wAAfSV/8wAAAACB2n/zAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_qh5h7"]
+resource_name = "animal-horse_leg-front-right"
+_surfaces = [{
+"aabb": AABB(-0.0625, -0.3125, -0.0625, 0.125, 0.375, 0.125),
+"attribute_data": PackedByteArray("/7fL7P+3y+z/t8vs/7cy0/+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3y+z/t8vs/7fL7P+3MtP/t8vs/7ex2v+3sdr/tzLT/7ex2v+3sdr/t7Ha/7ex2v+3MtP/tzLT/7cy0/+3sdr/t7Ha/7fL7P+3sdr/t7Ha/7ex2v+3sdr/t8vs/7fL7P+3y+z/t8vs"),
+"format": 34896613399,
+"index_count": 72,
+"index_data": PackedByteArray("AgAUAAAAAAABAAIACAAJAAoACgALAAgACwAVAAgACwAWABUAFgAXABUABQAYABkAGQAEAAUAGgAbABwAHAADABoADAANAA4ADgAPAAwAHQAeAB8AHwAgAB0AEAARABIAEgAhABAAIQAiABAAIQAjACIAIwATACIAJAAlACYAJgAnACQABgAHACgAKAApAAYA"),
+"lods": [0.26777723, PackedByteArray("AAABAAIAAgADAAAAAwACAAQABAAFAAMABQAEAAYABgAHAAUACAAJAAoACgALAAgADAANAA4ADgAPAAwAEAARABIAEgATABAA")],
+"material": SubResource("StandardMaterial3D_345hk"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 42,
+"vertex_data": PackedByteArray("/98AAAAABcD/3wAA//8FwP//VNX//0vA/3///wAAVNUAAFTV//9LwAAAVNUAAEvA/x8AAP//BcD/HwAAAAAFwP//VNX//wCA/98AAP//AID/HwAA//8AgAAAVNX//wCA/x8AAP///7//3wAA////v//fAAAAAP+//x8AAAAA/78AAFTVAAD///8fAAAAAP///98AAAAA////f///AAD/////VNUAAEvAgdp/8///AIB9JX/z//8AgP9//////wCAfSV/8wAA/MV9JX/z///8xYHaf/MAAPzFgdp/8////MX/f/////9U1f9///8AAFTV/3//////VNV9JX/z///8xX0lf/MAAPzF//9U1QAA//99JX/zAAD//4Haf/MAAP//gdp/8////MWB2n/zAAD8xf//VNUAAEvA//9U1f//S8AAAFTVAABLwAAAVNX//0vA83wXBvN8FwbDkmEJVNWqKmGJO+1hiTvt6Hnz/Oh58/z/f////3////9/////f///AAD/fwAA/38AAP9/AAD/f/9/////f////3////9////DkmEJ/3////9/////f////pwAxv6cAMb9uf8c/bn/HFTVqiqqqqqqqqqqqv6cAMb+nADG/3////9/////f////bn/HP25/xzDkmEJw5JhCWGJO+1hiTvt")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_2qjsi")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_3a3e3"]
+_surfaces = [{
+"aabb": AABB(-0.21131806, -6.316725e-16, -0.08375, 0.4048476, 0.4181209, 0.1675),
+"format": 34896613377,
+"index_count": 108,
+"index_data": PackedByteArray("AAABAAIAAQAAAAQABAADAAEAAgABAAMAAwAEAAUABQAEAAAAAwAGAAIABgADAAUAAgAHAAAADAACAAYADQAHAAIAAgAMAA0ADQAMAA4ABgAOAAwADgAPAA0ABgAQAA4ADwAOABAABgARABAAEAASAA8AEAARABMAEwASABAACAATABEAEgATAAgAEQAGAAgADwASAAgADQAPAAgACAAHAA0ACAAGAAUACQAHAAgABwAJAAAABQALAAgACAALAAkACQALAAUABQAKAAkACQAKAAAAAAAKAAUA"),
+"lods": [0.29342076, PackedByteArray("AAABAAIAAgABAAMABAADAAEAAQAAAAQAAwAEAAUABQAEAAAAAwAGAAIABgADAAUABwACAAYAAgAHAAAABgAIAAcACAAGAAUABwAJAAAACQAHAAgACQAKAAAAAAAKAAUABQAKAAkACQALAAUABQALAAgACAALAAkA")],
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("zWIAAP//AAB6yWY5//8AAHrJZjnUxwAArWYY3///AAAAALKl//8AAAAAsqUAAAAArWYY39THAAB6yWY5KjgAAK1mGN8qOAAAeslmOQAAAADNYgAAAAAAAK1mGN8AAAAAevhqRiLmAAB6+GpG3BkAAP//a1g88AAA//9rWMIPAACunUz9PPAAANGJ//8i5gAArp1M/cIPAADRif//3BkAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_5yfja"]
+resource_name = "animal-horse_neck"
+_surfaces = [{
+"aabb": AABB(-0.21131806, -6.316725e-16, -0.08375, 0.4048476, 0.4181209, 0.1675),
+"attribute_data": PackedByteArray("/7fL7P+3Duf/tw7n/7cO5/+3Duf/t8vs/7c63P+3fNb/t3zW/7d81v+3fNb/tzrc/7fL7P+3y+z/tzrc/7c63P+3Duf/t8vs/7c63P+3fNb/t3zW/7d81v+3Duf/tw7n/7d81v+3fNb/tw7n/7cO5/+3Otz/t8vs/7cO5/+3fNb/93zW//d81v/3Duf/9w7n//d30//3d9P/9/Tj//f04//39OP/9/Tj//fB5f/3weX/9zLT//d30//3d9P/9zLT//fB5f/3Duf/93zW//f04//3d9P/9zLT//cy0//3MtP/98Hl//fB5f/3fNb/9w7n//fB5f/39OP/93fT//cy0w=="),
+"format": 34896613399,
+"index_count": 108,
+"index_data": PackedByteArray("AAABAAIAAgADAAAAAwAEAAAABAAFAAAABgAHAAgACAAJAAYACQAKAAYACgALAAYADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQAGAAZABoAGgAbABgAHAAdAB4AHgAfABwAJAAlACYAJgAnACQAKAApACoAKgArACgALAAtAC4ALgAvACwAMAAxADIAMgAzADAAMgA0ADMAMgA1ADQAIQA2ADcANwAgACEAIwA4ADkAOQAiACMAOgA7ADwAPAA9ADoAPQA+ADoAPgA/ADoA"),
+"lods": [0.29342076, PackedByteArray("AAABAAIAAgADAAAAAwAEAAAABAAFAAAABgAHAAgACAAJAAYACQAKAAYACgALAAYADAANAA4ADgAPAAwAEAARABIAEgATABAAFAAVABYAFgAXABQAGAAZABoAGgAbABgAHAAdAB4AHgAfABwAIAAhACIAIgAjACAA")],
+"material": SubResource("StandardMaterial3D_345hk"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 64,
+"vertex_data": PackedByteArray("zWIAAP//Ssp6yWY5//9KynrJZjnUx0rKeslmOSo4Ssp6yWY5AABKys1iAAAAAErKAACypQAASsqtZhjfAABKyq1mGN8qOErKrWYY39THSsqtZhjf//9KygAAsqX//0rKzWIAAP//usLNYgAAAAC6wgAAsqUAALrCAACypf//usJ6yWY5//8AgM1iAAD//wCAAACypf//AICtZhjf//8AgK1mGN8qOLrCrWYY3wAAusJ6yWY5AAC6wnrJZjkqOLrCrWYY3///usKtZhjf1Me6wnrJZjnUx7rCeslmOf//usIAALKlAAD//81iAAAAAP//eslmOQAA//+tZhjfAAD//61mGN/UxzvGrWYY3yo4O8Z6yWY5Kjgcz3rJZjnUxxzPrp1M/TzweMiunUz9wg94yP//a1jCDxvA//9rWDzwG8D//2tYPPAbwP//a1jCDxvAevhqRtwZtsV6+GpGIua2xdGJ///cGUHbrp1M/cIPeMiunUz9PPB4yNGJ//8i5kHbevhqRiLmi4p6yWY51MeLiq1mGN/Ux4uK//9rWDzwi4qunUz9PPCLitGJ//8i5ouK0Yn//9wZ3s/Rif//Iubez3r4akYi5rbFevhqRtwZtsWtZhjfKjjY9nrJZjkqONj2evhqRtwZ2Pb//2tYwg/Y9q6dTP3CD9j20Yn//9wZ2PazXZhEs12YRLNdmESzXZhEs12YRLNdmERLoma7S6Jmu0uiZrtLoma7S6Jmu0uiZrtWU6rpVlOq6VZTqulWU6rp/3////9/////f////3///6isVBaorFQWqKxUFqisVBaorFQWqKxUFqisVBaorFQW/3////9/////f////3///16dQMVenUDFhFn2TIRZ9kyjwFEgo8BRIAqMBQYKjAUGCowFBgqMBQZuYyI5bmMiOf/bAC6jwFEgo8BRIP/bAC5vTnfTb053029Od9NvTnfTb053029Od9MLp+axC6fmsW5jIjluYyI5d3ch/3d3If93dyH/d3ch/3d3If93dyH/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_3a3e3")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_8smeo"]
+_surfaces = [{
+"aabb": AABB(-0.28016287, -0.06091617, -0.118014246, 0.3342042, 0.33738792, 0.23602849),
+"format": 34896613377,
+"index_count": 96,
+"index_data": PackedByteArray("AAABAAIAAwABAAAAAgABAAMAAAAHAAMAAgAEAAAABwAAAAQAAwAGAAIABAAFAAcAAwAHAAUABQAEAAIABQAGAAMAAgAGAAUACAAJAAoACgAJAAsACwAJAAgACwAMAAoACAANAAsACgAMAA4ADgANAAgACgAPAAgACAAPAA4ADgAPAAoAEAARABIAEgARABMAEwARABAAEwAUABIAEAAVABMAEgAUABYAFgAVABAAEgAXABAAEAAXABYAFgAXABIA"),
+"lods": [0.13484107, PackedByteArray("AAABAAIAAwABAAAAAgABAAMAAgAEAAAABQAAAAQABQAEAAIAAAAFAAMAAgAGAAUABQAGAAMAAwAGAAIA")],
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("0trJxq3lAADS2snGURoAAP//Xj1RGgAAAACcW1EaAAD//149reUAAMgYAACt5QAAyBgAAFEaAAAAAJxbreUAADq02/mEvgAAWcv//4S+AACOziP0//8AAE3doL0zpAAAguDFsa3lAAAPr1qxM6QAAESyf6Wt5QAAb7cA7v//AABvtwDuAAAAAI7OI/QAAAAAWcv//3pBAACC4MWxURoAAE3doL3LWwAARLJ/pVEaAAAPr1qxy1sAADq02/l6QQAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_hjp3n"]
+resource_name = "animal-horse_head"
+_surfaces = [{
+"aabb": AABB(-0.28016287, -0.06091617, -0.118014246, 0.3342042, 0.33738792, 0.23602849),
+"attribute_data": PackedByteArray("/7cy0/+3MtP/t0Hq/7dB6v+3y+z/t8vs/7cu5f+3MtP/tzLT/7fL7P+3Qer/t0Hq/7fL7P+3y+z/tzLT/7dB6v+3LuX/t8vs/7dB6v+3MtP/ty7l/7cu5f+3LuX/ty7l/7cy0/+3MtP/tzLT/7cy0/+3MtP/t8vs/7fL7P+3MtP/tzLT/7cy0/+3y+z/t8vs/7fL7P+3y+z/tzLT/7cy0/+3MtP/t8vs/7fL7P+3MtP/tzLT/7cy0/+3MtP/tzLT/7cy0/+3y+z/t8vs/7cy0/+3MtP/t8vs/7fL7P+3MtP/t8vs/7fL7P+3MtP/tzLT/7cy0/+3MtP/t8vs/7fL7A=="),
+"format": 34896613399,
+"index_count": 96,
+"index_data": PackedByteArray("AAABAAIAAgADAAAABAAFAAYABgAUAAQACQAKAAsACwAMAAkAFQAIAAcABwAWABUADwANABcAFwAOAA8AEAARABIAEgATABAAGAAZABoAGgAbABgAHAAdAB4AHgAfABwAIAAhACIAIgAjACAAJAAlACYAJgAnACQAKAApACoAKgArACgALAAtAC4ALgAvACwAMAAxADIAMgAzADAANAA1ADYANgA3ADQAOAA5ADoAOgA7ADgAPAA9AD4APgA/ADwA"),
+"lods": [0.13484107, PackedByteArray("AAABAAIAAgADAAAABAAFAAYABwAEAAYABgAIAAcACQAKAAsACwAMAAkADQAOAA8AEAARABIAEgATABAA")],
+"material": SubResource("StandardMaterial3D_345hk"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 64,
+"vertex_data": PackedByteArray("0trJxq3lsMDS2snGURqwwP//Xj1RGrDA//9ePa3lsMDIGAAAreWwwMgYAABRGrDAAACcW1Eaz8HS2snGreV9y9LaycZRGn3LyBgAAK3ld8///149reV3z///Xj1RGnfPyBgAAFEad8/IGAAAreUAgNLaycat5QCA//9ePa3lAIAAAJxbURr//8gYAABRGv////9ePVEa///S2snGURr//wAAnFut5c/BAACcW1Eaz8EAAJxbreXPwQAAnFut5QCAOrTb+YS+IORZy///hL6K947OI/T//4r3b7cA7v//IOSOziP0//8Pj4LgxbGt5Q+PRLJ/pa3lD49vtwDu//8Pj47OI/T//7rCWcv//4S+usJN3aC9M6S6woLgxbGt5brCRLJ/pa3lor0Pr1qxM6SivTq02/mEvuq9b7cA7v//6r06tNv5hL6b/g+vWrEzpJv+Td2gvTOkm/5Zy///hL6b/m+3AO4AAK/fjs4j9AAAg/lZy///ekGD+Tq02/l6Qa/fWcv//3pBD49N3aC9y1sPjw+vWrHLWw+POrTb+XpBD49vtwDuAACb/kSyf6VRGpv+guDFsVEam/6OziP0AACb/g+vWrHLW7TDRLJ/pVEatMNvtwDuAADkxzq02/l6QeTHWcv//3pB/7+OziP0AAD/v4LgxbFRGv+/Td2gvctb/7+tmlYNrZpWDa2aVg2tmlYNUWWo8lFlqPJJk2vZdKMVuXSjFbk/WX9NP1l/TT9Zf00/WX9N/3////9/////f////3////9/////f////3///0mTa9lJk2vZSZNr2f9////gYEmpE3mRtBN5kbTgYEmp5wcLPOcHCzznBws85wcLPFCaAABQmgAAUJoAAFCaAADcdWfl3HVn5bWLZNO1i2TTqHJR5ahyUeWoclHlqHJR5RNkbLkfd2bDH3dmwxNkbLkX+PPDF/jzwxf488MX+PPDVo2tGlaNrRpWja0aVo2tGgeZgfAHmYHwIJ4k1yCeJNcMmwwbDJsMGwybDBsMmwwb")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_8smeo")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1w7cr"]
+_surfaces = [{
+"aabb": AABB(-0.032475952, -0.27836666, -0.05625, 0.20596488, 0.29711667, 0.1125),
+"format": 34896613377,
+"index_count": 84,
+"index_data": PackedByteArray("CQAKAAUACgAJAAYABgALAAoACgALAAcACwAGAAIAAgAHAAsAAgAGAAkABwAMAAoADAAHAAIABQAKAAwACQANAAIAAgANAAwADQAJAAEABQABAAkADgAMAA0ADAAOAAUADQAPAA4AAQAPAA0ABQAOAAQABAAOAA8AAQAFAAAABAAAAAUAAAAIAAEACAAAAAQAAwAPAAEAAQAIAAMADwADAAQABAADAAgA"),
+"lods": [0.10345835, PackedByteArray("BQABAAYAAgAGAAEAAQAFAAAAAgAHAAYABQAGAAcAAQADAAIAAgADAAcAAAAIAAEAAQAIAAMABAAAAAUABQAHAAQACAAAAAQABAAHAAMABAADAAgA"), 0.15895273, PackedByteArray("AAABAAIAAQADAAIAAAADAAEABAACAAMAAAACAAQAAwAAAAQA")],
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("AACv31TVAADN34R0//8AAP//EBOmTQAAulD//6oqAAAAAK/fqioAALVmDUT//wAA//8QE1iyAABd0AAApk0AALpQ//9U1QAAtfkbNVTVAAD6qMwUVNUAAF3QAABYsgAA+qjMFKoqAAC1+Rs1qioAALVmDUQAAAAAzd+EdAAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_13nni"]
+resource_name = "animal-horse_tail"
+_surfaces = [{
+"aabb": AABB(-0.032475952, -0.27836666, -0.05625, 0.20596488, 0.29711667, 0.1125),
+"attribute_data": PackedByteArray("//eY+f/3mPn/95j5//dlxv/3mPn/92XG//eY+f/3mPn/95j5//eY+f/3mPn/92XG//eY+f/3mPn/95j5//dlxv/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3mPn/92XG//eY+f/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3mPn/95j5//eY+f/3ZcY="),
+"format": 34896613399,
+"index_count": 84,
+"index_data": PackedByteArray("EAARAAgACAABABAAEgATAAQABAAAABIAFAAVABYAFgADABQAFwAYAAoACgAZABcAGgAbAAIAAgAJABoAHAAdAB4AHgAfABwAIAAOAAwADAANACAABwAFAA8ADwAGAAcAIQAiACMAIwAkACEAJQAmACcAJwAoACUAKQAqACsAKwALACkALAAtAC4ALgAvACwAMAAxADIAMgAzADAANAA1ADYANgA3ADQA"),
+"lods": [0.10345835, PackedByteArray("CAABAAkACAAJAAoAAgAJAAEAAgADAAoAAQADAAIABAAKAAMACAAKAAQAAQALAAMABAAAAAgAAAALAAEAAQAIAAAADAANAA4ABwAFAA8ADwAGAAcA"), 0.15895273, PackedByteArray("AAABAAIAAAADAAEAAQADAAIAAAACAAQABAACAAMABQAGAAcA")],
+"material": SubResource("StandardMaterial3D_345hk"),
+"name": "colormap",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 56,
+"vertex_data": PackedByteArray("AACv31TV/qLN34R0//9aoP//EBOmTc3aulD//6oqIOoAAK/fqioe4LpQ//+qKkrKAACv31TVSsoAAK/fqipKyrVmDUT//8yh//8QE1iy9KVd0AAApk3D4bpQ//9U1eiq//8QE6ZNSspd0AAApk1Kyv//EBNYskrKulD//1TVSsq1+Rs1VNVto/qozBRU1diktWYNRP//bqm1Zg1EAACg4QAAr9+qKi7itWYNRAAAT+jN34R0AAB24/qozBRU1Z63XdAAAFiyt7z6qMwUqir24bX5GzVU1XWjtfkbNaoqlNy1Zg1EAACc6fqozBSqKhL0tfkbNaoqntzN34R0AADl4l3QAABYskrK+qjMFKoq9uG1Zg1EAACg4bVmDUT//26p+qjMFFTVnrfN34R0//+wo83fhHQAAHPgtfkbNaoqlNy1+Rs1VNV1o7pQ//+qKsPhzd+EdAAAc+DN34R0//+wo///EBNYsmOlXdAAAFiyNqf6qMwUVNWupbX5GzVU1Wyj+qjMFKoqMvVd0AAApk3k+P//EBOmTW7btfkbNaoqndzN34R0///QoLVmDUT//7CgAACv31TVoqC6UP//VNVmoU1RMvJ6pYMuKXavDqtafwkmZ33uS6Jmu0uiZrtLoma7ZUtJtDN3oRqePjbURccPFbNdmESzXZhEs12YREuiZrtLeNcFDzNknD47xOtDVorid5Zb+kihIPnAZCoIASxc5RIpR+PbQ+zWg33VB219wgNvpkP0Za5w9eOAsQM6aWwEs12YRNtD7NZDVoriPjvE6wEsXOVWsxoP75u3E219wgODfdUHLKwfH++btxNWsxoPbGZ4FHwr9ZClNOaYFHmdBY+w7fIVsgj0wILMDZ6ATQOupc41IkofvA1ertIQuDJL")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_1w7cr")
+
+[sub_resource type="Animation" id="Animation_brbtb"]
+resource_name = "RESET"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("animal-horse/root/torso/leg-front-left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.00012411232, -1)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("animal-horse/root/torso/leg-back-left")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, -0.00012411232, -1)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("animal-horse/root/torso/leg-back-right")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, -0.00012411232, -1)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("animal-horse/root/torso/neck")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, -8.274155e-05, -1)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("animal-horse/root/torso/neck/head")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/5/type = "position_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("animal-horse/root/torso")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0, 0.25, 0)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("animal-horse/root/torso/tail")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("animal-horse/root/torso/leg-front-right")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0, 0, 0.00012411232, -1)
+
+[sub_resource type="Animation" id="Animation_x7y1h"]
+resource_name = "down"
+length = 0.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("animal-horse/root/torso/leg-front-left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.033333335, 1, 0, 0, 0.00012411232, -1, 0.06666667, 1, 0, 0, 0.0019857958, -0.99999803, 0.1, 1, 0, 0, 0.010052929, -0.99994946, 0.13333334, 1, 0, 0, 0.031767413, -0.9994953, 0.16666667, 1, 0, 0, 0.07749242, -0.99699295, 0.2, 1, 0, 0, 0.16015689, -0.98709166, 0.23333333, 1, 0, 0, 0.2936029, -0.95592755, 0.26666668, 1, 0, 0, 0.46833432, -0.88355136, 0.3, 1, 0, 0, 0.58473116, -0.81122714, 0.33333334, 1, 0, 0, 0.65018505, -0.7597759, 0.36666667, 1, 0, 0, 0.68428695, -0.7292129, 0.4, 1, 0, 0, 0.69996256, -0.71417964, 0.43333334, 1, 0, 0, 0.70570123, -0.7085096, 0.5, 1, 0, 0, 0.7071068, -0.7071068)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("animal-horse/root/torso/leg-front-right")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.033333335, 1, 0, 0, 0.00012411232, -1, 0.06666667, 1, 0, 0, 0.0019857958, -0.99999803, 0.1, 1, 0, 0, 0.010052929, -0.99994946, 0.13333334, 1, 0, 0, 0.031767413, -0.9994953, 0.16666667, 1, 0, 0, 0.07749242, -0.99699295, 0.2, 1, 0, 0, 0.16015689, -0.98709166, 0.23333333, 1, 0, 0, 0.2936029, -0.95592755, 0.26666668, 1, 0, 0, 0.46833432, -0.88355136, 0.3, 1, 0, 0, 0.58473116, -0.81122714, 0.33333334, 1, 0, 0, 0.65018505, -0.7597759, 0.36666667, 1, 0, 0, 0.68428695, -0.7292129, 0.4, 1, 0, 0, 0.69996256, -0.71417964, 0.43333334, 1, 0, 0, 0.70570123, -0.7085096, 0.5, 1, 0, 0, 0.7071068, -0.7071068)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("animal-horse/root/torso/leg-back-left")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.033333335, 1, 0, 0, -0.00012411232, -1, 0.06666667, 1, 0, 0, -0.0019857958, -0.99999803, 0.1, 1, 0, 0, -0.010052929, -0.99994946, 0.13333334, 1, 0, 0, -0.031767413, -0.9994953, 0.16666667, 1, 0, 0, -0.07749242, -0.99699295, 0.2, 1, 0, 0, -0.16015689, -0.98709166, 0.23333333, 1, 0, 0, -0.2936029, -0.95592755, 0.26666668, 1, 0, 0, -0.46833432, -0.88355136, 0.3, 1, 0, 0, -0.58473116, -0.81122714, 0.33333334, 1, 0, 0, -0.65018505, -0.7597759, 0.36666667, 1, 0, 0, -0.68428695, -0.7292129, 0.4, 1, 0, 0, -0.69996256, -0.71417964, 0.43333334, 1, 0, 0, -0.70570123, -0.7085096, 0.5, 1, 0, 0, -0.7071068, -0.7071068)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("animal-horse/root/torso/leg-back-right")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.033333335, 1, 0, 0, -0.00012411232, -1, 0.06666667, 1, 0, 0, -0.0019857958, -0.99999803, 0.1, 1, 0, 0, -0.010052929, -0.99994946, 0.13333334, 1, 0, 0, -0.031767413, -0.9994953, 0.16666667, 1, 0, 0, -0.07749242, -0.99699295, 0.2, 1, 0, 0, -0.16015689, -0.98709166, 0.23333333, 1, 0, 0, -0.2936029, -0.95592755, 0.26666668, 1, 0, 0, -0.46833432, -0.88355136, 0.3, 1, 0, 0, -0.58473116, -0.81122714, 0.33333334, 1, 0, 0, -0.65018505, -0.7597759, 0.36666667, 1, 0, 0, -0.68428695, -0.7292129, 0.4, 1, 0, 0, -0.69996256, -0.71417964, 0.43333334, 1, 0, 0, -0.70570123, -0.7085096, 0.5, 1, 0, 0, -0.7071068, -0.7071068)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("animal-horse/root/torso/neck")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.033333335, 1, 0, 0, -8.274155e-05, -1, 0.06666667, 1, 0, 0, -0.0013238646, -0.9999992, 0.1, 1, 0, 0, -0.006702015, -0.9999775, 0.13333334, 1, 0, 0, -0.021180255, -0.9997757, 0.16666667, 1, 0, 0, -0.051690422, -0.9986632, 0.2, 1, 0, 0, -0.10702766, -0.9942561, 0.23333333, 1, 0, 0, -0.19735828, -0.98033154, 0.26666668, 1, 0, 0, -0.31924853, -0.94767106, 0.3, 1, 0, 0, -0.4044394, -0.9145648, 0.33333334, 1, 0, 0, -0.4545664, -0.8907129, 0.36666667, 1, 0, 0, -0.48154518, -0.8764213, 0.4, 1, 0, 0, -0.49418467, -0.869357, 0.43333334, 1, 0, 0, -0.49885306, -0.8666866, 0.5, 1, 0, 0, -0.5, -0.8660254)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("animal-horse/root/torso/neck/head")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.06666667, 1, 0, 0, 0.00088257645, -0.99999964, 0.1, 1, 0, 0, 0.004468029, -0.99999005, 0.13333334, 1, 0, 0, 0.014120756, -0.99990034, 0.16666667, 1, 0, 0, 0.034468815, -0.9994058, 0.2, 1, 0, 0, 0.07142782, -0.99744576, 0.23333333, 1, 0, 0, 0.13205478, -0.9912424, 0.26666668, 1, 0, 0, 0.21493404, -0.9766286, 0.3, 1, 0, 0, 0.2740264, -0.9617222, 0.33333334, 1, 0, 0, 0.30942678, -0.95092326, 0.36666667, 1, 0, 0, 0.32871687, -0.9444285, 0.4, 1, 0, 0, 0.33781815, -0.9412114, 0.43333334, 1, 0, 0, 0.34119067, -0.9399941, 0.5, 1, 0, 0, 0.34202015, -0.93969274)
+tracks/6/type = "position_3d"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("animal-horse/root/torso")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0, 0.25, 0, 0.06666667, 1, 0, 0.24936791, 0, 0.1, 1, 0, 0.2468, 0, 0.13333334, 1, 0, 0.23988642, 0, 0.16666667, 1, 0, 0.22530864, 0, 0.2, 1, 0, 0.1988, 0, 0.23333333, 1, 0, 0.15514567, 0, 0.26666668, 1, 0, 0.094854295, 0, 0.3, 1, 0, 0.051199988, 0, 0.33333334, 1, 0, 0.024691358, 0, 0.36666667, 1, 0, 0.010113582, 0, 0.4, 1, 0, 0.0031999964, 0, 0.43333334, 1, 0, 0.0006320933, 0, 0.5, 1, 0, 0, 0)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("animal-horse/root/torso/tail")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_eaaf4"]
+resource_name = "run"
+length = 0.25
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("animal-horse/root/torso/leg-front-left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.4226183, -0.9063078, 0.033333335, 1, 0, 0, 0.2763363, -0.961061, 0.06666667, 1, 0, 0, -0.039986502, -0.9992003, 0.1, 1, 0, 0, -0.32143947, -0.9469301, 0.13333334, 1, 0, 0, -0.3893919, -0.92107224, 0.16666667, 1, 0, 0, -0.19865525, -0.9800695, 0.2, 1, 0, 0, 0.087155774, -0.9961947, 0.25, 1, 0, 0, 0.4226183, -0.9063078)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("animal-horse/root/torso/leg-front-right")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0.4226183, -0.9063078, 0.033333335, 1, 0, 0, 0.2763363, -0.961061, 0.06666667, 1, 0, 0, -0.039986502, -0.9992003, 0.1, 1, 0, 0, -0.32143947, -0.9469301, 0.13333334, 1, 0, 0, -0.3893919, -0.92107224, 0.16666667, 1, 0, 0, -0.19865525, -0.9800695, 0.2, 1, 0, 0, 0.087155774, -0.9961947, 0.25, 1, 0, 0, 0.4226183, -0.9063078)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("animal-horse/root/torso/leg-back-left")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, -0.4226183, -0.9063078, 0.033333335, 1, 0, 0, -0.2763363, -0.961061, 0.06666667, 1, 0, 0, 0.039986502, -0.9992003, 0.1, 1, 0, 0, 0.32143947, -0.9469301, 0.13333334, 1, 0, 0, 0.3893919, -0.92107224, 0.16666667, 1, 0, 0, 0.19865525, -0.9800695, 0.2, 1, 0, 0, -0.087155774, -0.9961947, 0.25, 1, 0, 0, -0.4226183, -0.9063078)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("animal-horse/root/torso/leg-back-right")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, -0.4226183, -0.9063078, 0.033333335, 1, 0, 0, -0.2763363, -0.961061, 0.06666667, 1, 0, 0, 0.039986502, -0.9992003, 0.1, 1, 0, 0, 0.32143947, -0.9469301, 0.13333334, 1, 0, 0, 0.3893919, -0.92107224, 0.16666667, 1, 0, 0, 0.19865525, -0.9800695, 0.2, 1, 0, 0, -0.087155774, -0.9961947, 0.25, 1, 0, 0, -0.4226183, -0.9063078)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("animal-horse/root/torso/tail")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0, 0, -0.1736482, -0.9848078, 0.033333335, 1, 0, 0, -0.20435372, -0.9788972, 0.06666667, 1, 0, 0, -0.26653755, -0.9638245, 0.1, 1, 0, 0, -0.32143947, -0.9469301, 0.13333334, 1, 0, 0, -0.33517748, -0.942155, 0.16666667, 1, 0, 0, -0.297236, -0.95480406, 0.2, 1, 0, 0, -0.24192189, -0.9702957, 0.25, 1, 0, 0, -0.1736482, -0.9848078)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("animal-horse/root/torso/neck")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.033333335, 1, 0, 0, -0.046888534, -0.9989002, 0.06666667, 1, 0, 0, -0.14241302, -0.98980737, 0.1, 1, 0, 0, -0.22707629, -0.9738771, 0.13333334, 1, 0, 0, -0.24826723, -0.9686916, 0.16666667, 1, 0, 0, -0.1897381, -0.98183477, 0.2, 1, 0, 0, -0.10452847, -0.994522, 0.23333333, 1, 0, 0, -0.034899496, -0.99939084, 0.25, 1, 0, 0, 0, -1)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("animal-horse/root/torso/neck/head")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.033333335, 1, 0, 0, 0.03126539, -0.9995111, 0.06666667, 1, 0, 0, 0.09512185, -0.99546564, 0.1, 1, 0, 0, 0.1521234, -0.9883616, 0.13333334, 1, 0, 0, 0.16648194, -0.9860445, 0.16666667, 1, 0, 0, 0.12692034, -0.991913, 0.2, 1, 0, 0, 0.06975647, -0.99756414, 0.23333333, 1, 0, 0, 0.023268955, -0.9997293, 0.25, 1, 0, 0, 0, -1)
+tracks/7/type = "position_3d"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("animal-horse/root/torso")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0, 0.25, 0, 0.033333335, 1, 0, 0.30333334, 0, 0.06666667, 1, 0, 0.34416667, 0, 0.1, 1, 0, 0.29500002, 0, 0.13333334, 1, 0, 0.24833333, 0, 0.16666667, 1, 0, 0.24583334, 0, 0.2, 1, 0, 0.25, 0, 0.25, 1, 0, 0.25, 0)
+
+[sub_resource type="Animation" id="Animation_ebtpm"]
+resource_name = "up"
+length = 0.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("animal-horse/root/torso/leg-front-left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0.7071068, -0.7071068, 0.033333335, 1, 0, 0, 0.707019, -0.70719457, 0.06666667, 1, 0, 0, 0.70570123, -0.70850956, 0.1, 1, 0, 0, 0.69996256, -0.7141796, 0.13333334, 1, 0, 0, 0.68428695, -0.7292129, 0.16666667, 1, 0, 0, 0.650185, -0.75977594, 0.2, 1, 0, 0, 0.58473116, -0.81122726, 0.23333333, 1, 0, 0, 0.46833423, -0.8835515, 0.26666668, 1, 0, 0, 0.2936028, -0.95592755, 0.3, 1, 0, 0, 0.1601568, -0.9870916, 0.33333334, 1, 0, 0, 0.07749242, -0.99699295, 0.36666667, 1, 0, 0, 0.031767413, -0.9994953, 0.4, 1, 0, 0, 0.010052916, -0.9999495, 0.43333334, 1, 0, 0, 0.001985778, -0.99999803, 0.5, 1, 0, 0, 0, -1)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("animal-horse/root/torso/leg-front-right")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0.7071068, -0.7071068, 0.033333335, 1, 0, 0, 0.707019, -0.70719457, 0.06666667, 1, 0, 0, 0.70570123, -0.70850956, 0.1, 1, 0, 0, 0.69996256, -0.7141796, 0.13333334, 1, 0, 0, 0.68428695, -0.7292129, 0.16666667, 1, 0, 0, 0.650185, -0.75977594, 0.2, 1, 0, 0, 0.58473116, -0.81122726, 0.23333333, 1, 0, 0, 0.46833423, -0.8835515, 0.26666668, 1, 0, 0, 0.2936028, -0.95592755, 0.3, 1, 0, 0, 0.1601568, -0.9870916, 0.33333334, 1, 0, 0, 0.07749242, -0.99699295, 0.36666667, 1, 0, 0, 0.031767413, -0.9994953, 0.4, 1, 0, 0, 0.010052916, -0.9999495, 0.43333334, 1, 0, 0, 0.001985778, -0.99999803, 0.5, 1, 0, 0, 0, -1)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("animal-horse/root/torso/leg-back-left")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, -0.7071068, -0.7071068, 0.033333335, 1, 0, 0, -0.707019, -0.70719457, 0.06666667, 1, 0, 0, -0.70570123, -0.70850956, 0.1, 1, 0, 0, -0.69996256, -0.7141796, 0.13333334, 1, 0, 0, -0.68428695, -0.7292129, 0.16666667, 1, 0, 0, -0.650185, -0.75977594, 0.2, 1, 0, 0, -0.58473116, -0.81122726, 0.23333333, 1, 0, 0, -0.46833423, -0.8835515, 0.26666668, 1, 0, 0, -0.2936028, -0.95592755, 0.3, 1, 0, 0, -0.1601568, -0.9870916, 0.33333334, 1, 0, 0, -0.07749242, -0.99699295, 0.36666667, 1, 0, 0, -0.031767413, -0.9994953, 0.4, 1, 0, 0, -0.010052916, -0.9999495, 0.43333334, 1, 0, 0, -0.001985778, -0.99999803, 0.5, 1, 0, 0, 0, -1)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("animal-horse/root/torso/leg-back-right")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, -0.7071068, -0.7071068, 0.033333335, 1, 0, 0, -0.707019, -0.70719457, 0.06666667, 1, 0, 0, -0.70570123, -0.70850956, 0.1, 1, 0, 0, -0.69996256, -0.7141796, 0.13333334, 1, 0, 0, -0.68428695, -0.7292129, 0.16666667, 1, 0, 0, -0.650185, -0.75977594, 0.2, 1, 0, 0, -0.58473116, -0.81122726, 0.23333333, 1, 0, 0, -0.46833423, -0.8835515, 0.26666668, 1, 0, 0, -0.2936028, -0.95592755, 0.3, 1, 0, 0, -0.1601568, -0.9870916, 0.33333334, 1, 0, 0, -0.07749242, -0.99699295, 0.36666667, 1, 0, 0, -0.031767413, -0.9994953, 0.4, 1, 0, 0, -0.010052916, -0.9999495, 0.43333334, 1, 0, 0, -0.001985778, -0.99999803, 0.5, 1, 0, 0, 0, -1)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("animal-horse/root/torso/neck")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0, 0, -0.5, -0.8660254, 0.033333335, 1, 0, 0, -0.49992833, -0.8660668, 0.06666667, 1, 0, 0, -0.4988531, -0.86668664, 0.1, 1, 0, 0, -0.4941846, -0.869357, 0.13333334, 1, 0, 0, -0.48154518, -0.8764213, 0.16666667, 1, 0, 0, -0.4545664, -0.8907129, 0.2, 1, 0, 0, -0.4044393, -0.91456485, 0.23333333, 1, 0, 0, -0.31924847, -0.9476711, 0.26666668, 1, 0, 0, -0.19735819, -0.9803315, 0.3, 1, 0, 0, -0.10702762, -0.9942561, 0.33333334, 1, 0, 0, -0.051690422, -0.9986632, 0.36666667, 1, 0, 0, -0.021180255, -0.9997757, 0.4, 1, 0, 0, -0.006702007, -0.9999775, 0.43333334, 1, 0, 0, -0.0013238527, -0.99999917, 0.5, 1, 0, 0, 0, -1)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("animal-horse/root/torso/neck/head")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0, 0, 0.34202012, -0.9396926, 0.06666667, 1, 0, 0, 0.34119067, -0.9399941, 0.1, 1, 0, 0, 0.33781815, -0.9412114, 0.13333334, 1, 0, 0, 0.32871687, -0.9444285, 0.16666667, 1, 0, 0, 0.30942678, -0.9509233, 0.2, 1, 0, 0, 0.27402633, -0.9617222, 0.23333333, 1, 0, 0, 0.21493396, -0.9766286, 0.26666668, 1, 0, 0, 0.13205475, -0.99124247, 0.3, 1, 0, 0, 0.071427785, -0.99744576, 0.33333334, 1, 0, 0, 0.03446881, -0.9994058, 0.36666667, 1, 0, 0, 0.014120757, -0.9999004, 0.4, 1, 0, 0, 0.004468023, -0.99999005, 0.43333334, 1, 0, 0, 0.0008825686, -0.99999964, 0.5, 1, 0, 0, 0, -1)
+tracks/6/type = "position_3d"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("animal-horse/root/torso")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.06666667, 1, 0, 0.0006320989, 0, 0.1, 1, 0, 0.0032000006, 0, 0.13333334, 1, 0, 0.010113582, 0, 0.16666667, 1, 0, 0.02469136, 0, 0.2, 1, 0, 0.051200006, 0, 0.23333333, 1, 0, 0.094854325, 0, 0.26666668, 1, 0, 0.1551457, 0, 0.3, 1, 0, 0.19880001, 0, 0.33333334, 1, 0, 0.22530864, 0, 0.36666667, 1, 0, 0.23988642, 0, 0.4, 1, 0, 0.2468, 0, 0.43333334, 1, 0, 0.24936791, 0, 0.5, 1, 0, 0.25, 0)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("animal-horse/root/torso/tail")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_sdjma"]
+resource_name = "walk"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/path = NodePath("animal-horse/root/torso/leg-front-left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, -0.25881904, -0.9659258, 0.033333335, 1, 0, 0, -0.23416185, -0.97219765, 0.06666667, 1, 0, 0, -0.16913927, -0.9855922, 0.1, 1, 0, 0, -0.07741508, -0.99699897, 0.13333334, 1, 0, 0, 0.026138213, -0.99965835, 0.16666667, 1, 0, 0, 0.12571806, -0.992066, 0.2, 1, 0, 0, 0.20586261, -0.97858095, 0.23333333, 1, 0, 0, 0.25236958, -0.9676309, 0.26666668, 1, 0, 0, 0.25236958, -0.9676309, 0.3, 1, 0, 0, 0.2058626, -0.97858095, 0.33333334, 1, 0, 0, 0.125718, -0.992066, 0.36666667, 1, 0, 0, 0.026138147, -0.99965835, 0.4, 1, 0, 0, -0.0774151, -0.996999, 0.43333334, 1, 0, 0, -0.16913931, -0.9855922, 0.5, 1, 0, 0, -0.25881907, -0.96592593)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/path = NodePath("animal-horse/root/torso/leg-front-right")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0.25881904, -0.9659258, 0.033333335, 1, 0, 0, 0.23416185, -0.97219765, 0.06666667, 1, 0, 0, 0.16913927, -0.9855922, 0.1, 1, 0, 0, 0.07741508, -0.99699897, 0.13333334, 1, 0, 0, -0.026138213, -0.99965835, 0.16666667, 1, 0, 0, -0.12571806, -0.992066, 0.2, 1, 0, 0, -0.20586261, -0.97858095, 0.23333333, 1, 0, 0, -0.25236958, -0.9676309, 0.26666668, 1, 0, 0, -0.25236958, -0.9676309, 0.3, 1, 0, 0, -0.2058626, -0.97858095, 0.33333334, 1, 0, 0, -0.125718, -0.992066, 0.36666667, 1, 0, 0, -0.026138147, -0.99965835, 0.4, 1, 0, 0, 0.0774151, -0.996999, 0.43333334, 1, 0, 0, 0.16913931, -0.9855922, 0.5, 1, 0, 0, 0.25881907, -0.96592593)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/path = NodePath("animal-horse/root/torso/leg-back-left")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, 0.25881904, -0.9659258, 0.033333335, 1, 0, 0, 0.23416185, -0.97219765, 0.06666667, 1, 0, 0, 0.16913927, -0.9855922, 0.1, 1, 0, 0, 0.07741508, -0.99699897, 0.13333334, 1, 0, 0, -0.026138213, -0.99965835, 0.16666667, 1, 0, 0, -0.12571806, -0.992066, 0.2, 1, 0, 0, -0.20586261, -0.97858095, 0.23333333, 1, 0, 0, -0.25236958, -0.9676309, 0.26666668, 1, 0, 0, -0.25236958, -0.9676309, 0.3, 1, 0, 0, -0.2058626, -0.97858095, 0.33333334, 1, 0, 0, -0.125718, -0.992066, 0.36666667, 1, 0, 0, -0.026138147, -0.99965835, 0.4, 1, 0, 0, 0.0774151, -0.996999, 0.43333334, 1, 0, 0, 0.16913931, -0.9855922, 0.5, 1, 0, 0, 0.25881907, -0.96592593)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/path = NodePath("animal-horse/root/torso/leg-back-right")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, -0.25881904, -0.9659258, 0.033333335, 1, 0, 0, -0.23416185, -0.97219765, 0.06666667, 1, 0, 0, -0.16913927, -0.9855922, 0.1, 1, 0, 0, -0.07741508, -0.99699897, 0.13333334, 1, 0, 0, 0.026138213, -0.99965835, 0.16666667, 1, 0, 0, 0.12571806, -0.992066, 0.2, 1, 0, 0, 0.20586261, -0.97858095, 0.23333333, 1, 0, 0, 0.25236958, -0.9676309, 0.26666668, 1, 0, 0, 0.25236958, -0.9676309, 0.3, 1, 0, 0, 0.2058626, -0.97858095, 0.33333334, 1, 0, 0, 0.125718, -0.992066, 0.36666667, 1, 0, 0, 0.026138147, -0.99965835, 0.4, 1, 0, 0, -0.0774151, -0.996999, 0.43333334, 1, 0, 0, -0.16913931, -0.9855922, 0.5, 1, 0, 0, -0.25881907, -0.96592593)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = true
+tracks/4/enabled = true
+tracks/4/path = NodePath("animal-horse/root/torso/tail")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.033333335, 1, 0, 0, -0.0042404914, -0.99999106, 0.06666667, 1, 0, 0, -0.015306587, -0.9998829, 0.1, 1, 0, 0, -0.03071297, -0.9995283, 0.13333334, 1, 0, 0, -0.047971673, -0.99884874, 0.16666667, 1, 0, 0, -0.06459682, -0.99791145, 0.2, 1, 0, 0, -0.07811111, -0.99694467, 0.23333333, 1, 0, 0, -0.086048074, -0.996291, 0.26666668, 1, 0, 0, -0.086048074, -0.99629104, 0.3, 1, 0, 0, -0.0781111, -0.99694467, 0.33333334, 1, 0, 0, -0.06459681, -0.99791145, 0.36666667, 1, 0, 0, -0.047971673, -0.99884874, 0.4, 1, 0, 0, -0.030712968, -0.9995282, 0.43333334, 1, 0, 0, -0.015306591, -0.9998829, 0.46666667, 1, 0, 0, -0.007653517, -0.9999708, 0.5, 1, 0, 0, 0, -1)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = true
+tracks/5/enabled = true
+tracks/5/path = NodePath("animal-horse/root/torso/neck")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.033333335, 1, 0, 0, -0.012721171, -0.9999191, 0.06666667, 1, 0, 0, -0.045905422, -0.99894583, 0.1, 1, 0, 0, -0.09202301, -0.9957569, 0.13333334, 1, 0, 0, -0.14347345, -0.98965424, 0.16666667, 1, 0, 0, -0.1927123, -0.98125535, 0.2, 1, 0, 0, -0.23242699, -0.97261393, 0.23333333, 1, 0, 0, -0.25559577, -0.96678376, 0.26666668, 1, 0, 0, -0.25559574, -0.96678376, 0.3, 1, 0, 0, -0.23242697, -0.9726139, 0.33333334, 1, 0, 0, -0.19271228, -0.98125535, 0.36666667, 1, 0, 0, -0.14347342, -0.9896542, 0.4, 1, 0, 0, -0.092023, -0.99575686, 0.43333334, 1, 0, 0, -0.045905408, -0.99894583, 0.46666667, 1, 0, 0, -0.022958746, -0.9997364, 0.5, 1, 0, 0, 0, -1)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = true
+tracks/6/enabled = true
+tracks/6/path = NodePath("animal-horse/root/torso/neck/head")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0, 0, 0, -1, 0.033333335, 1, 0, 0, 0.0084809065, -0.99996406, 0.06666667, 1, 0, 0, 0.030609591, -0.99953145, 0.1, 1, 0, 0, 0.061396956, -0.99811345, 0.13333334, 1, 0, 0, 0.095832884, -0.9953975, 0.16666667, 1, 0, 0, 0.1289238, -0.9916545, 0.2, 1, 0, 0, 0.15574491, -0.9877973, 0.23333333, 1, 0, 0, 0.17145786, -0.98519146, 0.26666668, 1, 0, 0, 0.17145784, -0.98519146, 0.3, 1, 0, 0, 0.15574488, -0.9877973, 0.33333334, 1, 0, 0, 0.12892379, -0.9916546, 0.36666667, 1, 0, 0, 0.09583288, -0.99539745, 0.4, 1, 0, 0, 0.061396953, -0.9981134, 0.43333334, 1, 0, 0, 0.030609598, -0.99953145, 0.46666667, 1, 0, 0, 0.015306587, -0.9998829, 0.5, 1, 0, 0, 0, -1)
+tracks/7/type = "position_3d"
+tracks/7/imported = true
+tracks/7/enabled = true
+tracks/7/path = NodePath("animal-horse/root/torso")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0, 0.25, 0, 0.033333335, 1, 0, 0.26754075, 0, 0.06666667, 1, 0, 0.3049926, 0, 0.1, 1, 0, 0.3396, 0, 0.13333334, 1, 0, 0.34872591, 0, 0.16666667, 1, 0, 0.32407406, 0, 0.2, 1, 0, 0.2852, 0, 0.23333333, 1, 0, 0.25485927, 0, 0.26666668, 1, 0, 0.25485927, 0, 0.3, 1, 0, 0.2852, 0, 0.33333334, 1, 0, 0.3240741, 0, 0.36666667, 1, 0, 0.34872591, 0, 0.4, 1, 0, 0.33959997, 0, 0.43333334, 1, 0, 0.3049926, 0, 0.5, 1, 0, 0.25, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j2dg5"]
+_data = {
+&"RESET": SubResource("Animation_brbtb"),
+&"down": SubResource("Animation_x7y1h"),
+&"run": SubResource("Animation_eaaf4"),
+&"up": SubResource("Animation_ebtpm"),
+&"walk": SubResource("Animation_sdjma")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=339742032]
+
+[node name="Control" type="Control" parent="." unique_id=486981484 node_paths=PackedStringArray("horse", "camera")]
+material = SubResource("ShaderMaterial_0seh3")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vfidw")
+horse = NodePath("maskViewport/horse")
+camera = NodePath("maskViewport/Camera3D")
+gameScene = ExtResource("2_0seh3")
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=331794929]
+material = SubResource("ShaderMaterial_qh5h7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_j1m1s")
+expand_mode = 3
+
+[node name="SubViewport" type="SubViewport" parent="Control" unique_id=1726765584]
+size = Vector2i(1920, 1080)
+
+[node name="TextureRect" type="TextureRect" parent="Control/SubViewport" unique_id=1343634611]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_right = 8.380859
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_w6dbl")
+expand_mode = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control/SubViewport" unique_id=821586068]
+material = SubResource("ShaderMaterial_6uiy5")
+anchors_preset = -1
+anchor_right = 1.003
+anchor_bottom = 1.0120001
+offset_right = 0.5560303
+offset_bottom = 0.3199463
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/SubViewport/SubViewportContainer" unique_id=1151153120]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1926, 1093)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Control/SubViewport/SubViewportContainer/SubViewport" unique_id=1056649136]
+transform = Transform3D(-0.49747375, 0, -0.867479, 0, 1, 0, 0.867479, 0, -0.49747375, -1.0054321, 0.6746826, -0.05810547)
+
+[node name="Label3D" type="Label3D" parent="Control/SubViewport/SubViewportContainer/SubViewport" unique_id=1953845268]
+transform = Transform3D(-0.7443115, 0, -0.66783243, 0, 1, 0, 0.66783243, 0, -0.7443115, 0.819, 1.3237822, 1.839)
+outline_modulate = Color(0, 0, 0, 0)
+text = "THE BLACK
+STALLION"
+font = ExtResource("3_vfidw")
+font_size = 113
+
+[node name="Label3D2" type="Label3D" parent="Control/SubViewport/SubViewportContainer/SubViewport" unique_id=595070022]
+transform = Transform3D(-0.7443115, 0, -0.66783243, 0, 1, 0, 0.66783243, 0, -0.7443115, 0.819, 0.075430155, 1.839)
+outline_modulate = Color(0, 0, 0, 0)
+text = "> press any key to play"
+font = ExtResource("3_vfidw")
+font_size = 53
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Control/SubViewport/SubViewportContainer/SubViewport" unique_id=324293556]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.479126, 0, 0)
+
+[node name="maskViewport" type="SubViewport" parent="Control" unique_id=290259129]
+own_world_3d = true
+transparent_bg = true
+size = Vector2i(1920, 1080)
+
+[node name="horse" type="Node3D" parent="Control/maskViewport" unique_id=1429582369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+
+[node name="animal-horse" type="Node3D" parent="Control/maskViewport/horse" unique_id=1263838334]
+transform = Transform3D(0.8358074, 0.053575236, 0.5464025, 0, 0.9952274, -0.0975829, -0.5490228, 0.08156051, 0.8318184, 0.23, 0.045, -0.285)
+
+[node name="root" type="Node3D" parent="Control/maskViewport/horse/animal-horse" unique_id=198272317]
+
+[node name="torso" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root" unique_id=1059204938]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("ArrayMesh_6uiy5")
+
+[node name="torso2" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso" unique_id=2052775641]
+mesh = SubResource("ArrayMesh_6uiy5")
+surface_material_override/0 = SubResource("ShaderMaterial_xjx1i")
+
+[node name="leg-back-left" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso" unique_id=2130123550]
+transform = Transform3D(0.99999964, -0.00024822456, 0, 0.00024822456, 0.99999964, 0, 0, 0, 1, 0.2875, 0.06250001, 0.09374999)
+mesh = SubResource("ArrayMesh_0seh3")
+
+[node name="leg-back-left" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso/leg-back-left" unique_id=614412444]
+mesh = SubResource("ArrayMesh_0seh3")
+surface_material_override/0 = SubResource("ShaderMaterial_xjx1i")
+
+[node name="leg-back-right" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso" unique_id=1146558100]
+transform = Transform3D(0.99999964, -0.00024822456, 0, 0.00024822456, 0.99999964, 0, 0, 0, 1, 0.2875, 0.06250001, -0.09375)
+mesh = SubResource("ArrayMesh_j1m1s")
+
+[node name="leg-back-right" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso/leg-back-right" unique_id=404582648]
+mesh = SubResource("ArrayMesh_j1m1s")
+surface_material_override/0 = SubResource("ShaderMaterial_xjx1i")
+
+[node name="leg-front-left" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso" unique_id=1542286812]
+transform = Transform3D(0.99999964, 0.00024822456, 0, -0.00024822456, 0.99999964, 0, 0, 0, 1, -0.1875, 0.06250001, 0.09374999)
+mesh = SubResource("ArrayMesh_2m3fh")
+
+[node name="leg-front-left" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso/leg-front-left" unique_id=1819222875]
+mesh = SubResource("ArrayMesh_2m3fh")
+surface_material_override/0 = SubResource("ShaderMaterial_xjx1i")
+
+[node name="leg-front-right" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso" unique_id=521114304]
+transform = Transform3D(0.99999964, 0.00024822456, 0, -0.00024822456, 0.99999964, 0, 0, 0, 1, -0.1875, 0.06250001, -0.09375)
+mesh = SubResource("ArrayMesh_qh5h7")
+
+[node name="leg-front-right" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso/leg-front-right" unique_id=549394872]
+mesh = SubResource("ArrayMesh_qh5h7")
+surface_material_override/0 = SubResource("ShaderMaterial_xjx1i")
+
+[node name="neck" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso" unique_id=1028839389]
+transform = Transform3D(1, -0.0001654831, 0, 0.0001654831, 1, 0, 0, 0, 1, -0.18655853, 0.17299683, 6.08362e-11)
+mesh = SubResource("ArrayMesh_5yfja")
+
+[node name="head" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso/neck" unique_id=640332389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.048938293, 0.18938294, -1.4438228e-15)
+mesh = SubResource("ArrayMesh_hjp3n")
+
+[node name="head" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso/neck/head" unique_id=1807805746]
+mesh = SubResource("ArrayMesh_hjp3n")
+surface_material_override/0 = SubResource("ShaderMaterial_xjx1i")
+
+[node name="neck" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso/neck" unique_id=472574310]
+mesh = SubResource("ArrayMesh_5yfja")
+surface_material_override/0 = SubResource("ShaderMaterial_xjx1i")
+
+[node name="tail" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso" unique_id=1946373765]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.31752405, 0.23125, 6.083836e-11)
+mesh = SubResource("ArrayMesh_13nni")
+
+[node name="tail" type="MeshInstance3D" parent="Control/maskViewport/horse/animal-horse/root/torso/tail" unique_id=1139615601]
+mesh = SubResource("ArrayMesh_13nni")
+surface_material_override/0 = SubResource("ShaderMaterial_xjx1i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/maskViewport/horse" unique_id=731967548]
+libraries/ = SubResource("AnimationLibrary_j2dg5")
+autoplay = &"walk"
+speed_scale = 0.18
+next/run = &"RESET"
+blend_times = [&"RESET", &"RESET", 0.3, &"RESET", &"down", 0.3, &"RESET", &"run", 0.3, &"RESET", &"up", 0.3, &"RESET", &"walk", 0.3, &"down", &"RESET", 0.3, &"down", &"down", 0.3, &"down", &"run", 0.3, &"down", &"up", 0.3, &"down", &"walk", 0.3, &"run", &"RESET", 0.3, &"run", &"down", 0.3, &"run", &"run", 0.3, &"run", &"up", 0.3, &"run", &"walk", 0.3, &"up", &"down", 0.3, &"up", &"run", 0.3, &"up", &"walk", 0.3, &"walk", &"RESET", 0.3, &"walk", &"down", 0.3, &"walk", &"run", 0.3, &"walk", &"up", 0.3, &"walk", &"walk", 0.3]
+
+[node name="Camera3D" type="Camera3D" parent="Control/maskViewport" unique_id=1736945057]
+transform = Transform3D(-0.50000006, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.50000006, -1, 0.675, -0.05)

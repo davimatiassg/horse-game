@@ -55,7 +55,7 @@ shader_parameter/screen_size = Vector2(1920, 1080)
 shader_parameter/dot_pitch_px = 10.0
 shader_parameter/dot_softness = 0.8
 shader_parameter/contrast = 1.0
-shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/bg_color = Color(0, 0.5495127, 0.6685069, 1)
 shader_parameter/opacity = 1.0
 shader_parameter/grid_rotate_deg = 0.0
 
@@ -100,7 +100,7 @@ shader_parameter/screen_size = Vector2(1920, 1080)
 shader_parameter/dot_pitch_px = 10.0
 shader_parameter/dot_softness = 0.8
 shader_parameter/contrast = 1.0
-shader_parameter/bg_color = Color(0, 0, 0, 1)
+shader_parameter/bg_color = Color(1, 1, 1, 1)
 shader_parameter/opacity = 1.0
 shader_parameter/grid_rotate_deg = 0.0
 

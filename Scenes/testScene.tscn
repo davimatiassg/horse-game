@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://ditvpj4x8g4vi" path="res://Scripts/GameManager.cs" id="6_lmhyv"]
 [ext_resource type="PackedScene" uid="uid://djawyqyfene3u" path="res://Prefabs/enemies/eye_enemy.tscn" id="8_da2vk"]
 [ext_resource type="PackedScene" uid="uid://bfp7r2qp64koo" path="res://Prefabs/pole.tscn" id="10_1jpt2"]
+[ext_resource type="Script" uid="uid://dnhg127ng0s7h" path="res://Scripts/AudioPlayer.cs" id="10_6f2q3"]
 [ext_resource type="PackedScene" uid="uid://cqqu1x5dhxt0w" path="res://Prefabs/RopeRoll.tscn" id="11_ucjvl"]
 [ext_resource type="PackedScene" uid="uid://bprbg7l0amu1x" path="res://Prefabs/PickableHorse.tscn" id="12_lmhyv"]
 [ext_resource type="PackedScene" uid="uid://id8ut4cm4u6s" path="res://Scenes/levelUpMenu.tscn" id="13_cod5x"]
@@ -46,6 +47,9 @@ player = NodePath("../Knight")
 
 [node name="GameManager" type="Node" parent="." unique_id=1770746656]
 script = ExtResource("6_lmhyv")
+
+[node name="AudioManager" type="Node" parent="." unique_id=906449384]
+script = ExtResource("10_6f2q3")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1954057469 node_paths=PackedStringArray("player")]
 position = Vector2(-39, 0)
