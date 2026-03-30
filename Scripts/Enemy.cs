@@ -1,12 +1,14 @@
 using Godot;
 using System;
-using System.Drawing;
 
 
 public interface IHealthPoints
 {
     public int MaxHP {get; set;}
     public int HP {get; set;}
+
+    public Action<int> OnChangeHP 
+    { get; set; }
 }
 
 public interface IHittable
@@ -25,6 +27,8 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
     [Export] public PackedScene damageLabel;
     [Export] public int MaxHP { get; set; }
     private int _HP;
+    public  Action<int> OnChangeHP 
+    { get; set; }
     public virtual int HP { 
         get => _HP;
         set
@@ -40,10 +44,14 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
 
             tween.TweenCallback(Callable.From(() => number.CallDeferred(MethodName.QueueFree)));
             
+
+            
             
             _HP = value;
             if(_HP < 0) Die();
             if(_HP > MaxHP)  _HP = MaxHP;     
+
+            OnChangeHP?.Invoke(_HP);
         } 
     }
 
@@ -56,19 +64,27 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
 
         Tween skewtween = CreateTween();
         skewtween.TweenProperty(this, "skew", 0f, 0.5f);
+        DynamicUIManager.SpawnHPBar(this);
     }
 
     public virtual void TakeDamage(int damage)
     {
         HP -= damage;
+
+        
+
     }
 
     public void Knockback(Vector2 force)
     {
-        Velocity += force;
+        Velocity += force*2f;
     }
 
-    public abstract void Die();
+    public virtual void Die()
+    {
+        EnemyManager.DropFromEnemy(this);
+        CallDeferred(MethodName.QueueFree);
+    }
 
     public override void _PhysicsProcess(double delta)
     {

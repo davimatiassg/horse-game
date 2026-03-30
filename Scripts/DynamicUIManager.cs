@@ -7,6 +7,7 @@ public partial class DynamicUIManager : Control
     [Export] public CameraController camera;
 
     [Export] public PackedScene label;
+    [Export] public PackedScene hpBar;
 
 
     public override void _Ready()
@@ -26,5 +27,19 @@ public partial class DynamicUIManager : Control
         spawnedLabel.GlobalPosition = Singleton.GetViewport().GetGlobalCanvasTransform().AffineInverse() * worldPosition - spawnedLabel.Size / 2f + Vector2.Up*96;
     
         return (RichTextLabel)spawnedLabel;
+    }
+
+
+    public static HpBar SpawnHPBar<T>(T objectOnScreen) where T : Node2D, IHealthPoints
+    {
+        var spawnedHpBar = Singleton.hpBar.Instantiate<HpBar>();
+        Singleton.GetTree().Root.CallDeferred(MethodName.AddChild, spawnedHpBar);
+
+        spawnedHpBar.nodeToFollow = objectOnScreen;
+
+        objectOnScreen.OnChangeHP += (int value) => spawnedHpBar.Value = ((float)value/(float)objectOnScreen.MaxHP);
+
+        return spawnedHpBar;
+        
     }
 }

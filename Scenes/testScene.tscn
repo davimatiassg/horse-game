@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dpqy2sv1pdnys" path="res://Scripts/DynamicUIManager.cs" id="2_nar4k"]
 [ext_resource type="PackedScene" uid="uid://brsangs6gogei" path="res://Prefabs/effects/damage_number.tscn" id="3_6f2q3"]
 [ext_resource type="PackedScene" uid="uid://ckmpk46u064r8" path="res://Prefabs/Bird.tscn" id="3_7v7vq"]
+[ext_resource type="PackedScene" uid="uid://4scr78ckg1xk" path="res://Prefabs/effects/HPBar.tscn" id="4_810fb"]
 [ext_resource type="Script" uid="uid://dhdnal26x865g" path="res://Scripts/EnemyManager.cs" id="5_ur507"]
 [ext_resource type="Script" uid="uid://6c8x2wrlaug0" path="res://Scripts/ScoreManager.cs" id="5_y1jas"]
 [ext_resource type="PackedScene" uid="uid://ewacfq6ojmg5" path="res://Prefabs/cart.tscn" id="6_g0r03"]
@@ -12,9 +13,19 @@
 [ext_resource type="PackedScene" uid="uid://djawyqyfene3u" path="res://Prefabs/enemies/eye_enemy.tscn" id="8_da2vk"]
 [ext_resource type="PackedScene" uid="uid://bfp7r2qp64koo" path="res://Prefabs/pole.tscn" id="10_1jpt2"]
 [ext_resource type="Script" uid="uid://dnhg127ng0s7h" path="res://Scripts/AudioPlayer.cs" id="10_6f2q3"]
+[ext_resource type="PackedScene" uid="uid://dm4ijxceokvay" path="res://Prefabs/Coin.tscn" id="10_18y8u"]
 [ext_resource type="PackedScene" uid="uid://cqqu1x5dhxt0w" path="res://Prefabs/RopeRoll.tscn" id="11_ucjvl"]
 [ext_resource type="PackedScene" uid="uid://bprbg7l0amu1x" path="res://Prefabs/PickableHorse.tscn" id="12_lmhyv"]
 [ext_resource type="PackedScene" uid="uid://id8ut4cm4u6s" path="res://Scenes/levelUpMenu.tscn" id="13_cod5x"]
+[ext_resource type="FontFile" uid="uid://b2xcnmmoxe6y" path="res://Fonts/Minecraft.ttf" id="17_0mv31"]
+[ext_resource type="Script" uid="uid://dwd6viq4i21pb" path="res://Scripts/Clock.cs" id="17_3tsn2"]
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="17_jguqm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_18y8u"]
+shader = ExtResource("17_jguqm")
+shader_parameter/flash_amount = 0.0
+shader_parameter/outline_color = Color(0, 0, 0.30980393, 1)
+shader_parameter/outline_size = 8.175
 
 [node name="Node2D" type="Node" unique_id=1795436321]
 
@@ -30,6 +41,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_nar4k")
 label = ExtResource("3_6f2q3")
+hpBar = ExtResource("4_810fb")
 
 [node name="ScoreManager" type="Node" parent="." unique_id=1366451150 node_paths=PackedStringArray("player", "charrietBuyMenu")]
 script = ExtResource("5_y1jas")
@@ -42,6 +54,10 @@ script = ExtResource("5_ur507")
 enemies = Dictionary[PackedScene, int]({
 ExtResource("3_7v7vq"): 2,
 ExtResource("8_da2vk"): 5
+})
+drops = Dictionary[PackedScene, float]({
+ExtResource("10_18y8u"): 0.95,
+ExtResource("11_ucjvl"): 0.05
 })
 player = NodePath("../Knight")
 
@@ -57,30 +73,36 @@ script = ExtResource("2_4mqg7")
 player = NodePath("../Knight")
 Areas = Array[Rect2]([Rect2(-1600, -900, 3200, 1800), Rect2(-1600, -2700, 3200, 1800), Rect2(-1600, 900, 3200, 1800), Rect2(1600, -900, 3200, 1800), Rect2(-4800, -900, 3200, 1800)])
 
-[node name="Knight" parent="." unique_id=522413118 groups=["player"] instance=ExtResource("1_8xinf")]
-position = Vector2(-39, 0)
-turnAcel = 10.0
-
-[node name="enemy_eye" parent="." unique_id=222694737 instance=ExtResource("8_da2vk")]
-position = Vector2(167, 226)
-
-[node name="enemy_eye2" parent="." unique_id=1036028140 instance=ExtResource("8_da2vk")]
-position = Vector2(14, -1521)
-
 [node name="Pole" parent="." unique_id=1619171882 node_paths=PackedStringArray("player") instance=ExtResource("10_1jpt2")]
 position = Vector2(0, -6)
 player = NodePath("../Knight")
 
-[node name="RopeRoll" parent="." unique_id=1479339669 instance=ExtResource("11_ucjvl")]
-position = Vector2(55, 143)
-
-[node name="RopeRoll2" parent="." unique_id=2115216851 instance=ExtResource("11_ucjvl")]
-position = Vector2(85, 66)
-
 [node name="extraHorse" parent="." unique_id=1593898263 instance=ExtResource("12_lmhyv")]
-position = Vector2(-305, -49)
+position = Vector2(-596, -7)
 mainColor = Color(0.972549, 0, 0.85490197, 1)
 
 [node name="Horse" parent="." unique_id=1186690306 instance=ExtResource("12_lmhyv")]
-position = Vector2(739, 29)
+position = Vector2(720, 15)
 mainColor = Color(1, 0, 0, 0)
+
+[node name="Clock" type="RichTextLabel" parent="." unique_id=1071579754]
+material = SubResource("ShaderMaterial_18y8u")
+offset_left = -125.0
+offset_top = -142.0
+offset_right = 126.0
+offset_bottom = -63.0
+theme_override_fonts/normal_font = ExtResource("17_0mv31")
+theme_override_font_sizes/normal_font_size = 64
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("17_3tsn2")
+
+[node name="Knight" parent="." unique_id=522413118 groups=["player"] instance=ExtResource("1_8xinf")]
+position = Vector2(-39, 0)
+turnAcel = 10.0
+
+[node name="RopeRoll" parent="." unique_id=619255961 instance=ExtResource("11_ucjvl")]
+position = Vector2(-426, -10)
+
+[node name="Coin" parent="." unique_id=351914249 instance=ExtResource("10_18y8u")]
+position = Vector2(425, 0)

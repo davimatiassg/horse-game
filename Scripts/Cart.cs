@@ -24,6 +24,9 @@ public partial class Cart : CharacterBody2D, IHittable, IHealthPoints
 
     public int MaxHP { get; set; } = 500;
     [Export] private int _HP;
+
+    public  Action<int> OnChangeHP 
+    { get; set; }
     public int HP { get => _HP;
 
         set
@@ -47,6 +50,7 @@ public partial class Cart : CharacterBody2D, IHittable, IHealthPoints
                 OnDie?.Invoke();
                 QueueFree();
             }
+            OnChangeHP?.Invoke(_HP);
         }
     }
 
@@ -54,6 +58,7 @@ public partial class Cart : CharacterBody2D, IHittable, IHealthPoints
     public override void _Ready()
     {
         base._Ready();
+        DynamicUIManager.SpawnHPBar(this);
     }
 
     public override void _Process(double delta)
@@ -100,5 +105,24 @@ public partial class Cart : CharacterBody2D, IHittable, IHealthPoints
     public void TakeDamage(int damage)
     {
         HP -= damage;
+
+
+        //piscar
+
+        var material = (ShaderMaterial) sprite.Material;
+
+        Tween tween = CreateTween();
+
+        for(int i = 0; i < 10; i ++)
+        {
+            tween.TweenCallback(Callable.From(
+                () => {
+                    float currentFlash = (float)material.GetShaderParameter("flash_amount");
+                    material.SetShaderParameter("flash_amount", 1f - currentFlash);
+                }
+            ));
+            tween.TweenInterval(0.05f);
+            
+        }
     }
 }

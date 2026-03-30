@@ -30,7 +30,7 @@ public partial class TurretCannon : CartTurret
         GetTree().Root.AddChild(projectile);
 
         projectile.damage = shotDamage;
-
+        projectile.LookAt(projectile.GlobalPosition+direction);
         projectile.GlobalPosition = GlobalPosition;
         projectile.direction = direction;
     }

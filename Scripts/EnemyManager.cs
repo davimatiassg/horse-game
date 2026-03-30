@@ -9,8 +9,12 @@ using Godot.Collections;
 
 public partial class EnemyManager : Node
 {
+    public static EnemyManager Singleton;
+
     [ExportGroup("Connections")]
     [Export] public Godot.Collections.Dictionary<PackedScene, int> enemies = new();
+
+    [Export] public Godot.Collections.Dictionary<PackedScene, float> drops = new();
 
     [Export] public HorseBody player;
 
@@ -21,13 +25,19 @@ public partial class EnemyManager : Node
 
 
     [Export] public float chanceConstant = 0.95f;
-    
 
     private float chance;
     Tween ActivationTween;
 
-    Random rng = new();
+    static Random rng = new();
 
+
+    public override void _Ready()
+    {
+        base._Ready();
+        if(Singleton == null) Singleton = this;
+        else if (Singleton != this) QueueFree();
+    }
     public override void _Process(double delta)
     {
         base._Process(delta);
@@ -112,5 +122,26 @@ public partial class EnemyManager : Node
         credits = remainingCredits;
 
         return enemiesToSpawn;
+    }
+
+
+
+    public static void DropFromEnemy(Enemy enemy)
+    {
+        foreach(var drop in Singleton.drops)
+        {
+            if(rng.NextSingle() < drop.Value)
+            {
+                var dropInstance = drop.Key.Instantiate<Node2D>();
+                Singleton.GetTree().Root.AddChild(dropInstance);
+                
+                dropInstance.GlobalPosition = enemy.GlobalPosition;
+
+                Tween tween = dropInstance.CreateTween();
+
+                tween.TweenProperty(dropInstance, "position", dropInstance.Position +  Vector2.Right.Rotated(2*Mathf.Pi*rng.NextSingle()) * 64f, 1.5f)
+                     .SetTrans(Tween.TransitionType.Spring);
+            }
+        }
     }
 }

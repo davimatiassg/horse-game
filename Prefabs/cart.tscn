@@ -5,7 +5,9 @@
 [ext_resource type="Shader" uid="uid://bc5a6d2eufcus" path="res://Materials/Monochromatic.gdshader" id="3_6ohuo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_24e42"]
+resource_local_to_scene = true
 shader = ExtResource("2_kdwky")
+shader_parameter/flash_amount = 0.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_size = 1.0
 

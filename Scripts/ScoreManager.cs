@@ -30,11 +30,12 @@ public partial class ScoreManager : Node
 	{
 		Singleton.totalScore += score;
 
-		if(Singleton.totalScore > Mathf.Pow(1.5, Singleton.player.carts.Count))
+		if(Singleton.totalScore+1 >= Mathf.Pow(1.5, Singleton.player.carts.Count))
 		{
 			
 
 			var cart = SpawnCart();
+			cart.GlobalPosition = Singleton.player.GlobalPosition;
 			Singleton.player.AddCart(cart);
 			GameManager.PauseGame(true);
 			Singleton.charrietBuyMenu.Visible = true;

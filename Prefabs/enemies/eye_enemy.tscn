@@ -8,8 +8,41 @@
 [ext_resource type="PackedScene" uid="uid://c1all83mrkp5u" path="res://Prefabs/effects/EyeProjectile.tscn" id="2_yxo48"]
 [ext_resource type="PackedScene" uid="uid://dm4ijxceokvay" path="res://Prefabs/Coin.tscn" id="3_vonvh"]
 
+[sub_resource type="Shader" id="Shader_tvyok"]
+resource_local_to_scene = true
+code = "shader_type canvas_item;
+
+uniform float flash_amount : hint_range(0.0, 1.0) = 0.0;
+uniform vec4 outline_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+uniform float outline_size = 1.0;
+
+void fragment() {
+    vec4 tex = texture(TEXTURE, UV);
+
+    float alpha = tex.a;
+
+    vec2 size = TEXTURE_PIXEL_SIZE * outline_size;
+
+    float outline = 0.0;
+
+    outline += texture(TEXTURE, UV + vec2(size.x, 0)).a;
+    outline += texture(TEXTURE, UV + vec2(-size.x, 0)).a;
+    outline += texture(TEXTURE, UV + vec2(0, size.y)).a;
+    outline += texture(TEXTURE, UV + vec2(0, -size.y)).a;
+
+
+    if (alpha < 0.0001 && outline > 0.0) {
+        COLOR = outline_color;
+    } else {
+		vec3 final_color = mix(tex.rgb, vec3(1.0), flash_amount);
+        COLOR = vec4(final_color, tex.a);
+    }
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sj0j1"]
-shader = ExtResource("1_qql8q")
+resource_local_to_scene = true
+shader = SubResource("Shader_tvyok")
+shader_parameter/flash_amount = 0.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_size = 1.0
 
@@ -31,6 +64,7 @@ scale_max = 2.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vavl0"]
 shader = ExtResource("1_qql8q")
+shader_parameter/flash_amount = 0.0
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 shader_parameter/outline_size = 1.0
 
@@ -132,17 +166,18 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_hdevs"]
 radius = 45.044422
 
-[node name="Eye Enemy" type="CharacterBody2D" unique_id=444991579 node_paths=PackedStringArray("eyeSprite") groups=["enemy"]]
+[node name="Eye Enemy" type="CharacterBody2D" unique_id=444991579 node_paths=PackedStringArray("sprite", "eyeSprite") groups=["enemy"]]
 collision_layer = 4
 collision_mask = 5
 motion_mode = 1
 slide_on_ceiling = false
 script = ExtResource("1_vavl0")
 tear = ExtResource("2_yxo48")
+sprite = NodePath("Sprite2D")
 coin = ExtResource("3_vonvh")
 eyeSprite = NodePath("SubViewport/AnimatedSprite2D")
 damageLabel = ExtResource("2_sj0j1")
-MaxHP = 300
+MaxHP = 120
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1445756030]
 material = SubResource("ShaderMaterial_sj0j1")

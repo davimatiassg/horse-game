@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cje4u31x1r3t"]
+
+[ext_resource type="Script" uid="uid://d03c518m476s2" path="res://Scripts/Projectile.cs" id="1_y3ejg"]
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_fdg8f"]
+[ext_resource type="Texture2D" uid="uid://tk024vd2ead7" path="res://Sprites/arrow.png" id="3_fdg8f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_metxd"]
+shader = ExtResource("2_fdg8f")
+shader_parameter/flash_amount = 0.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wnr4n"]
+radius = 11.0
+
+[node name="cannonBall" type="Area2D" unique_id=252599073]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_y3ejg")
+Speed = 1600.0
+duration = 2.5
+
+[node name="AnimatedSprite2D2" type="Sprite2D" parent="." unique_id=452274533]
+material = SubResource("ShaderMaterial_metxd")
+texture = ExtResource("3_fdg8f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1442641921]
+shape = SubResource("CircleShape2D_wnr4n")

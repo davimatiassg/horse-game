@@ -5,7 +5,8 @@ public partial class EyeEnemy : Enemy
 {
     [ExportGroup("Connections")]
     [Export] PackedScene tear;
-    [Export] PackedScene coin;
+    [Export] Sprite2D sprite;
+
 
     [Export] AnimatedSprite2D eyeSprite;
 
@@ -43,7 +44,7 @@ public partial class EyeEnemy : Enemy
 
         // Atirar no player
         _shootTimer -= (float)delta;
-        if (_shootTimer <= 0 && _player != null)
+        if (_shootTimer <= 0 && _player != null && _player.GlobalPosition.DistanceSquaredTo(this.GlobalPosition) < 640*640)
         {
             _shootTimer = ShootCooldown;
             Shoot();
@@ -72,12 +73,28 @@ public partial class EyeEnemy : Enemy
         }));
     }
 
-    public override void Die()
+
+    public override void TakeDamage(int damage)
     {
-        
-        var c = coin.Instantiate<Node2D>();
-        GetTree().Root.AddChild(c);
-        c.GlobalPosition = GlobalPosition;
-        CallDeferred(MethodName.QueueFree);
+        base.TakeDamage(damage);
+
+        //piscar
+
+        var material = (ShaderMaterial) sprite.Material;
+
+        Tween tween = CreateTween();
+
+        for(int i = 0; i < 10; i ++)
+        {
+            tween.TweenCallback(Callable.From(
+                () => {
+                    float currentFlash = (float)material.GetShaderParameter("flash_amount");
+                    material.SetShaderParameter("flash_amount", 1f - currentFlash);
+                }
+            ));
+            tween.TweenInterval(0.05f);
+            
+        }
     }
+
 }

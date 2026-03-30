@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://ce0aqh8iyimhw"]
+
+[ext_resource type="Script" uid="uid://b0lqhy6j8uthf" path="res://Scripts/TurretCannon.cs" id="1_lbgh3"]
+[ext_resource type="PackedScene" uid="uid://cje4u31x1r3t" path="res://Prefabs/effects/Arrow.tscn" id="2_lbgh3"]
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="3_kb2pa"]
+[ext_resource type="PackedScene" uid="uid://g07d7a0ac72m" path="res://Meshes/weapon-ballista.fbx" id="4_lbgh3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a5wph"]
+shader = ExtResource("3_kb2pa")
+shader_parameter/flash_amount = 0.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_size = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ta5h8"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Curve" id="Curve_ineu2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5685393, 0.5570699), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.12371635, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2gdgn"]
+curve = SubResource("Curve_ineu2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x480j"]
+direction = Vector3(1, 0, 11.1)
+initial_velocity_max = 3.0
+gravity = Vector3(0, 9.8, 0)
+scale_over_velocity_curve = SubResource("CurveTexture_2gdgn")
+color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_a5wph"]
+
+[node name="Crossbow" type="Node2D" unique_id=2141642450 node_paths=PackedStringArray("cannonModel", "blastParticles")]
+script = ExtResource("1_lbgh3")
+cannonModel = NodePath("SubViewport/weapon-ballista")
+cannonball = ExtResource("2_lbgh3")
+blastParticles = NodePath("SubViewport/weapon-ballista/GPUParticles3D")
+maxRange = 1280.0
+rotateSpeed = 5.0
+shotDamage = 20
+activationCooldown = 0.7
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1032815660]
+material = SubResource("ShaderMaterial_a5wph")
+texture = SubResource("ViewportTexture_ta5h8")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1220090900]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(96, 96)
+
+[node name="weapon-ballista" parent="SubViewport" unique_id=914807812 instance=ExtResource("4_lbgh3")]
+transform = Transform3D(-1.2988961, 0, 1.5208119, 0, 2, 0, -1.5208119, 0, -1.2988961, 0, 0, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="SubViewport/weapon-ballista" unique_id=805753463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.053307228, 0.70317864, 1.1914587)
+emitting = false
+lifetime = 0.77
+one_shot = true
+speed_scale = 1.77
+explosiveness = 1.0
+randomness = 0.02
+process_material = SubResource("ParticleProcessMaterial_x480j")
+draw_pass_1 = SubResource("SphereMesh_a5wph")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=1413432124]
+transform = Transform3D(1, 0, 0, 0, 0.81202245, 0.5836262, 0, -0.5836262, 0.81202245, 2.3841858e-07, 2.1945744, 2.6495242)
+projection = 1
+fov = 64.5
+size = 4.137
+near = 0.003
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewport" unique_id=1852229770]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0428114, 3.0607872, 0)
+light_indirect_energy = 8.133
+light_volumetric_fog_energy = 8.004
+omni_range = 16.636
+omni_attenuation = 0.0

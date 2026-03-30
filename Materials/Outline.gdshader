@@ -1,5 +1,6 @@
 shader_type canvas_item;
 
+uniform float flash_amount : hint_range(0.0, 1.0) = 0.0;
 uniform vec4 outline_color : source_color = vec4(0.0, 0.0, 0.0, 1.0);
 uniform float outline_size = 1.0;
 
@@ -21,6 +22,7 @@ void fragment() {
     if (alpha < 0.0001 && outline > 0.0) {
         COLOR = outline_color;
     } else {
-        COLOR = tex;
+		vec3 final_color = mix(tex.rgb, vec3(1.0), flash_amount);
+        COLOR = vec4(final_color, tex.a);
     }
 }

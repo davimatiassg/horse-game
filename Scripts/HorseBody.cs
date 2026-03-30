@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -45,6 +46,9 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
     
 	private bool dying = false;
 	private int _HP;
+
+	public  Action<int> OnChangeHP 
+    { get; set; }
    [Export] public int HP 
    {
 		get => _HP;
@@ -66,7 +70,7 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 				_HP = MaxHP;
 			if(value <= 0 && !dying)
 				HorseDie();
-			GD.Print($"CavaloHP:{_HP}");
+			OnChangeHP?.Invoke(_HP);
 		} 
 	}
 
@@ -74,6 +78,9 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 	{
 		HP = MaxHP;
 		trampleHitBox.BodyEntered += OnBodyEntered;
+
+
+		DynamicUIManager.SpawnHPBar(this);
 	}
 
     public override void _Process(double delta)
@@ -149,6 +156,24 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
     {
         HP -= damage;
 
+
+		//piscar
+
+        var material = (ShaderMaterial) horseSprite.Material;
+
+        Tween tween = CreateTween();
+
+        for(int i = 0; i < 10; i ++)
+        {
+            tween.TweenCallback(Callable.From(
+                () => {
+                    float currentFlash = (float)material.GetShaderParameter("flash_amount");
+                    material.SetShaderParameter("flash_amount", 1f - currentFlash);
+                }
+            ));
+            tween.TweenInterval(0.05f);
+            
+        }
 		
     }
 
@@ -252,7 +277,10 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 
 	public void TrueDeath()
 	{
-		GD.Print("MORREU");
+		Tween tween = CreateTween();
+
+		tween.TweenInterval(2);
+		tween.TweenCallback(Callable.From(() => GetTree().Quit()));
 	}
 
 #endregion
