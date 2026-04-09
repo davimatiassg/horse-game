@@ -10,6 +10,8 @@ public partial class TurretCannon : CartTurret
 
     [Export] GpuParticles3D blastParticles;
 
+    [Export] String fireSoundName = "cannon_fire";
+
     [ExportGroup("Stats")]
 
     [Export] private float maxRange = 500;
@@ -26,9 +28,12 @@ public partial class TurretCannon : CartTurret
     {
         blastParticles.Emitting = true;
 
+        AudioPlayer.PlayRandomPitch(fireSoundName);
+
         var projectile = cannonball.Instantiate<Projectile>();
         GetTree().Root.AddChild(projectile);
 
+        
         projectile.damage = shotDamage;
         projectile.LookAt(projectile.GlobalPosition+direction);
         projectile.GlobalPosition = GlobalPosition;

@@ -5,8 +5,6 @@ public partial class EyeEnemy : Enemy
 {
     [ExportGroup("Connections")]
     [Export] PackedScene tear;
-    [Export] Sprite2D sprite;
-
 
     [Export] AnimatedSprite2D eyeSprite;
 
@@ -27,9 +25,11 @@ public partial class EyeEnemy : Enemy
     {
         base._Ready();
         _player = (Node2D)GetTree().GetFirstNodeInGroup("player");
+
+        
     }
 
-     public override void _PhysicsProcess(double delta)
+    public override void _PhysicsProcess(double delta)
     {
  
         _dirTimer -= (float)delta;
@@ -73,28 +73,5 @@ public partial class EyeEnemy : Enemy
         }));
     }
 
-
-    public override void TakeDamage(int damage)
-    {
-        base.TakeDamage(damage);
-
-        //piscar
-
-        var material = (ShaderMaterial) sprite.Material;
-
-        Tween tween = CreateTween();
-
-        for(int i = 0; i < 10; i ++)
-        {
-            tween.TweenCallback(Callable.From(
-                () => {
-                    float currentFlash = (float)material.GetShaderParameter("flash_amount");
-                    material.SetShaderParameter("flash_amount", 1f - currentFlash);
-                }
-            ));
-            tween.TweenInterval(0.05f);
-            
-        }
-    }
 
 }

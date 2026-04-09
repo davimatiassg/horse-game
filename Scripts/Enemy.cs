@@ -23,10 +23,11 @@ public interface IKnockbackable
 
 
 public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints, IKnockbackable
-{   
-    [Export] public PackedScene damageLabel;
+{
+    [Export] public CanvasItem sprite;
     [Export] public int MaxHP { get; set; }
     private int _HP;
+    
     public  Action<int> OnChangeHP 
     { get; set; }
     public virtual int HP { 
@@ -43,8 +44,6 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
             tween.TweenProperty(number, "modulate:a", 0, 0.5f);
 
             tween.TweenCallback(Callable.From(() => number.CallDeferred(MethodName.QueueFree)));
-            
-
             
             
             _HP = value;
@@ -65,13 +64,31 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
         Tween skewtween = CreateTween();
         skewtween.TweenProperty(this, "skew", 0f, 0.5f);
         DynamicUIManager.SpawnHPBar(this);
+
+        AudioPlayer.PlayRandomPitch("eye_spawn");
     }
 
     public virtual void TakeDamage(int damage)
     {
         HP -= damage;
 
-        
+        AudioPlayer.PlayRandomPitch("enemy_damage");
+
+        var material = (ShaderMaterial) sprite.Material;
+
+        Tween tween = CreateTween();
+
+        for(int i = 0; i < 10; i ++)
+        {
+            tween.TweenCallback(Callable.From(
+                () => {
+                    float currentFlash = (float)material.GetShaderParameter("flash_amount");
+                    material.SetShaderParameter("flash_amount", 1f - currentFlash);
+                }
+            ));
+            tween.TweenInterval(0.05f);
+            
+        }
 
     }
 

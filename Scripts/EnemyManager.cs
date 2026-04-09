@@ -48,7 +48,7 @@ public partial class EnemyManager : Node
 
 
             ActivationTween = CreateTween();
-            ActivationTween.TweenInterval(4);
+            ActivationTween.TweenInterval(2.5);
 
             
         }

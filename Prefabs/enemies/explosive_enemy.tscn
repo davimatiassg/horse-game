@@ -1,62 +1,132 @@
-[gd_scene load_steps=10 format=3 uid="uid://explosive_enemy_unique_id"]
+[gd_scene format=3 uid="uid://cpaam3od574s"]
 
-[ext_resource type="Script" path="res://Scripts/ExplosiveEnemy.cs" id="1_script"]
-[ext_resource type="Texture2D" path="res://Sprites/eye-enemy.png" id="2_tex"]
+[ext_resource type="Script" uid="uid://sru63px2kd16" path="res://Scripts/ExplosiveEnemy.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c3mtgovq0rrfw" path="res://Sprites/explosiveEye.png" id="2_ilva3"]
+[ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_pl5pj"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_main"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ygb2v"]
+shader = ExtResource("2_pl5pj")
+shader_parameter/flash_amount = 0.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_size = 1.0
 
-[sub_resource type="ParticleProcessMaterial" id="Particle_fire"]
-particle_flag_disable_z = true
-spread = 180.0
-initial_velocity_min = 50.0
-initial_velocity_max = 100.0
-gravity = Vector3(0, 0, 0)
-scale_min = 2.0
-scale_max = 4.0
-color = Color(1, 0.38, 0, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pl5pj"]
+atlas = ExtResource("2_ilva3")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="Atlas_body"]
-atlas = ExtResource("2_tex")
-region = Rect2(0, 0, 96, 96)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygb2v"]
+atlas = ExtResource("2_ilva3")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2rhx"]
+atlas = ExtResource("2_ilva3")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f56n"]
+atlas = ExtResource("2_ilva3")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwhtv"]
+atlas = ExtResource("2_ilva3")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1m64"]
+atlas = ExtResource("2_ilva3")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68fam"]
+atlas = ExtResource("2_ilva3")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0acuy"]
+atlas = ExtResource("2_ilva3")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w0qa5"]
+atlas = ExtResource("2_ilva3")
+region = Rect2(512, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="Frames_enemy"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("Atlas_body")
+"texture": SubResource("AtlasTexture_pl5pj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygb2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2rhx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6f56n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwhtv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1m64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68fam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0acuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w0qa5")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 20.0
 }]
+
+[sub_resource type="Curve" id="Curve_ilva3"]
+_data = [Vector2(0.55829597, 1), 0.0, -0.38635924, 0, 0, Vector2(1, 0), -1.2617549, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pl5pj"]
+curve = SubResource("Curve_ilva3")
+
+[sub_resource type="ParticleProcessMaterial" id="Particle_fire"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 372.35
+initial_velocity_max = 419.08
+gravity = Vector3(0, 0, 0)
+scale_min = 16.0
+scale_max = 20.0
+scale_curve = SubResource("CurveTexture_pl5pj")
+color = Color(1, 0.38, 0, 1)
 
 [sub_resource type="CircleShape2D" id="Circle_collision"]
 radius = 35.0
 
-[node name="ExplosiveEnemy" type="CharacterBody2D" groups=["enemy"]]
+[node name="ExplosiveEnemy" type="CharacterBody2D" unique_id=1207824990 node_paths=PackedStringArray("particles", "sprite") groups=["enemy"]]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_script")
+particles = NodePath("GPUParticles2D")
 Speed = 180.0
-MaxHP = 100
-ExplosionDamage = 50.0
+explosionRadius = 160.0
+sprite = NodePath("AnimatedSprite2D")
+MaxHP = 80
 
-[node name="MainDisplay" type="Sprite2D" parent="."]
-texture = SubResource("ViewportTexture_main")
-
-[node name="SubViewport" type="SubViewport" parent="."]
-transparent_bg = true
-size = Vector2i(128, 128)
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="SubViewport"]
-amount = 20
-process_material = SubResource("Particle_fire")
-lifetime = 0.5
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SubViewport"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1571665119]
+material = SubResource("ShaderMaterial_ygb2v")
 sprite_frames = SubResource("Frames_enemy")
 autoplay = "default"
+frame_progress = 0.99306285
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=45444109]
+emitting = false
+amount = 60
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("Particle_fire")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1625909893]
+visible = false
 shape = SubResource("Circle_collision")

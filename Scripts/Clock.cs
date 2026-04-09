@@ -35,8 +35,7 @@ public partial class Clock : RichTextLabel
 
     private void HandleIntervalReached()
     {
-        GD.Print("Difficulty Increased");
-		EnemyManager.Singleton.difficulty += 1;
+		EnemyManager.Singleton.difficulty += 3;
         OnIntervalReached?.Invoke();
     }
 

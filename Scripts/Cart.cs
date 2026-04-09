@@ -107,6 +107,8 @@ public partial class Cart : CharacterBody2D, IHittable, IHealthPoints
         HP -= damage;
 
 
+        AudioPlayer.PlayRandomPitch("cart_damage");
+
         //piscar
 
         var material = (ShaderMaterial) sprite.Material;

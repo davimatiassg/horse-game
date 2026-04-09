@@ -18,7 +18,8 @@ public partial class TurretBasket : CartTurret
         area.duration = duration;
         area.healPerTick = healPerTick;
         area.tickTime = tickTime;
-
+        
+        AudioPlayer.PlayRandomPitch("heal_zone");
 
         GetTree().Root.AddChild(area);
         area.GlobalPosition = this.GlobalPosition;

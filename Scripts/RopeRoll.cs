@@ -19,6 +19,7 @@ public partial class RopeRoll : Node2D
 
 	public void Collect()
 	{
+		AudioPlayer.PlayRandomPitch("rope_grow");
 		Pole.IncreaseRope(2);
 		QueueFree();
 	}

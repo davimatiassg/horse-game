@@ -157,6 +157,8 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
         HP -= damage;
 
 
+		AudioPlayer.PlayRandomPitch("player_damage");
+
 		//piscar
 
         var material = (ShaderMaterial) horseSprite.Material;
@@ -245,6 +247,9 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 	public void HorseDie()
 	{
 		dying = true;
+
+		AudioPlayer.Play("horse_down");
+
 		horseAnim.Play("down");
 		if(horses.Count <= 0)
 		{

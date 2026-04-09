@@ -8,6 +8,8 @@ public partial class AudioPlayer : Node
 
     public static Random rng;
 
+    [Export]
+    public Godot.Collections.Dictionary<String, AudioStream> sounds = new();
 
 	public override void _Ready()
     {
@@ -15,11 +17,13 @@ public partial class AudioPlayer : Node
         if (Instance == null) Instance = this;
         else if (Instance != this) QueueFree();
         rng = new Random();
+
+
+        Play("music", true, 1, -1);
         
     }
 
-    [Export]
-    public Godot.Collections.Dictionary sounds = new();
+    
 
     public static void Play(string sound, bool loop = false, float pitch = 1, float volume = 0)
     {

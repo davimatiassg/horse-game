@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://blt8fq7kwb04w"]
 
+[ext_resource type="PackedScene" uid="uid://blmn4u4vf1372" path="res://Scenes/tile_map_layer.tscn" id="1_2s4u4"]
 [ext_resource type="PackedScene" uid="uid://d0gstbj6dlw0r" path="res://Prefabs/Horse.tscn" id="1_8xinf"]
 [ext_resource type="Script" uid="uid://b73kgh5wvmtip" path="res://Scripts/CameraController.cs" id="2_4mqg7"]
 [ext_resource type="Script" uid="uid://dpqy2sv1pdnys" path="res://Scripts/DynamicUIManager.cs" id="2_nar4k"]
@@ -14,12 +15,25 @@
 [ext_resource type="PackedScene" uid="uid://bfp7r2qp64koo" path="res://Prefabs/pole.tscn" id="10_1jpt2"]
 [ext_resource type="Script" uid="uid://dnhg127ng0s7h" path="res://Scripts/AudioPlayer.cs" id="10_6f2q3"]
 [ext_resource type="PackedScene" uid="uid://dm4ijxceokvay" path="res://Prefabs/Coin.tscn" id="10_18y8u"]
+[ext_resource type="PackedScene" uid="uid://cpaam3od574s" path="res://Prefabs/enemies/explosive_enemy.tscn" id="11_aw11d"]
 [ext_resource type="PackedScene" uid="uid://cqqu1x5dhxt0w" path="res://Prefabs/RopeRoll.tscn" id="11_ucjvl"]
 [ext_resource type="PackedScene" uid="uid://bprbg7l0amu1x" path="res://Prefabs/PickableHorse.tscn" id="12_lmhyv"]
 [ext_resource type="PackedScene" uid="uid://id8ut4cm4u6s" path="res://Scenes/levelUpMenu.tscn" id="13_cod5x"]
+[ext_resource type="AudioStream" uid="uid://sv6fn0d5m755" path="res://Audio/coin.ogg" id="14_ol8no"]
+[ext_resource type="AudioStream" uid="uid://uu5xtqsrasju" path="res://Audio/crossbow_f.ogg" id="15_1gt2f"]
+[ext_resource type="AudioStream" uid="uid://bqo4j3pd6eeot" path="res://Audio/enemy_damage.ogg" id="16_xyf8k"]
 [ext_resource type="FontFile" uid="uid://b2xcnmmoxe6y" path="res://Fonts/Minecraft.ttf" id="17_0mv31"]
 [ext_resource type="Script" uid="uid://dwd6viq4i21pb" path="res://Scripts/Clock.cs" id="17_3tsn2"]
+[ext_resource type="AudioStream" uid="uid://cyskmp6xrt8mo" path="res://Audio/eye_spawn.ogg" id="17_4wos7"]
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="17_jguqm"]
+[ext_resource type="AudioStream" uid="uid://ox62r8oy66v3" path="res://Audio/new cart.ogg" id="18_dglg1"]
+[ext_resource type="AudioStream" uid="uid://ckjn2ctojwffq" path="res://Audio/rope_grow.ogg" id="19_v47pf"]
+[ext_resource type="AudioStream" uid="uid://c2wfpsrh3sqq5" path="res://Audio/horse_down.ogg" id="20_2s4u4"]
+[ext_resource type="AudioStream" uid="uid://m6bbtqa3x0n7" path="res://Audio/heal_zone.wav" id="21_dglg1"]
+[ext_resource type="AudioStream" uid="uid://dowml4yfsl28l" path="res://Audio/player_damage.wav" id="22_v47pf"]
+[ext_resource type="AudioStream" uid="uid://brsogvxuc7ei8" path="res://Audio/cannon_fire.wav" id="23_2s4u4"]
+[ext_resource type="AudioStream" uid="uid://fl3cs7vgt46h" path="res://Audio/cart_damage.wav" id="24_aw11d"]
+[ext_resource type="AudioStream" uid="uid://cc5uem0il3r40" path="res://Audio/Trojan.wav" id="25_v47pf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_18y8u"]
 shader = ExtResource("17_jguqm")
@@ -28,6 +42,8 @@ shader_parameter/outline_color = Color(0, 0, 0.30980393, 1)
 shader_parameter/outline_size = 8.175
 
 [node name="Node2D" type="Node" unique_id=1795436321]
+
+[node name="TileMapLayer" parent="." unique_id=246565789 instance=ExtResource("1_2s4u4")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1690557136]
 
@@ -53,7 +69,8 @@ cartPrefab = ExtResource("6_g0r03")
 script = ExtResource("5_ur507")
 enemies = Dictionary[PackedScene, int]({
 ExtResource("3_7v7vq"): 2,
-ExtResource("8_da2vk"): 5
+ExtResource("8_da2vk"): 5,
+ExtResource("11_aw11d"): 5
 })
 drops = Dictionary[PackedScene, float]({
 ExtResource("10_18y8u"): 0.95,
@@ -65,7 +82,22 @@ player = NodePath("../Knight")
 script = ExtResource("6_lmhyv")
 
 [node name="AudioManager" type="Node" parent="." unique_id=906449384]
+process_mode = 3
 script = ExtResource("10_6f2q3")
+sounds = Dictionary[String, AudioStream]({
+"cannon_fire": ExtResource("23_2s4u4"),
+"cart_damage": ExtResource("24_aw11d"),
+"coin": ExtResource("14_ol8no"),
+"crossbow_fire": ExtResource("15_1gt2f"),
+"enemy_damage": ExtResource("16_xyf8k"),
+"eye_spawn": ExtResource("17_4wos7"),
+"heal_zone": ExtResource("21_dglg1"),
+"horse_down": ExtResource("20_2s4u4"),
+"music": ExtResource("25_v47pf"),
+"new_cart": ExtResource("18_dglg1"),
+"player_damage": ExtResource("22_v47pf"),
+"rope_grow": ExtResource("19_v47pf")
+})
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1954057469 node_paths=PackedStringArray("player")]
 position = Vector2(-39, 0)

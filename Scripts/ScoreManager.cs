@@ -47,6 +47,8 @@ public partial class ScoreManager : Node
 				Singleton.charrietBuyMenu.Visible = false;
 				var turret = Singleton.charrietBuyMenu.SelectedOption.turret.Instantiate<CartTurret>();
 
+				AudioPlayer.PlayRandomPitch("new_cart");
+
 				cart.AddTurret(turret);
 				Singleton.charrietBuyMenu.confirmButton.Pressed -= ConfirmCartChoice;
 			}

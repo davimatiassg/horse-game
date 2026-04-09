@@ -1,101 +1,73 @@
 using Godot;
 using System;
 
-public partial class ExplosiveEnemy : CharacterBody2D
+public partial class ExplosiveEnemy : Enemy
 {
+    [ExportGroup("Connections")]
+    [Export] private GpuParticles2D particles;
+    
+    [ExportGroup("Stats")]
     [Export] public float Speed = 150.0f;
-    [Export] public int MaxHP = 100;
-    [Export] public float ExplosionDamage = 40.0f;
-    [Export] public float ExplosionRadius = 80.0f;
+    [Export] public int explosionDamage = 40;
+    [Export] public float explosionRadius = 80.0f;
     
-    [Export] public PackedScene CoinPrefab;
-    [Export] public PackedScene DamageNumberPrefab;
+    
 
-    private int _currentHP;
-    private Node2D _player;
-    private bool _isExploding = false;
+    private HorseBody player;
+    private bool isExploding = false;
     
-    private AnimatedSprite2D _sprite;
-    private GpuParticles2D _particles;
 
     public override void _Ready()
     {
-        _currentHP = MaxHP;
-        _sprite = GetNode<AnimatedSprite2D>("SubViewport/AnimatedSprite2D");
-        _particles = GetNode<GpuParticles2D>("SubViewport/GPUParticles2D");
-        
-        // Find player in the scene (assuming player is in "player" group)
-        _player = (Node2D)GetTree().GetFirstNodeInGroup("player");
-        
+        base._Ready();
+        player = (HorseBody)GetTree().GetFirstNodeInGroup("player");
         AddToGroup("enemy");
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        if (_isExploding || _player == null) return;
+        if (isExploding || player == null) return;
 
         // Move towards player
-        Vector2 direction = GlobalPosition.DirectionTo(_player.GlobalPosition);
+        Vector2 direction = GlobalPosition.DirectionTo(player.GlobalPosition);
         Velocity = direction * Speed;
         
         MoveAndSlide();
 
-        // Check for collision with player to trigger explosion
         for (int i = 0; i < GetSlideCollisionCount(); i++)
         {
             var collision = GetSlideCollision(i);
             if (collision.GetCollider() is Node colliderNode && colliderNode.IsInGroup("player"))
             {
-                StartExplosion();
+                Die();
             }
         }
     }
 
-    public void TakeDamage(int amount)
+    public async override void Die()
     {
-        if (_isExploding) return;
-        
-        _currentHP -= amount;
-        
-        // Flash red or show damage numbers here
-        
-        if (_currentHP <= 0)
-        {
-            StartExplosion();
-        }
-    }
-
-    private async void StartExplosion()
-    {
-        if (_isExploding) return;
-        _isExploding = true;
+        if (isExploding) return;
+        isExploding = true;
         
         // Stop movement
         Velocity = Vector2.Zero;
 
-        // Visual feedback: Flash red and shake before blowing up
-        _sprite.Modulate = new Color(2, 0.5f, 0.5f); // Overdrive red
-        await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
+        sprite.Modulate = new Color(2, 0.5f, 0.5f);
 
-        // Logic: Deal damage to things nearby
-        if (_player != null && GlobalPosition.DistanceTo(_player.GlobalPosition) < ExplosionRadius)
+        await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
+
+        particles.Emitting = true;
+        sprite.Modulate = Colors.Transparent;
+
+        if (player != null && GlobalPosition.DistanceSquaredTo(player.GlobalPosition) < explosionRadius*explosionRadius)
         {
-            // Assuming player has a TakeDamage method
-            if (_player.HasMethod("TakeDamage"))
-            {
-                _player.Call("TakeDamage", ExplosionDamage);
-            }
+
+            player.TakeDamage(explosionDamage);
         }
 
-        // Spawn loot
-        if (CoinPrefab != null)
-        {
-            var coin = CoinPrefab.Instantiate<Node2D>();
-            GetParent().AddChild(coin);
-            coin.GlobalPosition = GlobalPosition;
-        }
 
-        // Final destruction
-        QueueFree();
+        await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
+
+        base.Die();
     }
 }
