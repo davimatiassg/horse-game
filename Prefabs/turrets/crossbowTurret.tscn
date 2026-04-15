@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ce0aqh8iyimhw"]
 
-[ext_resource type="Script" uid="uid://b0lqhy6j8uthf" path="res://Scripts/TurretCannon.cs" id="1_lbgh3"]
+[ext_resource type="Script" uid="uid://b0lqhy6j8uthf" path="res://Scripts/turrets/TurretCannon.cs" id="1_lbgh3"]
 [ext_resource type="PackedScene" uid="uid://cje4u31x1r3t" path="res://Prefabs/effects/Arrow.tscn" id="2_lbgh3"]
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="3_kb2pa"]
 [ext_resource type="PackedScene" uid="uid://g07d7a0ac72m" path="res://Meshes/weapon-ballista.fbx" id="4_lbgh3"]

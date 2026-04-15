@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c1all83mrkp5u"]
 
-[ext_resource type="Script" uid="uid://d03c518m476s2" path="res://Scripts/Projectile.cs" id="1_002st"]
+[ext_resource type="Script" uid="uid://d03c518m476s2" path="res://Scripts/effects/Projectile.cs" id="1_002st"]
 [ext_resource type="Shader" uid="uid://v3axean6wavg" path="res://Materials/bloom.gdshader" id="1_wnr4n"]
 [ext_resource type="Texture2D" uid="uid://b2xvtqy7uvupy" path="res://Sprites/tear.png" id="1_wypia"]
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_vgk5t"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="1_o8nvl"]
 [ext_resource type="Texture2D" uid="uid://csot13g27jx81" path="res://Sprites/pole.png" id="1_yblou"]
-[ext_resource type="Script" uid="uid://btal1pokw0sg0" path="res://Scripts/Pole.cs" id="2_e782x"]
+[ext_resource type="Script" uid="uid://btal1pokw0sg0" path="res://Scripts/objects/Pole.cs" id="2_e782x"]
 [ext_resource type="Texture2D" uid="uid://fleokqboxvem" path="res://Sprites/rope.png" id="4_18c31"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_18c31"]

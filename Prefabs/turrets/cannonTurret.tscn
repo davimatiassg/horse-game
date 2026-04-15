@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c7rapjkxfe1po"]
 
-[ext_resource type="Script" uid="uid://b0lqhy6j8uthf" path="res://Scripts/TurretCannon.cs" id="1_ineu2"]
+[ext_resource type="Script" uid="uid://b0lqhy6j8uthf" path="res://Scripts/turrets/TurretCannon.cs" id="1_ineu2"]
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_2gdgn"]
 [ext_resource type="PackedScene" uid="uid://ccuo1gm5rj8p5" path="res://Prefabs/effects/Cannonball.tscn" id="2_x480j"]
 [ext_resource type="PackedScene" uid="uid://bucqp423fy46o" path="res://Meshes/cannon.fbx" id="3_x480j"]

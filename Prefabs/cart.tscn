@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://ewacfq6ojmg5"]
 
-[ext_resource type="Script" uid="uid://c5qpb5tq66qp6" path="res://Scripts/Cart.cs" id="1_o8d5y"]
+[ext_resource type="Script" uid="uid://c5qpb5tq66qp6" path="res://Scripts/objects/Cart.cs" id="1_o8d5y"]
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_kdwky"]
 [ext_resource type="Shader" uid="uid://bc5a6d2eufcus" path="res://Materials/Monochromatic.gdshader" id="3_6ohuo"]
 

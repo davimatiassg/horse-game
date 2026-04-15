@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b3ckf5xnn3bc"]
 
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="1_0mbec"]
-[ext_resource type="Script" uid="uid://bfeyb46e7yhc8" path="res://Scripts/HealArea.cs" id="1_dk5c2"]
+[ext_resource type="Script" uid="uid://bfeyb46e7yhc8" path="res://Scripts/effects/HealArea.cs" id="1_dk5c2"]
 [ext_resource type="Texture2D" uid="uid://bmwgqvjod1ge7" path="res://Sprites/healparticle.png" id="2_dk5c2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w7ty8"]

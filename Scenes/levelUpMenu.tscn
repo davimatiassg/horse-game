@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://id8ut4cm4u6s"]
 
-[ext_resource type="Script" uid="uid://tyctrl4ecofo" path="res://Scripts/CharrietBuyMenu.cs" id="1_7ngar"]
-[ext_resource type="Script" uid="uid://cw4tedblgf3al" path="res://Scripts/CharrietBuyMenuOption.cs" id="2_861s7"]
+[ext_resource type="Script" uid="uid://tyctrl4ecofo" path="res://Scripts/ui/CharrietBuyMenu.cs" id="1_7ngar"]
+[ext_resource type="Script" uid="uid://cw4tedblgf3al" path="res://Scripts/ui/CharrietBuyMenuOption.cs" id="2_861s7"]
 [ext_resource type="Texture2D" uid="uid://ddisgg5l47qsm" path="res://Sprites/cannon_thumb.png" id="3_xb64f"]
 [ext_resource type="PackedScene" uid="uid://c7rapjkxfe1po" path="res://Prefabs/turrets/cannonTurret.tscn" id="4_xb64f"]
 [ext_resource type="Texture2D" uid="uid://b304tl4cujk08" path="res://Sprites/appleBowl.png" id="5_24dcp"]
@@ -241,7 +241,7 @@ stretch_shrink = 3
 transparent_bg = true
 handle_input_locally = false
 anisotropic_filtering_level = 0
-size = Vector2i(277, 143)
+size = Vector2i(63, 53)
 render_target_update_mode = 4
 
 [node name="Node3D" type="Node3D" parent="HBoxContainer/VBoxContainer2/SubViewportContainer/SubViewport" unique_id=98626304]

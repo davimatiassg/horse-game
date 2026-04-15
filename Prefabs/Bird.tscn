@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ckmpk46u064r8"]
 
 [ext_resource type="Texture2D" uid="uid://dwfrfek6q4wtt" path="res://Sprites/bird.png" id="1_2fhdn"]
-[ext_resource type="Script" uid="uid://b2w31ypd084ec" path="res://Scripts/Bird.cs" id="1_7nonk"]
+[ext_resource type="Script" uid="uid://b2w31ypd084ec" path="res://Scripts/enemies/Bird.cs" id="1_7nonk"]
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_ujkhe"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_exi36"]

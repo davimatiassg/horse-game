@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cpaam3od574s"]
 
-[ext_resource type="Script" uid="uid://sru63px2kd16" path="res://Scripts/ExplosiveEnemy.cs" id="1_script"]
+[ext_resource type="Script" uid="uid://sru63px2kd16" path="res://Scripts/enemies/ExplosiveEnemy.cs" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://c3mtgovq0rrfw" path="res://Sprites/explosiveEye.png" id="2_ilva3"]
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_pl5pj"]
 

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://djawyqyfene3u"]
 
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="1_qql8q"]
-[ext_resource type="Script" uid="uid://3l4eyqyph0a1" path="res://Scripts/EyeEnemy.cs" id="1_vavl0"]
+[ext_resource type="Script" uid="uid://3l4eyqyph0a1" path="res://Scripts/enemies/EyeEnemy.cs" id="1_vavl0"]
 [ext_resource type="Texture2D" uid="uid://jxwtnd8jc2ls" path="res://Sprites/eye-enemy.png" id="2_hdevs"]
 [ext_resource type="PackedScene" uid="uid://brsangs6gogei" path="res://Prefabs/effects/damage_number.tscn" id="2_sj0j1"]
 [ext_resource type="Texture2D" uid="uid://cml5ykd0cbskm" path="res://Sprites/tile_0063.png" id="2_vavl0"]

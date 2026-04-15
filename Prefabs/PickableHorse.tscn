@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://bprbg7l0amu1x"]
 
-[ext_resource type="Script" uid="uid://cuqpixcous477" path="res://Scripts/PickableHorse.cs" id="1_kqdmw"]
+[ext_resource type="Script" uid="uid://cuqpixcous477" path="res://Scripts/objects/PickableHorse.cs" id="1_kqdmw"]
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_ev8vp"]
 [ext_resource type="Shader" uid="uid://bc5a6d2eufcus" path="res://Materials/Monochromatic.gdshader" id="3_48hfl"]
 

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dm4ijxceokvay"]
 
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="1_kmp0c"]
-[ext_resource type="Script" uid="uid://dk23xatya2gtc" path="res://Scripts/Coin.cs" id="1_qxink"]
+[ext_resource type="Script" uid="uid://dk23xatya2gtc" path="res://Scripts/collectables/Coin.cs" id="1_qxink"]
 [ext_resource type="Texture2D" uid="uid://d0hb2l3y6dwwe" path="res://Sprites/coin.png" id="2_qxink"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_214dt"]

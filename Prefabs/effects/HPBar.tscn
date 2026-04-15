@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://6ynnehjkgjmi" path="res://Sprites/divider-004.png" id="1_y1u2w"]
 [ext_resource type="Texture2D" uid="uid://c0c4oaoce4d66" path="res://Sprites/divider-004-full.png" id="2_0fyym"]
-[ext_resource type="Script" uid="uid://du1offqqu11fo" path="res://Scripts/HpBar.cs" id="3_0fyym"]
+[ext_resource type="Script" uid="uid://du1offqqu11fo" path="res://Scripts/ui/HpBar.cs" id="3_0fyym"]
 
 [node name="Divider004" type="TextureProgressBar" unique_id=282045789]
 top_level = true

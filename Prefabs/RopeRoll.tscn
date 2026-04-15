@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cqqu1x5dhxt0w"]
 
-[ext_resource type="Script" uid="uid://4j4b4e2nvjc6" path="res://Scripts/RopeRoll.cs" id="1_cykcu"]
+[ext_resource type="Script" uid="uid://4j4b4e2nvjc6" path="res://Scripts/collectables/RopeRoll.cs" id="1_cykcu"]
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="2_hcdqf"]
 [ext_resource type="Texture2D" uid="uid://jrcotlfg6qld" path="res://Sprites/ropeRoll.png" id="3_cykcu"]
 
