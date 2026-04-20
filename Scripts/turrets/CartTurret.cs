@@ -22,6 +22,4 @@ public abstract partial class CartTurret : Node2D
             ActivationTween.TweenInterval(activationCooldown);
         }
     }
-
-
 }
