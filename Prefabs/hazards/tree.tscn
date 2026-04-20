@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://dado68m4t82ty"]
+
+[ext_resource type="Script" uid="uid://due2nwgqo3uvi" path="res://Scripts/hazards/Tree.cs" id="1_6e2jo"]
+[ext_resource type="ArrayMesh" uid="uid://b4afwubnkixrl" path="res://Meshes/tree-crooked.obj" id="1_hqqnl"]
+[ext_resource type="Shader" uid="uid://bc5a6d2eufcus" path="res://Materials/Monochromatic.gdshader" id="2_f46kc"]
+[ext_resource type="PackedScene" uid="uid://bnfeeijgf8pur" path="res://Prefabs/effects/impact.tscn" id="2_mjyf6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6e2jo"]
+render_priority = 0
+shader = ExtResource("2_f46kc")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/dot_pitch_px = 1.0
+shader_parameter/dot_softness = 2.0
+shader_parameter/contrast = 0.5
+shader_parameter/bg_color = Color(1, 1, 1, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/grid_rotate_deg = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mjyf6"]
+render_priority = 0
+shader = ExtResource("2_f46kc")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/dot_pitch_px = 10.0
+shader_parameter/dot_softness = 0.8
+shader_parameter/contrast = 1.0
+shader_parameter/bg_color = Color(1, 1, 1, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/grid_rotate_deg = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_piqsb"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mjyf6"]
+radius = 15.033297
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_piqsb"]
+radius = 15.0
+height = 160.0
+
+[node name="tree" type="AnimatableBody2D" unique_id=2064710615 node_paths=PackedStringArray("uprightCollider", "fallenCollider", "treeMesh")]
+collision_layer = 32
+collision_mask = 33
+script = ExtResource("1_6e2jo")
+uprightCollider = NodePath("upright collider")
+fallenCollider = NodePath("fallen collider")
+treeMesh = NodePath("SubViewport/MeshInstance3D")
+impactEffect = ExtResource("2_mjyf6")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=717958152]
+own_world_3d = true
+transparent_bg = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport" unique_id=517357271]
+mesh = ExtResource("1_hqqnl")
+surface_material_override/0 = SubResource("ShaderMaterial_6e2jo")
+surface_material_override/1 = SubResource("ShaderMaterial_mjyf6")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=21813800]
+transform = Transform3D(1, 0, 0, 0, 0.58481616, 0.8111659, 0, -0.8111659, 0.58481616, 0, 2.972183, 1.4005153)
+projection = 1
+current = true
+size = 4.906
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2077103893]
+position = Vector2(0, -73)
+texture = SubResource("ViewportTexture_piqsb")
+
+[node name="upright collider" type="CollisionShape2D" parent="." unique_id=422174006]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_mjyf6")
+
+[node name="fallen collider" type="CollisionShape2D" parent="." unique_id=1973410594]
+position = Vector2(0, -100)
+shape = SubResource("CapsuleShape2D_piqsb")

@@ -194,8 +194,10 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 	private void Trample(Node2D body)
 	{
 
+		
+
 		if(body is IHittable hittable) 				hittable.TakeDamage((int)(trampleDamage * Velocity.Length()/speed));
-		if(body is IKnockbackable knockbackable)  	knockbackable.Knockback((body.Position - Position).Normalized() * internalSpeed * 0.25f);
+		if(body is IKnockbackable knockbackable)  	knockbackable.Knockback(Velocity.Normalized() * internalSpeed * 0.25f);
 		
 	}
 

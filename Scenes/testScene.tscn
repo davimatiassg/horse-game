@@ -33,6 +33,7 @@
 [ext_resource type="AudioStream" uid="uid://brsogvxuc7ei8" path="res://Audio/cannon_fire.wav" id="23_2s4u4"]
 [ext_resource type="AudioStream" uid="uid://fl3cs7vgt46h" path="res://Audio/cart_damage.wav" id="24_aw11d"]
 [ext_resource type="AudioStream" uid="uid://cc5uem0il3r40" path="res://Audio/Trojan.wav" id="25_v47pf"]
+[ext_resource type="PackedScene" uid="uid://dado68m4t82ty" path="res://Prefabs/hazards/tree.tscn" id="34_aw11d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_18y8u"]
 shader = ExtResource("17_jguqm")
@@ -55,6 +56,9 @@ offset_bottom = 40.0
 script = ExtResource("2_nar4k")
 label = ExtResource("3_6f2q3")
 hpBar = ExtResource("4_810fb")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=656337151]
+position = Vector2(720, 15)
 
 [node name="ScoreManager" type="Node" parent="." unique_id=1366451150 node_paths=PackedStringArray("player", "charrietBuyMenu")]
 script = ExtResource("5_y1jas")
@@ -100,20 +104,18 @@ sounds = Dictionary[String, AudioStream]({
 position = Vector2(-39, 0)
 script = ExtResource("2_4mqg7")
 player = NodePath("../Knight")
-Areas = Array[Rect2]([Rect2(-960, -540, 1920, 1080), Rect2(-1500, -3540, 3000, 3000), Rect2(-3960, -1500, 3000, 3000), Rect2(960, -1500, 3000, 3000), Rect2(-1500, 540, 3000, 3000)])
+Areas = Array[Rect2]([Rect2(-960, -540, 1920, 1080), Rect2(-1500, -3540, 3000, 3000), Rect2(-3960, -1500, 3000, 3000), Rect2(960, -1500, 3000, 3000), Rect2(-1500, 540, 3000, 3000), Rect2(-3960, -3540, 3000, 3000), Rect2(960, 540, 3000, 3000), Rect2(960, -3540, 3000, 3000), Rect2(-3960, 540, 3000, 3000)])
 
 [node name="Pole" parent="." unique_id=1619171882 node_paths=PackedStringArray("player") instance=ExtResource("10_1jpt2")]
 position = Vector2(0, -6)
 player = NodePath("../Knight")
 
-[node name="extraHorse" parent="." unique_id=1593898263 node_paths=PackedStringArray("shadedParts") instance=ExtResource("12_lmhyv")]
+[node name="extraHorse" parent="." unique_id=1593898263 instance=ExtResource("12_lmhyv")]
 position = Vector2(-596, -7)
-shadedParts = []
 mainColor = Color(0.972549, 0, 0.85490197, 1)
 
-[node name="Horse" parent="." unique_id=1186690306 node_paths=PackedStringArray("shadedParts") instance=ExtResource("12_lmhyv")]
+[node name="Horse" parent="." unique_id=1186690306 instance=ExtResource("12_lmhyv")]
 position = Vector2(720, 15)
-shadedParts = []
 mainColor = Color(1, 0, 0, 0)
 
 [node name="Clock" type="RichTextLabel" parent="." unique_id=1071579754]
@@ -136,4 +138,25 @@ turnAcel = 10.0
 position = Vector2(-426, -10)
 
 [node name="Coin" parent="." unique_id=351914249 instance=ExtResource("10_18y8u")]
-position = Vector2(425, 0)
+position = Vector2(-1, -51)
+
+[node name="Node2D" parent="." unique_id=147668599 instance=ExtResource("34_aw11d")]
+position = Vector2(131, 6)
+
+[node name="tree" parent="." unique_id=2064710615 instance=ExtResource("34_aw11d")]
+position = Vector2(7, 159)
+
+[node name="tree2" parent="." unique_id=1776290766 instance=ExtResource("34_aw11d")]
+position = Vector2(-277, -7)
+
+[node name="tree3" parent="." unique_id=1723370380 instance=ExtResource("34_aw11d")]
+position = Vector2(-201, 200)
+
+[node name="tree4" parent="." unique_id=625766516 instance=ExtResource("34_aw11d")]
+position = Vector2(-274, -215)
+
+[node name="tree5" parent="." unique_id=242528132 instance=ExtResource("34_aw11d")]
+position = Vector2(-128, -290)
+
+[node name="tree6" parent="." unique_id=36547874 instance=ExtResource("34_aw11d")]
+position = Vector2(44, -266)

@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://bnfeeijgf8pur"]
+
+[ext_resource type="Texture2D" uid="uid://t1w3xd55vq0h" path="res://Sprites/impact.png" id="1_ehm0m"]
+[ext_resource type="Script" uid="uid://b3aj1be7xo7x6" path="res://Scripts/effects/ImpactArea.cs" id="1_g1fhs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1fhs"]
+atlas = ExtResource("1_ehm0m")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy3dl"]
+atlas = ExtResource("1_ehm0m")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1shl"]
+atlas = ExtResource("1_ehm0m")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b05k0"]
+atlas = ExtResource("1_ehm0m")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpfed"]
+atlas = ExtResource("1_ehm0m")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csrgc"]
+atlas = ExtResource("1_ehm0m")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lgdy"]
+atlas = ExtResource("1_ehm0m")
+region = Rect2(576, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epjej"]
+atlas = ExtResource("1_ehm0m")
+region = Rect2(672, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_84jmn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1fhs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qy3dl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1shl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b05k0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpfed")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csrgc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lgdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epjej")
+}],
+"loop": false,
+"name": &"default",
+"speed": 16.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pg8yh"]
+radius = 49.09175
+
+[node name="Impact" type="Area2D" unique_id=1093539045 node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_g1fhs")
+sprite = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1895630428]
+sprite_frames = SubResource("SpriteFrames_84jmn")
+autoplay = "default"
+frame = 4
+frame_progress = 0.54605687
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1140562789]
+shape = SubResource("CircleShape2D_pg8yh")

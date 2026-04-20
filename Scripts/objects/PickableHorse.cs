@@ -26,7 +26,7 @@ public partial class PickableHorse : CharacterBody2D
 
 	public override void _Ready()
 	{
-		ChangeColor(mainColor);
+		CallDeferred(MethodName.ChangeColor, mainColor);
 		collectHitbox.BodyEntered += (Node2D body) => OnPlayerHit(body);
 	}
 

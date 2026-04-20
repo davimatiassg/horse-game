@@ -48,10 +48,9 @@ public partial class Pole : Sprite2D
 
 		if(startPoint.GlobalPosition.DistanceSquaredTo(player.GlobalPosition) > RopeLenght*RopeLenght*16)
 		{
-			//player.GlobalPosition = player.GlobalPosition.MoveToward(points[^2], (float) delta * points[^2].DistanceSquaredTo(player.GlobalPosition)*16);
             var velocity = player.Velocity;
 
-            velocity = (startPoint.GlobalPosition - player.GlobalPosition).Normalized() * velocity.Length() * (float)delta;// startPoint.GlobalPosition.DistanceSquaredTo(player.GlobalPosition) - RopeLenght*RopeLenght*16 * (float)delta);
+            velocity = (startPoint.GlobalPosition - player.GlobalPosition).Normalized() * velocity.Length() * (float)delta;
 
             player.Velocity = velocity;
             player.MoveAndSlide();
@@ -102,6 +101,6 @@ public partial class Pole : Sprite2D
 
     public static void IncreaseRope(float ammount)
     {
-        Singleton.SegmentLength *= ammount;
+        Singleton.SegmentLength += ammount;
     }
 }
