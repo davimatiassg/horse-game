@@ -11,10 +11,10 @@ public partial class FlamethrowerTurret : CartTurret
     [Export] private String fireSoundName = "flamethrower";
 
     [ExportGroup("Stats")]
-    [Export] private float maxRange = 200f;        // alcance total de detecção
+    [Export] private float maxRange = 250f;        // alcance total de detecção
     [Export] private float attackRadius = 80f;     // alcance do fogo (curto)
     [Export] private float rotateSpeed = 3f;
-    [Export] private int fireDamage = 50;
+    [Export] private int fireDamage = 60;
 
     private Vector2 direction = Vector2.Down;
 
