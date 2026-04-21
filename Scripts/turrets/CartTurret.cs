@@ -4,7 +4,7 @@ using System;
 public abstract partial class CartTurret : Node2D
 {
     [ExportGroup("Connections")]
-    [Export] HorseBody player;
+    [Export] protected HorseBody player;
 
     [ExportGroup("Stats")]
     [Export] float activationCooldown = 1;

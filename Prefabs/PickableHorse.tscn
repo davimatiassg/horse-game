@@ -33,6 +33,7 @@ radius = 32.24903
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_opean"]
 shader = ExtResource("2_ev8vp")
+shader_parameter/flash_amount = 0.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_size = 1.0
 
@@ -768,8 +769,8 @@ _data = {
 }
 
 [node name="Horse" type="CharacterBody2D" unique_id=522413118 node_paths=PackedStringArray("horseSprite", "horse", "horseAnim", "footPrints", "collectHitbox", "shadedParts")]
-collision_layer = 32
-collision_mask = 38
+collision_layer = 16
+collision_mask = 32
 motion_mode = 1
 script = ExtResource("1_kqdmw")
 horseSprite = NodePath("HorseSprite")
@@ -844,7 +845,7 @@ mesh = SubResource("ArrayMesh_hioex")
 surface_material_override/0 = SubResource("ShaderMaterial_kqdmw")
 
 [node name="leg-back-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=501397941]
-transform = Transform3D(0.99999976, -0.0002482246, 0, 0.0002482246, 0.99999976, 0, 0, 0, 1, 0.2875, 0.06250001, 0.09374999)
+transform = Transform3D(0.9999997, -0.0002482246, 0, 0.0002482246, 0.9999997, 0, 0, 0, 1, 0.2875, 0.06250001, 0.09374999)
 mesh = SubResource("ArrayMesh_fy1m4")
 
 [node name="leg-back-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-back-left" unique_id=654268443]
@@ -852,7 +853,7 @@ mesh = SubResource("ArrayMesh_fy1m4")
 surface_material_override/0 = SubResource("ShaderMaterial_ev8vp")
 
 [node name="leg-back-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=1829433095]
-transform = Transform3D(0.99999976, -0.0002482246, 0, 0.0002482246, 0.99999976, 0, 0, 0, 1, 0.2875, 0.06250001, -0.09375)
+transform = Transform3D(0.9999997, -0.0002482246, 0, 0.0002482246, 0.9999997, 0, 0, 0, 1, 0.2875, 0.06250001, -0.09375)
 mesh = SubResource("ArrayMesh_8xfb1")
 
 [node name="leg-back-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-back-right" unique_id=190373825]
@@ -860,7 +861,7 @@ mesh = SubResource("ArrayMesh_8xfb1")
 surface_material_override/0 = SubResource("ShaderMaterial_48hfl")
 
 [node name="leg-front-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=1200423484]
-transform = Transform3D(0.99999976, 0.0002482246, 0, -0.0002482246, 0.99999976, 0, 0, 0, 1, -0.1875, 0.06250001, 0.09374999)
+transform = Transform3D(0.9999997, 0.0002482246, 0, -0.0002482246, 0.9999997, 0, 0, 0, 1, -0.1875, 0.06250001, 0.09374999)
 mesh = SubResource("ArrayMesh_85xuv")
 
 [node name="leg-front-left" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-front-left" unique_id=2089700967]
@@ -868,7 +869,7 @@ mesh = SubResource("ArrayMesh_85xuv")
 surface_material_override/0 = SubResource("ShaderMaterial_8n6dt")
 
 [node name="leg-front-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso" unique_id=459677523]
-transform = Transform3D(0.99999976, 0.0002482246, 0, -0.0002482246, 0.99999976, 0, 0, 0, 1, -0.1875, 0.06250001, -0.09375)
+transform = Transform3D(0.9999997, 0.0002482246, 0, -0.0002482246, 0.9999997, 0, 0, 0, 1, -0.1875, 0.06250001, -0.09375)
 mesh = SubResource("ArrayMesh_bfgpw")
 
 [node name="leg-front-right" type="MeshInstance3D" parent="HorseViewport/Horse/animal-horse/root/torso/leg-front-right" unique_id=945341930]

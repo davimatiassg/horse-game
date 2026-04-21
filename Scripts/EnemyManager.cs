@@ -130,10 +130,10 @@ public partial class EnemyManager : Node
     {
         foreach(var drop in Singleton.drops)
         {
-            if(rng.NextSingle() < drop.Value)
+            if(rng.NextSingle() <= drop.Value)
             {
                 var dropInstance = drop.Key.Instantiate<Node2D>();
-                Singleton.GetTree().Root.AddChild(dropInstance);
+                Singleton.GetTree().Root.CallDeferred(MethodName.AddChild, dropInstance);
                 
                 dropInstance.GlobalPosition = enemy.GlobalPosition;
 

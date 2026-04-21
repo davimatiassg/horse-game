@@ -71,6 +71,7 @@ animations = [{
 radius = 49.09175
 
 [node name="Impact" type="Area2D" unique_id=1093539045 node_paths=PackedStringArray("sprite")]
+collision_mask = 39
 script = ExtResource("1_g1fhs")
 sprite = NodePath("AnimatedSprite2D")
 
