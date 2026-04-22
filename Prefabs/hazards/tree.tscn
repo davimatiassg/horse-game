@@ -45,6 +45,7 @@ uprightCollider = NodePath("upright collider")
 fallenCollider = NodePath("fallen collider")
 treeMesh = NodePath("SubViewport/MeshInstance3D")
 impactEffect = ExtResource("2_mjyf6")
+damage = 60
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=717958152]
 own_world_3d = true

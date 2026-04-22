@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://i6k7q3d5fwod"]
+
+[ext_resource type="Texture2D" uid="uid://dod28qwetb5a1" path="res://Sprites/cog.png" id="1_434du"]
+[ext_resource type="Script" uid="uid://dc0k3glil1s18" path="res://Scripts/hazards/Cogwheel.cs" id="1_b2mjv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b2mjv"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tdt02"]
+radius = 29.017237
+
+[node name="Cogwheel" type="RigidBody2D" unique_id=1689932502]
+collision_layer = 32
+collision_mask = 37
+mass = 0.001
+gravity_scale = 0.0
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 5
+script = ExtResource("1_b2mjv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1577901656]
+texture = ExtResource("1_434du")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=526893561]
+position = Vector2(26, 26)
+shape = SubResource("CircleShape2D_b2mjv")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1491724609]
+position = Vector2(38, 0)
+shape = SubResource("CircleShape2D_b2mjv")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=1293539926]
+position = Vector2(26, -27)
+shape = SubResource("CircleShape2D_b2mjv")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="." unique_id=757150841]
+position = Vector2(0, -38)
+shape = SubResource("CircleShape2D_b2mjv")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="." unique_id=283879324]
+position = Vector2(-27, -26)
+shape = SubResource("CircleShape2D_b2mjv")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="." unique_id=1330552985]
+position = Vector2(-38, 0)
+shape = SubResource("CircleShape2D_b2mjv")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="." unique_id=1651283795]
+position = Vector2(-27, 27)
+shape = SubResource("CircleShape2D_b2mjv")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="." unique_id=1139652653]
+position = Vector2(0, 38)
+shape = SubResource("CircleShape2D_b2mjv")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="." unique_id=1093445465]
+shape = SubResource("CircleShape2D_tdt02")

@@ -37,8 +37,6 @@ public partial class Tree : AnimatableBody2D, IKnockbackable, IHittable
     {
         if (!isUpright) return;
 
-		GD.Print("fall");
-
 		isUpright = false; 
 
 		knockback = knockback.Normalized();
@@ -61,7 +59,7 @@ public partial class Tree : AnimatableBody2D, IKnockbackable, IHittable
 
 
 		Tween tween = CreateTween();
-		tween.TweenProperty(treeMesh, "quaternion", basis.GetRotationQuaternion(), 0.4f).SetTrans(Tween.TransitionType.Quart);
+		tween.TweenProperty(treeMesh, "quaternion", basis.GetRotationQuaternion(), 1).SetTrans(Tween.TransitionType.Bounce);
 		tween.TweenCallback(Callable.From(() =>
 		{
 			var impact = (ImpactArea)impactEffect.Instantiate();

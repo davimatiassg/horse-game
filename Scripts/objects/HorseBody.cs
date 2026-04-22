@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 public interface IPlayer {}
 
-public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoints
+public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoints, IKnockbackable
 {
 
 	[ExportGroup("Connections")]
@@ -152,9 +152,13 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 		}
 	}
 
+	Tween damageTween = null;
     public void TakeDamage(int damage)
     {
-        HP -= damage;
+		
+		if(damageTween != null && damageTween.IsRunning()) return;
+        
+		HP -= damage;
 
 
 		AudioPlayer.PlayRandomPitch("player_damage");
@@ -163,21 +167,26 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 
         var material = (ShaderMaterial) horseSprite.Material;
 
-        Tween tween = CreateTween();
+        damageTween = CreateTween();
 
         for(int i = 0; i < 10; i ++)
         {
-            tween.TweenCallback(Callable.From(
+            damageTween.TweenCallback(Callable.From(
                 () => {
                     float currentFlash = (float)material.GetShaderParameter("flash_amount");
                     material.SetShaderParameter("flash_amount", 1f - currentFlash);
                 }
             ));
-            tween.TweenInterval(0.05f);
+            damageTween.TweenInterval(0.05f);
             
         }
 		
     }
+
+	public void Knockback(Vector2 knockback)
+	{
+		this.Position += knockback;
+	}
 
 
 

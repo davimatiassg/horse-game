@@ -25,7 +25,7 @@ radius = 11.0
 
 [node name="cannonBall" type="Area2D" unique_id=252599073]
 collision_layer = 8
-collision_mask = 4
+collision_mask = 36
 script = ExtResource("1_qh2sk")
 Speed = 700.0
 

@@ -3,10 +3,8 @@
 [ext_resource type="Shader" uid="uid://4a75t72rby84" path="res://Materials/Outline.gdshader" id="1_qql8q"]
 [ext_resource type="Script" uid="uid://3l4eyqyph0a1" path="res://Scripts/enemies/EyeEnemy.cs" id="1_vavl0"]
 [ext_resource type="Texture2D" uid="uid://jxwtnd8jc2ls" path="res://Sprites/eye-enemy.png" id="2_hdevs"]
-[ext_resource type="PackedScene" uid="uid://brsangs6gogei" path="res://Prefabs/effects/damage_number.tscn" id="2_sj0j1"]
 [ext_resource type="Texture2D" uid="uid://cml5ykd0cbskm" path="res://Sprites/tile_0063.png" id="2_vavl0"]
 [ext_resource type="PackedScene" uid="uid://c1all83mrkp5u" path="res://Prefabs/effects/EyeProjectile.tscn" id="2_yxo48"]
-[ext_resource type="PackedScene" uid="uid://dm4ijxceokvay" path="res://Prefabs/Coin.tscn" id="3_vonvh"]
 
 [sub_resource type="Shader" id="Shader_tvyok"]
 resource_local_to_scene = true
@@ -166,17 +164,15 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_hdevs"]
 radius = 45.044422
 
-[node name="Eye Enemy" type="CharacterBody2D" unique_id=444991579 node_paths=PackedStringArray("sprite", "eyeSprite") groups=["enemy"]]
+[node name="Eye Enemy" type="CharacterBody2D" unique_id=444991579 node_paths=PackedStringArray("eyeSprite", "sprite") groups=["enemy"]]
 collision_layer = 4
-collision_mask = 5
+collision_mask = 37
 motion_mode = 1
 slide_on_ceiling = false
 script = ExtResource("1_vavl0")
 tear = ExtResource("2_yxo48")
-sprite = NodePath("Sprite2D")
-coin = ExtResource("3_vonvh")
 eyeSprite = NodePath("SubViewport/AnimatedSprite2D")
-damageLabel = ExtResource("2_sj0j1")
+sprite = NodePath("Sprite2D")
 MaxHP = 120
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1445756030]

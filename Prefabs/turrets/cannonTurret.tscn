@@ -7,6 +7,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a5wph"]
 shader = ExtResource("2_2gdgn")
+shader_parameter/flash_amount = 0.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 shader_parameter/outline_size = 1.0
 
@@ -35,6 +36,7 @@ cannonModel = NodePath("SubViewport/cannon")
 cannonball = ExtResource("2_x480j")
 blastParticles = NodePath("SubViewport/cannon/GPUParticles3D")
 maxRange = 640.0
+shotDamage = 100
 activationCooldown = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1032815660]
@@ -61,7 +63,7 @@ process_material = SubResource("ParticleProcessMaterial_x480j")
 draw_pass_1 = SubResource("SphereMesh_a5wph")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=1413432124]
-transform = Transform3D(1, 0, 0, 0, 0.81202245, 0.5836262, 0, -0.5836262, 0.81202245, 2.3841858e-07, 2.1945744, 2.6495242)
+transform = Transform3D(1, 0, 0, 0, 0.81202245, 0.5836262, 0, -0.5836262, 0.81202245, 2.3841858e-07, 2.2602239, 2.1243262)
 projection = 1
 fov = 64.5
 size = 4.137

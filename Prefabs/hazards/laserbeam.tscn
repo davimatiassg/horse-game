@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://f6g82iymunw6"]
+
+[ext_resource type="Script" uid="uid://dfifgvkhtf7js" path="res://Scripts/hazards/Laserbeam.cs" id="1_23s0e"]
+[ext_resource type="Shader" uid="uid://c1i4c3wmh6503" path="res://Materials/laser.gdshader" id="2_gjl6e"]
+[ext_resource type="Shader" uid="uid://dr11xfw6pcuwp" path="res://Materials/invisible.gdshader" id="3_m7m7w"]
+[ext_resource type="Texture2D" uid="uid://ttrlgimicivr" path="res://icon.svg" id="4_decgy"]
+
+[node name="Laserbeam" type="Line2D" unique_id=781787953 node_paths=PackedStringArray("source", "target")]
+script = ExtResource("1_23s0e")
+source = NodePath("Sprite2D")
+target = NodePath("Sprite2D2")
+ElectricityShader = ExtResource("2_gjl6e")
+TransparentShader = ExtResource("3_m7m7w")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1848509773]
+position = Vector2(102, 190)
+texture = ExtResource("4_decgy")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1286289277]
+position = Vector2(486, 202)
+texture = ExtResource("4_decgy")
