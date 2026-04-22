@@ -26,13 +26,15 @@ public partial class ExplosiveEnemy : Enemy
 
     public override void _PhysicsProcess(double delta)
     {
-        if (isExploding || player == null) return;
+        
 
         // Move towards player
         Vector2 direction = GlobalPosition.DirectionTo(player.GlobalPosition);
-        Velocity = direction * Speed;
+        Velocity = Velocity.MoveToward(direction * Speed, Speed * (float)delta);
         
         MoveAndSlide();
+
+        if (isExploding || player == null) return;
 
         for (int i = 0; i < GetSlideCollisionCount(); i++)
         {
@@ -42,6 +44,12 @@ public partial class ExplosiveEnemy : Enemy
                 Die();
             }
         }
+    }
+
+    public override void Knockback(Vector2 knockback)
+    {
+        base.Knockback(knockback);
+
     }
 
     public async override void Die()

@@ -1,21 +1,34 @@
 [gd_scene format=3 uid="uid://f6g82iymunw6"]
 
 [ext_resource type="Script" uid="uid://dfifgvkhtf7js" path="res://Scripts/hazards/Laserbeam.cs" id="1_23s0e"]
+[ext_resource type="Texture2D" uid="uid://bbhu3gmkqv8cm" path="res://Sprites/spark_05.png" id="1_m7m7w"]
 [ext_resource type="Shader" uid="uid://c1i4c3wmh6503" path="res://Materials/laser.gdshader" id="2_gjl6e"]
 [ext_resource type="Shader" uid="uid://dr11xfw6pcuwp" path="res://Materials/invisible.gdshader" id="3_m7m7w"]
-[ext_resource type="Texture2D" uid="uid://ttrlgimicivr" path="res://icon.svg" id="4_decgy"]
+[ext_resource type="Texture2D" uid="uid://dqrls1j0x4qyp" path="res://Sprites/spark_06.png" id="4_58fgg"]
+[ext_resource type="Texture2D" uid="uid://dg02sheo12jp3" path="res://Sprites/spark_07.png" id="5_8hs3e"]
+[ext_resource type="SpriteFrames" uid="uid://cjugwth4mgkd7" path="res://Sprites/tesseract.tres" id="7_58fgg"]
 
 [node name="Laserbeam" type="Line2D" unique_id=781787953 node_paths=PackedStringArray("source", "target")]
+width = 64.0
+texture = ExtResource("4_58fgg")
+texture_mode = 1
 script = ExtResource("1_23s0e")
 source = NodePath("Sprite2D")
 target = NodePath("Sprite2D2")
 ElectricityShader = ExtResource("2_gjl6e")
+texture1 = ExtResource("1_m7m7w")
+texture2 = ExtResource("4_58fgg")
+texture3 = ExtResource("5_8hs3e")
 TransparentShader = ExtResource("3_m7m7w")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1848509773]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1407609567]
 position = Vector2(102, 190)
-texture = ExtResource("4_decgy")
+sprite_frames = ExtResource("7_58fgg")
+autoplay = "default"
+frame_progress = 0.8442917
 
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1286289277]
-position = Vector2(486, 202)
-texture = ExtResource("4_decgy")
+[node name="Sprite2D2" type="AnimatedSprite2D" parent="." unique_id=295426341]
+position = Vector2(1051, 565)
+sprite_frames = ExtResource("7_58fgg")
+autoplay = "default"
+frame_progress = 0.2639541

@@ -10,6 +10,9 @@ public partial class Laserbeam : Line2D
     
     [ExportGroup("Connections/Shaders")]
     [Export] public Shader ElectricityShader;
+    [Export] public Texture2D texture1;
+    [Export] public Texture2D texture2;
+    [Export] public Texture2D texture3;
     [Export] public Shader TransparentShader;
 
 	[ExportGroup("stats")]
@@ -33,8 +36,16 @@ public partial class Laserbeam : Line2D
             _shaderMaterial = (ShaderMaterial)Material;
         }
 
-        ToggleLaser();
+        _shaderMaterial.SetShaderParameter("tex1", texture1);
+        _shaderMaterial.SetShaderParameter("tex2", texture2);
+        _shaderMaterial.SetShaderParameter("tex3", texture3);
+        _shaderMaterial.SetShaderParameter("tile_count", source.GlobalPosition.DistanceTo(target.GlobalPosition)/texture1.GetSize().X);
 
+        source.LookAt(target.GlobalPosition);
+        target.LookAt(source.GlobalPosition);
+
+        ToggleLaser();
+        
 
 		Tween alternanceTween = CreateTween();
 		
@@ -48,7 +59,8 @@ public partial class Laserbeam : Line2D
     public override void _Process(double delta)
     {
 
-        Points = [source.GlobalPosition, target.GlobalPosition];
+        Points = [source.Position, target.Position];
+        if(_isVisible) PerformRaycast   ();
     }
 
     private void ToggleLaser()

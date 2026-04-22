@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://dado68m4t82ty" path="res://Prefabs/hazards/tree.tscn" id="34_aw11d"]
 [ext_resource type="PackedScene" uid="uid://i6k7q3d5fwod" path="res://Prefabs/hazards/cogwheel.tscn" id="34_wymwe"]
 [ext_resource type="Texture2D" uid="uid://glydtwhc8qkx" path="res://Sprites/background tileset.png" id="35_wymwe"]
+[ext_resource type="PackedScene" uid="uid://f6g82iymunw6" path="res://Prefabs/hazards/laserbeam.tscn" id="36_lins8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lins8"]
 texture = ExtResource("35_wymwe")
@@ -687,3 +688,33 @@ position = Vector2(2965, 282)
 
 [node name="Cogwheel24" parent="Cogs" unique_id=1397448484 instance=ExtResource("34_wymwe")]
 position = Vector2(3043, 275)
+
+[node name="Lasers" type="Node" parent="." unique_id=519673789]
+
+[node name="Laserbeam" parent="." unique_id=781787953 instance=ExtResource("36_lins8")]
+position = Vector2(-703, -2685)
+
+[node name="Sprite2D2" parent="Laserbeam" index="1" unique_id=295426341]
+position = Vector2(872, 207)
+
+[node name="Laserbeam2" parent="." unique_id=421653591 instance=ExtResource("36_lins8")]
+position = Vector2(-703, -2685)
+
+[node name="Sprite2D" parent="Laserbeam2" index="0" unique_id=1407609567]
+position = Vector2(100, 491)
+
+[node name="Sprite2D2" parent="Laserbeam2" index="1" unique_id=295426341]
+position = Vector2(870, 485)
+
+[node name="Laserbeam3" parent="." unique_id=1346907366 instance=ExtResource("36_lins8")]
+position = Vector2(-703, -2685)
+
+[node name="Sprite2D" parent="Laserbeam3" index="0" unique_id=1407609567]
+position = Vector2(985, 2454)
+
+[node name="Sprite2D2" parent="Laserbeam3" index="1" unique_id=295426341]
+position = Vector2(870, 485)
+
+[editable path="Laserbeam"]
+[editable path="Laserbeam2"]
+[editable path="Laserbeam3"]

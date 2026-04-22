@@ -92,7 +92,7 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
 
     }
 
-    public void Knockback(Vector2 force)
+    public virtual void Knockback(Vector2 force)
     {
         Velocity += force*2f;
     }
