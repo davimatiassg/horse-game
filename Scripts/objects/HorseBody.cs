@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 public interface IPlayer {}
 
-public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoints, IKnockbackable
+public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoints, IKnockbackable, IStunnable
 {
 
 	[ExportGroup("Connections")]
@@ -74,6 +74,11 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 		} 
 	}
 
+    public Tween StunDelay { get; set; }
+
+    public bool IsStunned => StunDelay != null && StunDelay.IsRunning();
+
+
     public override void _Ready()
 	{
 		HP = MaxHP;
@@ -97,6 +102,7 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 	public override void _PhysicsProcess(double delta)
 	{
 		if(dying) return;
+		if(IsStunned) {MoveAndSlide(); return;}
 		Vector2 velocity = Velocity;
 
 		Vector2 inputDirection = Input.GetVector("game_left", "game_right", "game_up", "game_down");
@@ -160,6 +166,7 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
         
 		HP -= damage;
 
+		Stun(0.3f);
 
 		AudioPlayer.PlayRandomPitch("player_damage");
 
@@ -177,7 +184,7 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
                     material.SetShaderParameter("flash_amount", 1f - currentFlash);
                 }
             ));
-            damageTween.TweenInterval(0.05f);
+            damageTween.TweenInterval(0.1f);
             
         }
 		
@@ -187,6 +194,13 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 	{
 		this.Position += knockback;
 	}
+
+	public void Stun(float time)
+    {
+		if(IsStunned) return;
+       	StunDelay = CreateTween();
+	   	StunDelay.TweenInterval(time);
+    }
 
 
 
@@ -299,6 +313,8 @@ public partial class HorseBody : CharacterBody2D, IPlayer, IHittable, IHealthPoi
 		tween.TweenCallback(Callable.From(() => GetTree().Quit()));
 	}
 
-#endregion
+
+    #endregion
+
 
 }

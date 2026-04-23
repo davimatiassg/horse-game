@@ -19,7 +19,7 @@ public partial class Laserbeam : Line2D
 	[Export] private float deactivatedTime = 2;
 	[Export] private float activatedTime = 1;
 
-	[Export] private int damage = 60;
+	[Export] private int damage = 20;
     private ShaderMaterial _shaderMaterial;
     private bool _isVisible = true;
 
@@ -80,9 +80,10 @@ public partial class Laserbeam : Line2D
         var query = PhysicsRayQueryParameters2D.Create(source.GlobalPosition, target.GlobalPosition);
         var result = spaceState.IntersectRay(query);
 
-        if (result.Count > 0 && result["collider"].Obj is IHittable hittable)
+        if (result.Count > 0)
         {
-            hittable.TakeDamage(10);
+            if(result["collider"].Obj is IHittable hittable) hittable.TakeDamage(damage);
+            if(result["collider"].Obj is IStunnable stunnable) stunnable.Stun(0.5f);
         }
     }
 }

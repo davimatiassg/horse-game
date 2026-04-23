@@ -29,7 +29,7 @@ public interface IStunnable
 }
 
 
-public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints, IKnockbackable
+public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints, IKnockbackable, IStunnable
 {
     [Export] public CanvasItem sprite;
     [Export] public int MaxHP { get; set; }
@@ -60,6 +60,10 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
             OnChangeHP?.Invoke(_HP);
         } 
     }
+
+    public Tween StunDelay { get ; set ; }
+
+    public bool IsStunned => StunDelay != null && StunDelay.IsRunning();
 
     public override void _Ready()
     {
@@ -114,5 +118,11 @@ public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints,
     {
         
         MoveAndSlide();
+    }
+
+    public void Stun(float time)
+    {
+        StunDelay = CreateTween();
+        StunDelay.TweenInterval(time);
     }
 }

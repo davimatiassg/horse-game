@@ -26,7 +26,7 @@ public partial class ExplosiveEnemy : Enemy
 
     public override void _PhysicsProcess(double delta)
     {
-        
+        if(IsStunned) {MoveAndSlide(); return;}
 
         // Move towards player
         Vector2 direction = GlobalPosition.DirectionTo(player.GlobalPosition);
@@ -69,7 +69,8 @@ public partial class ExplosiveEnemy : Enemy
 
         if (player != null && GlobalPosition.DistanceSquaredTo(player.GlobalPosition) < explosionRadius*explosionRadius)
         {
-
+            player.Stun(0.3f);
+            player.Knockback((player.GlobalPosition - GlobalPosition).Normalized() * 50);
             player.TakeDamage(explosionDamage);
         }
 

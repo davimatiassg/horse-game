@@ -31,6 +31,7 @@ public partial class EyeEnemy : Enemy
 
     public override void _PhysicsProcess(double delta)
     {
+        if(IsStunned) return;
  
         _dirTimer -= (float)delta;
         if (_dirTimer <= 0)

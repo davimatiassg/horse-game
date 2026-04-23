@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://d4laltb2wy7gt"]
 
+[ext_resource type="Script" uid="uid://diohsjg704oy" path="res://Scripts/hazards/DashPanel.cs" id="1_fetfo"]
 [ext_resource type="Texture2D" uid="uid://cggux208sm7j" path="res://Sprites/dash_pannel.png" id="1_onbva"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fetfo"]
@@ -55,7 +56,11 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="Node2D" type="Area2D" unique_id=1055101535]
+[node name="Dash Panel" type="Area2D" unique_id=1055101535]
+z_index = -50
+collision_layer = 32
+collision_mask = 37
+script = ExtResource("1_fetfo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=824653636]
 position = Vector2(-0.5, -0.5)
@@ -64,4 +69,4 @@ shape = SubResource("RectangleShape2D_fetfo")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=945419989]
 sprite_frames = SubResource("SpriteFrames_mbxny")
 autoplay = "default"
-frame_progress = 0.12528306
+frame_progress = 0.12631653
