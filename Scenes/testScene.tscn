@@ -378,7 +378,7 @@ script = ExtResource("6_lmhyv")
 [node name="AudioManager" type="Node" parent="." unique_id=906449384]
 process_mode = 3
 script = ExtResource("10_6f2q3")
-sounds = Dictionary[String, AudioStream]({
+sounds = {
 "cannon_fire": ExtResource("23_2s4u4"),
 "cart_damage": ExtResource("24_aw11d"),
 "coin": ExtResource("14_ol8no"),
@@ -391,13 +391,13 @@ sounds = Dictionary[String, AudioStream]({
 "new_cart": ExtResource("18_dglg1"),
 "player_damage": ExtResource("22_v47pf"),
 "rope_grow": ExtResource("19_v47pf")
-})
+}
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1954057469 node_paths=PackedStringArray("player")]
 position = Vector2(-39, 0)
 script = ExtResource("2_4mqg7")
-player = NodePath("../Knight")
 Areas = Array[Rect2]([Rect2(-960, -540, 1920, 1080), Rect2(-1500, -3540, 3000, 3000), Rect2(-3960, -1500, 3000, 3000), Rect2(960, -1500, 3000, 3000), Rect2(-1500, 540, 3000, 3000), Rect2(-3960, -3540, 3000, 3000), Rect2(960, 540, 3000, 3000), Rect2(960, -3540, 3000, 3000), Rect2(-3960, 540, 3000, 3000)])
+player = NodePath("../Knight")
 
 [node name="Pole" parent="." unique_id=1619171882 node_paths=PackedStringArray("player") instance=ExtResource("10_1jpt2")]
 position = Vector2(0, -6)
@@ -728,7 +728,7 @@ position = Vector2(456, 827)
 [node name="DashPanels" type="Node" parent="." unique_id=619463781]
 
 [node name="Dash Panel" parent="." unique_id=1055101535 instance=ExtResource("37_we3pp")]
-position = Vector2(87, 79)
+position = Vector2(-5, 155)
 dashIntensity = 1000.0
 
 [editable path="Lasers/Laserbeam"]
