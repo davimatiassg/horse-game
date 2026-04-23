@@ -21,6 +21,13 @@ public interface IKnockbackable
     public void Knockback(Vector2 knockback);
 }
 
+public interface IStunnable
+{
+    public Tween StunDelay {get; set;}
+    public bool IsStunned {get;}
+    public void Stun(float time);
+}
+
 
 public abstract partial class Enemy : CharacterBody2D, IHittable, IHealthPoints, IKnockbackable
 {
